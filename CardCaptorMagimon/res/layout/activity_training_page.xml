@@ -2,8 +2,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pure_white"
     tools:context="com.tekmob.cardcaptormagimon.TrainingPage">
- 
+    
+    <ImageView
+        android:id="@+id/bg_magician"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bg_mage" />
+    
+    <ImageView
+        android:id="@+id/bg_transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_tr" />
+    
+    <RelativeLayout 
+        android:id="@+id/content"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        
+        <ImageView
+	        android:id="@+id/exp_parameter"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:src="@drawable/exp_parameter" />
+        
+        <ImageView
+	        android:id="@+id/exp_container"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:src="@drawable/exp_container" />
+        
+        <TextView
+	        android:id="@+id/exp_display"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/dark_black"
+	        android:layout_centerHorizontal="true"
+	        android:text="" />
+        
+    </RelativeLayout>
+    
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
