@@ -1,8 +1,6 @@
-INDEX VERSION 1.126+D:\Tugas UI\Tugas fasilkom\Term 7\Tekmob\CardCaptorMagimon\.metadata\.plugins\org.eclipse.jdt.core
+INDEX VERSION 1.126+D:\Tugas UI\Tugas fasilkom\Term 7\Tekmob\CardCaptorMagimon\CardCaptorMagimon\.metadata\.plugins\org.eclipse.jdt.core
+4023871040.index
+3926393906.index
+3073034026.index
 848856923.index
-339764262.index
-287643915.index
-1024496434.index
-1140280045.index
-2554898559.index
 1284074322.index

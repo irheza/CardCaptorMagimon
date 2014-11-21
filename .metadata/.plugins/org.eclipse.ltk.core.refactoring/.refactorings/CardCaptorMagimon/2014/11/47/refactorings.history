@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;accelerometer&apos; to &apos;trainingsensor&apos;&#x0D;&#x0A;- Original project: &apos;CardCaptorMagimon&apos;&#x0D;&#x0A;- Original element: &apos;CardCaptorMagimon/src/accelerometer&apos;&#x0D;&#x0A;- Renamed element: &apos;CardCaptorMagimon/src/trainingsensor&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;accelerometer&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;accelerometer" name="trainingsensor" qualified="false" references="true" stamp="1416588264998" textual="false" version="1.0"/>
+</session>

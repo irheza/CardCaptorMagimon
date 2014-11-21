@@ -1,7 +1,9 @@
 package com.tekmob.cardcaptormagimon;
 
-import accelerometer.AccelerometerListener;
-import accelerometer.AccelerometerManager;
+import trainingsensor.AccelerometerListener;
+import trainingsensor.AccelerometerManager;
+import trainingsensor.TrainingSensorListener;
+import trainingsensor.TrainingSensorManager;
 
 import android.app.Activity;
 import android.graphics.Point;
@@ -14,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class TrainingPage extends Activity implements AccelerometerListener {
+public class TrainingPage extends Activity implements TrainingSensorListener {
 
 	// todo get from database
 	private int currentExp = 0;
@@ -75,28 +77,7 @@ public class TrainingPage extends Activity implements AccelerometerListener {
         // TODO Auto-generated method stub
          
     }
- 
-    public void onShake(float force) {
-    	
-        // Do your stuff here
-        // Called when Motion Detected
-    	currentExp++;
-    	
-    	if(currentExp >= getNextLevelParam(currentLevel)) {
-    		currentLevel++;
-    		levelGap = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
-    		Toast.makeText(getBaseContext(), "Current level : "+currentLevel, 
-    				Toast.LENGTH_SHORT).show();
-    	}
-    	expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
-    	
-        expGained.setText("Experience Total Gained :" +currentExp);
-        //expParameter.getLayoutParams().height = expContainer.getHeight();
-        expParameter.getLayoutParams().width = 500;//(int)(expInCurrentLevel/levelGap)*maxExpParam;
-        expParameter.invalidate();
-        
-        expDisplay.setText(expInCurrentLevel + " / " + levelGap);
-    }
+
     
     /**
      * Do some awesome calculation here.
@@ -117,10 +98,10 @@ public class TrainingPage extends Activity implements AccelerometerListener {
                     Toast.LENGTH_SHORT).show();
              
             //Check device supported Accelerometer senssor or not
-            if (AccelerometerManager.isSupported(this)) {
+            if (TrainingSensorManager.isSupported(this)) {
                  
                 //Start Accelerometer Listening
-                AccelerometerManager.startListening(this);
+            	TrainingSensorManager.startListening(this);
             }
     }
      
@@ -129,10 +110,10 @@ public class TrainingPage extends Activity implements AccelerometerListener {
             super.onStop();
              
             //Check device supported Accelerometer senssor or not
-            if (AccelerometerManager.isListening()) {
+            if (TrainingSensorManager.isListening()) {
                  
                 //Start Accelerometer Listening
-                AccelerometerManager.stopListening();
+                TrainingSensorManager.stopListening();
                  
                 Toast.makeText(getBaseContext(), "onStop Accelerometer Stoped", 
                          Toast.LENGTH_SHORT).show();
@@ -146,15 +127,46 @@ public class TrainingPage extends Activity implements AccelerometerListener {
         Log.i("Sensor", "Service  distroy");
          
         //Check device supported Accelerometer senssor or not
-        if (AccelerometerManager.isListening()) {
+        if (TrainingSensorManager.isListening()) {
              
             //Start Accelerometer Listening
-            AccelerometerManager.stopListening();
+        	TrainingSensorManager.stopListening();
              
             Toast.makeText(getBaseContext(), "onDestroy Accelerometer Stoped", 
                    Toast.LENGTH_SHORT).show();
         }
              
     }
+
+	@Override
+	public void onShake() {
+		// TODO Auto-generated method stub
+	     // Do your stuff here
+        // Called when Motion Detected
+    	currentExp++;
+    	
+    	if(currentExp >= getNextLevelParam(currentLevel)) {
+    		currentLevel++;
+    		levelGap = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
+    		Toast.makeText(getBaseContext(), "Current level : "+currentLevel, 
+    				Toast.LENGTH_SHORT).show();
+    	}
+    	expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
+    	
+        expGained.setText("Experience Total Gained :" +currentExp);
+        //expParameter.getLayoutParams().height = expContainer.getHeight();
+        expParameter.getLayoutParams().width = 500;//(int)(expInCurrentLevel/levelGap)*maxExpParam;
+        expParameter.invalidate();
+        
+        expDisplay.setText(expInCurrentLevel + " / " + levelGap);
+	}
+
+	@Override
+	public void changeProximity(float nilaiProximity) {
+		// TODO Auto-generated method stub
+		Toast.makeText(getApplicationContext(), ""+nilaiProximity+" cm", 
+				   Toast.LENGTH_LONG).show();
+		
+	}
  
 }
