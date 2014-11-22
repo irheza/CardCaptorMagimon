@@ -1,6 +1,7 @@
 package com.tekmob.cardcaptormagimon;
 
-
+import trainingsensor.AccelerometerListener;
+import trainingsensor.AccelerometerManager;
 import trainingsensor.TrainingSensorListener;
 import trainingsensor.TrainingSensorManager;
 

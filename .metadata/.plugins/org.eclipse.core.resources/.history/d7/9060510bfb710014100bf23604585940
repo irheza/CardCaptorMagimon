@@ -73,7 +73,7 @@ public class TrainingSensorManager {
         // Register Accelerometer Listener
         running = ( sensorManager.registerListener(
                 sensorEventListener, sensorAccelerometer, 
-                SensorManager.SENSOR_DELAY_GAME) && sensorManager.registerListener(
+                SensorManager.SENSOR_DELAY_GAME) ||sensorManager.registerListener(
                             sensorEventListener, sensorProximity, 
                             SensorManager.SENSOR_DELAY_GAME));
         
