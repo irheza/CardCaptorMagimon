@@ -2,6 +2,7 @@ package com.tekmob.cardcaptormagimon;
 
 import trainingsensor.TrainingSensorListener;
 import trainingsensor.TrainingSensorManager;
+import magician.Magician;
 import magimon.Magimon;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -49,12 +50,20 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 			else
 			{
 				isSealed=true;
+				addMagimon();
 				Intent i = new Intent(getApplicationContext(), SealedPage.class);
+				i.putExtra("magimon", battledMonster.id);  
                 startActivity(i);
                 finish();
 			}
 		}
 		
+	}
+	
+	public void addMagimon()
+	{
+		Magician magician = (Magician)getApplicationContext();
+		magician.addMagimon(battledMonster);
 	}
 
 	@Override

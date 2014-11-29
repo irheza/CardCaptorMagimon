@@ -4595,3 +4595,12 @@ Command-line arguments:  -os win32 -ws win32 -arch x86 -product com.android.ide.
 
 !ENTRY org.eclipse.ui 2 2 2014-11-29 22:41:54.465
 !MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-11-30 00:22:36.642
+!MESSAGE activity_main_menu.xml: Couldn't resolve resource @string/deck
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-11-30 00:24:06.109
+!MESSAGE Warning: Ignoring name conflict in resource file for name hello_world
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-11-30 00:24:07.332
+!MESSAGE Warning: Ignoring name conflict in resource file for name hello_world

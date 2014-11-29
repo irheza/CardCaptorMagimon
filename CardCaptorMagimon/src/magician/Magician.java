@@ -9,10 +9,11 @@ import magimon.Magimon;
 
 public class Magician extends Application {
 
-	private ArrayList<Magimon> personalMagimon;
+	private ArrayList<Magimon> personalMagimon= new ArrayList<Magimon>();
 	private String userID;
 	private int level;
 	private double experience;
+	private boolean isSet=false;
 	
 	public void setUserID(String userID)
 	{
@@ -44,4 +45,15 @@ public class Magician extends Application {
 	{
 		return personalMagimon.size()==6;
 	}
+	
+	public boolean isSet()
+	{
+		return isSet;
+	}
+	
+	public void doneSetting()
+	{
+		isSet = true;
+	}
+	
 }

@@ -10,7 +10,12 @@
     <string name="training">Train</string>
     <string name="title_activity_peta">Peta</string>
     <string name="judul_peta">Peta</string>
+    <string name="deck">Deck</string>
+    <string name="deck_page">Deck Page</string>
+    <string name="main_menu">Main Menu</string>
     <string name="title_activity_sealing_page">Sealing Page</string>
-    <string name="title_activity_sealed_page">SealedPage</string>
+    <string name="title_activity_sealed_page">Sealed Page</string>
+    <string name="title_activity_deck_page">DeckPage</string>
+    <string name="success">Sealed Magimon : </string>
 
 </resources>
