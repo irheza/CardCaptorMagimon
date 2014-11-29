@@ -1481,12 +1481,12 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f080028;
         public static final int action_menu_presenter=0x7f080029;
         public static final int action_mode_close_button=0x7f080036;
-        public static final int action_settings=0x7f080059;
+        public static final int action_settings=0x7f08005a;
         public static final int activity_chooser_view_content=0x7f080037;
         public static final int always=0x7f08001e;
         public static final int beginning=0x7f080023;
-        public static final int bg_magician=0x7f080052;
-        public static final int bg_transparent=0x7f080053;
+        public static final int bg_magician=0x7f080053;
+        public static final int bg_transparent=0x7f080054;
         public static final int book_now=0x7f080010;
         public static final int buyButton=0x7f08000a;
         public static final int buy_now=0x7f08000f;
@@ -1494,17 +1494,18 @@ containing a value of this type.
         public static final int checkbox=0x7f08003f;
         public static final int classic=0x7f080011;
         public static final int collapseActionView=0x7f080020;
-        public static final int content=0x7f080054;
+        public static final int content=0x7f080055;
+        public static final int currentSealCount=0x7f080052;
         public static final int default_activity_button=0x7f08003a;
         public static final int dialog=0x7f080021;
         public static final int disableHome=0x7f08001b;
         public static final int dropdown=0x7f080022;
         public static final int edit_query=0x7f080042;
         public static final int end=0x7f080025;
-        public static final int exp=0x7f080058;
-        public static final int exp_container=0x7f080056;
-        public static final int exp_display=0x7f080057;
-        public static final int exp_parameter=0x7f080055;
+        public static final int exp=0x7f080059;
+        public static final int exp_container=0x7f080057;
+        public static final int exp_display=0x7f080058;
+        public static final int exp_parameter=0x7f080056;
         public static final int expand_activities_button=0x7f080038;
         public static final int expanded_menu=0x7f08003e;
         public static final int grayscale=0x7f080012;
@@ -1614,9 +1615,10 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main_menu=0x7f030018;
         public static final int activity_peta=0x7f030019;
-        public static final int activity_sealing_page=0x7f03001a;
-        public static final int activity_training_page=0x7f03001b;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
+        public static final int activity_sealed_page=0x7f03001a;
+        public static final int activity_sealing_page=0x7f03001b;
+        public static final int activity_training_page=0x7f03001c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
     }
     public static final class menu {
         public static final int main_menu=0x7f0c0000;
@@ -1772,13 +1774,15 @@ containing a value of this type.
         public static final int decline=0x7f060003;
         public static final int experience_gained_start=0x7f060034;
         public static final int hello_world=0x7f060031;
-        public static final int judul_peta=0x7f060037;
+        public static final int judul_peta=0x7f060038;
+        public static final int sealing_count_start=0x7f060035;
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
-        public static final int title_activity_peta=0x7f060036;
-        public static final int title_activity_sealing_page=0x7f060038;
+        public static final int title_activity_peta=0x7f060037;
+        public static final int title_activity_sealed_page=0x7f06003a;
+        public static final int title_activity_sealing_page=0x7f060039;
         public static final int title_activity_training_page=0x7f060033;
-        public static final int training=0x7f060035;
+        public static final int training=0x7f060036;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */

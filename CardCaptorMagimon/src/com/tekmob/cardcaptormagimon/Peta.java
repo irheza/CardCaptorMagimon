@@ -4,7 +4,9 @@ import magimon.Magimon;
 import magimon.SpawnLocation;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
@@ -33,6 +35,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 	private static final double BATTLE_RANGE = 0.005;
 	//posisi sekarang
 	LatLng currentPosition = new LatLng(0,0);
+	final Context context = this;
 	
 	
 
@@ -46,7 +49,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 	    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER        
 	    spawnMagimon();
-	    setBattleMagimon();
+	    setSealingMagimon();
 	           
 	}
 
@@ -85,7 +88,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 	    
 	}
 	
-	public void setBattleMagimon()
+	public void setSealingMagimon()
 	{
 		map.setOnMarkerClickListener(new OnMarkerClickListener()
         {
@@ -93,16 +96,42 @@ public class Peta extends FragmentActivity implements LocationListener {
             @Override
             public boolean onMarkerClick(Marker marker) {
             	LatLng posisimagimon =marker.getPosition();
+            	
         		Toast.makeText(getBaseContext(), "Klik poisi sekarang "+currentPosition.latitude+" "+currentPosition.longitude+"magimon "+ marker.getTitle() +" :"+posisimagimon.latitude+" "+posisimagimon.longitude, 
                         Toast.LENGTH_SHORT).show();
         		if(isNear(currentPosition,posisimagimon))
         		{
-        			//Magimon battleMonster = new Magimon(marker.getId());
-        			Intent intent = new Intent(getBaseContext(), SealingPage.class);
-        			intent.putExtra("magimon", marker.getId());  
+     
+        		    final String idMagimon = marker.getTitle();
         			Toast.makeText(getBaseContext(), "Magimon Battle "+marker.getTitle(), 
                             Toast.LENGTH_SHORT).show();
-        			startActivity(intent);
+        			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        			builder.setTitle("Sealing Magimon");
+        			builder.setMessage(marker.getTitle()).setCancelable(true);
+        			
+        			builder.setPositiveButton("Seal", new DialogInterface.OnClickListener()
+        			{
+        				
+        				public void onClick(DialogInterface dialog, int id)
+        				{
+        					Intent intent = new Intent(getBaseContext(), SealingPage.class);
+                			intent.putExtra("magimon", idMagimon);  
+                			startActivity(intent);
+                			finish();
+        				}
+        			});
+        			builder.setNegativeButton("Nope", new DialogInterface.OnClickListener()
+        			{
+        				public void onClick(DialogInterface dialog, int id)
+        				{
+        					dialog.cancel();
+        					
+        				}
+        			});
+        			AlertDialog alertdialog = builder.create();
+        			alertdialog.show();
+        			//Magimon battleMonster = new Magimon(marker.getId());
+        			
         			
         		}
         		return true;
@@ -130,6 +159,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 		Marker monster5 = map.addMarker(new MarkerOptions().position(spawn5).title(area.getSpawn5().getMagimon().id));
 		
 	}
+
 	
 	/*
 	 * Fungsi untuk membandingkan kedekatan antara 2 posisi
