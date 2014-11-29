@@ -1,9 +1,11 @@
 package com.tekmob.cardcaptormagimon;
 
+import magimon.Magimon;
 import magimon.SpawnLocation;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -26,8 +28,12 @@ public class Peta extends FragmentActivity implements LocationListener {
 	private LocationManager locationManager;
 	private static final long MIN_TIME = 400;
 	private static final float MIN_DISTANCE = 1000;
-	private double ltnow=0;
-	private double lngnow=0;
+	//variabel battle_range untuk mengatur seberapa dekat magimon dengan player
+	//sehingga dapat ditanggkap
+	private static final double BATTLE_RANGE = 0.005;
+	//posisi sekarang
+	LatLng currentPosition = new LatLng(0,0);
+	
 	
 
 	@Override
@@ -40,75 +46,109 @@ public class Peta extends FragmentActivity implements LocationListener {
 	    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER        
 	    spawnMagimon();
-	    map.setOnMarkerClickListener(new OnMarkerClickListener()
-        {
-
-            @Override
-            public boolean onMarkerClick(Marker arg0) {
-            	LatLng posisimarker =arg0.getPosition();
-        		Toast.makeText(getBaseContext(), "Klik poisi sekarang "+ltnow+" "+lngnow+"magimon "+ arg0.getTitle() +" :"+posisimarker.latitude+" "+posisimarker.longitude, 
-                        Toast.LENGTH_SHORT).show();
-        		if(Math.abs(ltnow-posisimarker.latitude)<0.01
-        				    	&& Math.abs(lngnow-posisimarker.longitude)<0.01 )
-        		{
-        			Toast.makeText(getBaseContext(), "Magimon Battle "+arg0.getTitle(), 
-                            Toast.LENGTH_SHORT).show();
-        		}
-        		return true;
-            }
-
-        });       
+	    setBattleMagimon();
+	           
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
-	    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-	    ltnow=location.getLatitude();
-	    lngnow=location.getLongitude();
+	    currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
 	    SpawnLocation area = new SpawnLocation();
-	    if(Math.abs(latLng.latitude-area.getSpawn1().latitude)<0.01
-	    	&& Math.abs(latLng.longitude-area.getSpawn1().longitude)<0.01 )
+	    if(isNear(currentPosition,area.getSpawn1().getPosition()))
 	    {
 	    	 Toast.makeText(getBaseContext(), "Battle Magimon 1", 
 	                    Toast.LENGTH_SHORT).show();
 	    }
-	    else if(Math.abs(latLng.latitude-area.getSpawn2().latitude)<0.01
-		    	&& Math.abs(latLng.longitude-area.getSpawn2().longitude)<0.01 )
-		{
-		    	 Toast.makeText(getBaseContext(), "Battle Magimon 2", 
-		                    Toast.LENGTH_SHORT).show();
-		}
-	    else if(Math.abs(latLng.latitude-area.getSpawn3().latitude)<0.01
-		    	&& Math.abs(latLng.longitude-area.getSpawn3().longitude)<0.01 )
-		{
-		    	 Toast.makeText(getBaseContext(), "Battle Magimon 3", 
-		                    Toast.LENGTH_SHORT).show();
-		}
-	    else if(Math.abs(latLng.latitude-area.getSpawn4().latitude)<0.01
-		    	&& Math.abs(latLng.longitude-area.getSpawn4().longitude)<0.01 )
-		{
-		    	 Toast.makeText(getBaseContext(), "Battle Magimon Barel", 
-		                    Toast.LENGTH_SHORT).show();
-		}
-	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 17);
+	    else if(isNear(currentPosition,area.getSpawn2().getPosition()))
+	    {
+	    	 Toast.makeText(getBaseContext(), "Battle Magimon 2", 
+	                    Toast.LENGTH_SHORT).show();
+	    }
+	    else if(isNear(currentPosition,area.getSpawn3().getPosition()))
+	    {
+	    	 Toast.makeText(getBaseContext(), "Battle Magimon 3", 
+	                    Toast.LENGTH_SHORT).show();
+	    }
+	    else if(isNear(currentPosition,area.getSpawn4().getPosition()))
+	    {
+	    	 Toast.makeText(getBaseContext(), "Battle Magimon 4", 
+	                    Toast.LENGTH_SHORT).show();
+	    }
+	    else if(isNear(currentPosition,area.getSpawn5().getPosition()))
+	    {
+	    	 Toast.makeText(getBaseContext(), "Battle Magimon 5", 
+	                    Toast.LENGTH_SHORT).show();
+	    }
+	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentPosition, 17);
 	    map.animateCamera(cameraUpdate);
 	    locationManager.removeUpdates(this);
 	    
 	}
 	
+	public void setBattleMagimon()
+	{
+		map.setOnMarkerClickListener(new OnMarkerClickListener()
+        {
+
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+            	LatLng posisimagimon =marker.getPosition();
+        		Toast.makeText(getBaseContext(), "Klik poisi sekarang "+currentPosition.latitude+" "+currentPosition.longitude+"magimon "+ marker.getTitle() +" :"+posisimagimon.latitude+" "+posisimagimon.longitude, 
+                        Toast.LENGTH_SHORT).show();
+        		if(isNear(currentPosition,posisimagimon))
+        		{
+        			//Magimon battleMonster = new Magimon(marker.getId());
+        			Intent intent = new Intent(getBaseContext(), SealingPage.class);
+        			intent.putExtra("magimon", marker.getId());  
+        			Toast.makeText(getBaseContext(), "Magimon Battle "+marker.getTitle(), 
+                            Toast.LENGTH_SHORT).show();
+        			startActivity(intent);
+        			
+        		}
+        		return true;
+            }
+
+        });
+	}
+	
+	/*
+	 * Fungsi untuk menempatkan marker magimon pada peta
+	 * 
+	 */
 	public void spawnMagimon()
 	{
 		SpawnLocation area = new SpawnLocation();
-		LatLng spawn1 = area.getSpawn1();
-		Marker monster1 = map.addMarker(new MarkerOptions().position(spawn1).title("Rare Leana"));
-		LatLng spawn2 = area.getSpawn2();
-		Marker monster2 = map.addMarker(new MarkerOptions().position(spawn2).title("Moemon"));
-		LatLng spawn3 = area.getSpawn3();
-		Marker monster3 = map.addMarker(new MarkerOptions().position(spawn3).title("Senpai"));
-		LatLng spawn4 = area.getSpawn4();
-		Marker monster4 = map.addMarker(new MarkerOptions().position(spawn4).title("Barelmon"));
+		LatLng spawn1 = area.getSpawn1().getPosition();
+		Marker monster1 = map.addMarker(new MarkerOptions().position(spawn1).title(area.getSpawn1().getMagimon().id));
+		LatLng spawn2 = area.getSpawn2().getPosition();
+		Marker monster2 = map.addMarker(new MarkerOptions().position(spawn2).title(area.getSpawn2().getMagimon().id));
+		LatLng spawn3 = area.getSpawn3().getPosition();
+		Marker monster3 = map.addMarker(new MarkerOptions().position(spawn3).title(area.getSpawn3().getMagimon().id));
+		LatLng spawn4 = area.getSpawn4().getPosition();
+		Marker monster4 = map.addMarker(new MarkerOptions().position(spawn4).title(area.getSpawn4().getMagimon().id));
+		LatLng spawn5 = area.getSpawn5().getPosition();
+		Marker monster5 = map.addMarker(new MarkerOptions().position(spawn5).title(area.getSpawn5().getMagimon().id));
 		
 	}
+	
+	/*
+	 * Fungsi untuk membandingkan kedekatan antara 2 posisi
+	 * 
+	 */
+	public boolean isNear(LatLng location1, LatLng location2)
+	{
+		 if(Math.abs(location1.latitude-location2.latitude)<BATTLE_RANGE
+			    	&& Math.abs(location1.longitude-location2.longitude)<BATTLE_RANGE )
+		 {
+			 return true;
+		 }
+		 else
+		 {
+			 return false;
+		 }
+	}
+	
+	
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) { }

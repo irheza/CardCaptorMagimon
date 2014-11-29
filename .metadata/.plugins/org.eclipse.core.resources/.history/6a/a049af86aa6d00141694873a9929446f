@@ -1,8 +1,0 @@
-package magimon;
-
-import com.google.android.gms.maps.model.LatLng;
-
-public class SpawnLocation {
-	static final LatLng spawn1 = new LatLng(-6.364100, 106.828544);
-	static final LatLng spawn2 = new LatLng(-6.365355, 106.831881);
-}

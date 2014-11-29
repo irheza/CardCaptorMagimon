@@ -5,8 +5,8 @@ import android.telephony.TelephonyManager;
 
 public class Magician {
 	public static String userID;
-	String level;
-	String experience;
+	int level;
+	double experience;
 	
 	public Magician(String userID)
 	{

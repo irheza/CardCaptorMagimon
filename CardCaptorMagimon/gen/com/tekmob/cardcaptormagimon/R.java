@@ -1614,13 +1614,15 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main_menu=0x7f030018;
         public static final int activity_peta=0x7f030019;
-        public static final int activity_training_page=0x7f03001a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int activity_sealing_page=0x7f03001a;
+        public static final int activity_training_page=0x7f03001b;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001c;
     }
     public static final class menu {
         public static final int main_menu=0x7f0c0000;
         public static final int peta=0x7f0c0001;
-        public static final int training_page=0x7f0c0002;
+        public static final int sealing_page=0x7f0c0002;
+        public static final int training_page=0x7f0c0003;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1774,6 +1776,7 @@ containing a value of this type.
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
         public static final int title_activity_peta=0x7f060036;
+        public static final int title_activity_sealing_page=0x7f060038;
         public static final int title_activity_training_page=0x7f060033;
         public static final int training=0x7f060035;
         /**  Text on a placeholder buy button when Google Play services is not
