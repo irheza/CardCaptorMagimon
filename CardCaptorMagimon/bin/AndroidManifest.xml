@@ -19,6 +19,7 @@
     <uses-permission android:name="com.tekmob.cardcaptormagimon.permission.MAPS_RECEIVE" />
 
     <application
+        android:name="magician.Magician"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
