@@ -2,58 +2,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pure_white"
+    android:background="@color/dark_black"
     tools:context="com.tekmob.cardcaptormagimon.TrainingPage">
     
-    <ImageView
-        android:id="@+id/bg_magician"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/bg_mage" />
-    
-    <ImageView
-        android:id="@+id/bg_transparent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg_tr" />
-    
     <RelativeLayout 
-        android:id="@+id/content"
+        android:id="@+id/bar"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
         
-        <ImageView
-	        android:id="@+id/exp_parameter"
-	        android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/bar_parameter"
 	        android:layout_height="match_parent"
-	        android:src="@drawable/exp_parameter" />
+	        android:layout_width="match_parent"
+	        android:background="@drawable/exp_parameter">
+        </RelativeLayout>
         
-        <ImageView
-	        android:id="@+id/exp_container"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/exp_container"
+	        android:layout_height="match_parent"
+	        android:layout_width="match_parent"
 	        android:layout_centerHorizontal="true"
-	        android:src="@drawable/exp_container" />
+	        android:background="@drawable/exp_container">
+        </RelativeLayout>
         
         <TextView
 	        android:id="@+id/exp_display"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="@color/dark_black"
+	        android:textColor="@color/light_white"
 	        android:layout_centerHorizontal="true"
+	        android:textSize="20sp"
 	        android:text="" />
         
     </RelativeLayout>
     
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/exp"
-        android:layout_centerVertical="true"
-        android:text="@string/experience_gained_start" />
- 
 </RelativeLayout>
