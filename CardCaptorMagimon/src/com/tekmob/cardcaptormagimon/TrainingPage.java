@@ -17,15 +17,16 @@ import animation.Bar;
 public class TrainingPage extends Activity implements TrainingSensorListener {
 
 	// todo get from database
-	private int currentExp = 150;
+	private int currentExp = 0;
 	private int currentLevel = 1;
 	private int expInCurrentLevel;
+	private String userIs = "Pffft";
 	// end
 	private final int baseExpMultiplication = 200;
 	private int expNeededToLevelUp;
-	private TextView expDisplay;
-	private RelativeLayout expContainer;
-	private RelativeLayout bar_parameter;
+	private TextView expDisplay, username, level;
+	private RelativeLayout expContainer, bar_parameter, magic_ball;
+	private ImageView glass_ball_magic_effect;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,12 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         setContentView(R.layout.activity_training_page);
 
         expDisplay = (TextView) findViewById(R.id.exp_display);
+        username = (TextView) findViewById(R.id.username);
+        level = (TextView) findViewById(R.id.level);
         bar_parameter = (RelativeLayout) findViewById(R.id.bar_parameter);
         expContainer = (RelativeLayout) findViewById(R.id.exp_container);
+        magic_ball = (RelativeLayout) findViewById(R.id.magic_ball);
+        glass_ball_magic_effect = (ImageView) findViewById(R.id.glass_ball_magic_effect);
     	
     	expNeededToLevelUp = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
 		expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
@@ -43,6 +48,9 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         Bar.initBarVariables(TrainingPage.this);
         Bar.setCurrentExpInThisLevel(expInCurrentLevel);
         Bar.setExpNeededToLevelUp(expNeededToLevelUp);
+        Bar.initMagicBall(magic_ball, glass_ball_magic_effect);
+        Bar.initUsername(username, userIs);
+        Bar.initLevel(level, currentLevel);
         Bar.initBarContainer(expContainer);
         Bar.initBarParameter(bar_parameter);
         Bar.initExpDisplay(expDisplay);
@@ -102,18 +110,13 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	@Override
 	public void onShake() {
         // Called when Motion Detected
-		double asd = (int)((expInCurrentLevel*528)/expNeededToLevelUp);
-		
-    	Toast.makeText(getBaseContext(), "expNeededToLevelUp : "+expNeededToLevelUp
-    			+ "expInCurrentLevel : "+expInCurrentLevel
-    			+"hahahaha : "+asd, 
-				Toast.LENGTH_SHORT).show();
-    	
     	updateStatus();
     	Bar.setCurrentExpInThisLevel(expInCurrentLevel);
     	Bar.setExpNeededToLevelUp(expNeededToLevelUp);
         Bar.updateExpDisplay(expDisplay);
         Bar.updateBarParameter(bar_parameter);
+        Bar.fadeInMagicEffect();
+        Bar.fadeOutMagicEffect();
 	}
 	
 	/**
@@ -123,9 +126,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     	currentExp++;
     	if(currentExp >= getNextLevelParam(currentLevel)) {
     		currentLevel++;
+    		Bar.updateLevel(level, currentLevel);
     		expNeededToLevelUp = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
-    		Toast.makeText(getBaseContext(), "Current level : "+currentLevel, 
-    				Toast.LENGTH_SHORT).show();
     	}
     	expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
 	}

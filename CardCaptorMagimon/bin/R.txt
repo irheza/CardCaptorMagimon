@@ -298,42 +298,46 @@ int drawable abc_textfield_searchview_holo_light 0x7f020054
 int drawable abc_textfield_searchview_right_holo_dark 0x7f020055
 int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable bg_mage 0x7f020057
-int drawable bg_tr 0x7f020058
-int drawable common_full_open_on_phone 0x7f020059
-int drawable common_ic_googleplayservices 0x7f02005a
-int drawable common_signin_btn_icon_dark 0x7f02005b
-int drawable common_signin_btn_icon_disabled_dark 0x7f02005c
-int drawable common_signin_btn_icon_disabled_focus_dark 0x7f02005d
-int drawable common_signin_btn_icon_disabled_focus_light 0x7f02005e
-int drawable common_signin_btn_icon_disabled_light 0x7f02005f
-int drawable common_signin_btn_icon_focus_dark 0x7f020060
-int drawable common_signin_btn_icon_focus_light 0x7f020061
-int drawable common_signin_btn_icon_light 0x7f020062
-int drawable common_signin_btn_icon_normal_dark 0x7f020063
-int drawable common_signin_btn_icon_normal_light 0x7f020064
-int drawable common_signin_btn_icon_pressed_dark 0x7f020065
-int drawable common_signin_btn_icon_pressed_light 0x7f020066
-int drawable common_signin_btn_text_dark 0x7f020067
-int drawable common_signin_btn_text_disabled_dark 0x7f020068
-int drawable common_signin_btn_text_disabled_focus_dark 0x7f020069
-int drawable common_signin_btn_text_disabled_focus_light 0x7f02006a
-int drawable common_signin_btn_text_disabled_light 0x7f02006b
-int drawable common_signin_btn_text_focus_dark 0x7f02006c
-int drawable common_signin_btn_text_focus_light 0x7f02006d
-int drawable common_signin_btn_text_light 0x7f02006e
-int drawable common_signin_btn_text_normal_dark 0x7f02006f
-int drawable common_signin_btn_text_normal_light 0x7f020070
-int drawable common_signin_btn_text_pressed_dark 0x7f020071
-int drawable common_signin_btn_text_pressed_light 0x7f020072
-int drawable exp_container 0x7f020073
-int drawable exp_parameter 0x7f020074
-int drawable ic_launcher 0x7f020075
-int drawable ic_plusone_medium_off_client 0x7f020076
-int drawable ic_plusone_small_off_client 0x7f020077
-int drawable ic_plusone_standard_off_client 0x7f020078
-int drawable ic_plusone_tall_off_client 0x7f020079
-int drawable powered_by_google_dark 0x7f02007a
-int drawable powered_by_google_light 0x7f02007b
+int drawable common_full_open_on_phone 0x7f020058
+int drawable common_ic_googleplayservices 0x7f020059
+int drawable common_signin_btn_icon_dark 0x7f02005a
+int drawable common_signin_btn_icon_disabled_dark 0x7f02005b
+int drawable common_signin_btn_icon_disabled_focus_dark 0x7f02005c
+int drawable common_signin_btn_icon_disabled_focus_light 0x7f02005d
+int drawable common_signin_btn_icon_disabled_light 0x7f02005e
+int drawable common_signin_btn_icon_focus_dark 0x7f02005f
+int drawable common_signin_btn_icon_focus_light 0x7f020060
+int drawable common_signin_btn_icon_light 0x7f020061
+int drawable common_signin_btn_icon_normal_dark 0x7f020062
+int drawable common_signin_btn_icon_normal_light 0x7f020063
+int drawable common_signin_btn_icon_pressed_dark 0x7f020064
+int drawable common_signin_btn_icon_pressed_light 0x7f020065
+int drawable common_signin_btn_text_dark 0x7f020066
+int drawable common_signin_btn_text_disabled_dark 0x7f020067
+int drawable common_signin_btn_text_disabled_focus_dark 0x7f020068
+int drawable common_signin_btn_text_disabled_focus_light 0x7f020069
+int drawable common_signin_btn_text_disabled_light 0x7f02006a
+int drawable common_signin_btn_text_focus_dark 0x7f02006b
+int drawable common_signin_btn_text_focus_light 0x7f02006c
+int drawable common_signin_btn_text_light 0x7f02006d
+int drawable common_signin_btn_text_normal_dark 0x7f02006e
+int drawable common_signin_btn_text_normal_light 0x7f02006f
+int drawable common_signin_btn_text_pressed_dark 0x7f020070
+int drawable common_signin_btn_text_pressed_light 0x7f020071
+int drawable exp_container 0x7f020072
+int drawable exp_parameter 0x7f020073
+int drawable glass_ball 0x7f020074
+int drawable glass_ball_magic_effect 0x7f020075
+int drawable ic_launcher 0x7f020076
+int drawable ic_plusone_medium_off_client 0x7f020077
+int drawable ic_plusone_small_off_client 0x7f020078
+int drawable ic_plusone_standard_off_client 0x7f020079
+int drawable ic_plusone_tall_off_client 0x7f02007a
+int drawable powered_by_google_dark 0x7f02007b
+int drawable powered_by_google_light 0x7f02007c
+int drawable training_bg_basic 0x7f02007d
+int drawable training_bg_stars_cover 0x7f02007e
+int drawable training_bg_stars_magician 0x7f02007f
 int id action_bar 0x7f08002e
 int id action_bar_activity_content 0x7f080027
 int id action_bar_container 0x7f08002d
@@ -345,21 +349,13 @@ int id action_context_bar 0x7f08002f
 int id action_menu_divider 0x7f080028
 int id action_menu_presenter 0x7f080029
 int id action_mode_close_button 0x7f080036
-<<<<<<< HEAD
-int id action_settings 0x7f080056
-=======
-int id action_settings 0x7f08005e
->>>>>>> 3d73cc04015e8ba4627fbfe1ce10d52d494cd6ba
+int id action_settings 0x7f080063
 int id activity_chooser_view_content 0x7f080037
 int id always 0x7f08001e
-int id bar 0x7f080052
-int id bar_parameter 0x7f080053
+int id bar 0x7f08005c
+int id bar_parameter 0x7f08005d
 int id beginning 0x7f080023
-<<<<<<< HEAD
-=======
 int id bg_magician 0x7f080057
-int id bg_transparent 0x7f080058
->>>>>>> 3d73cc04015e8ba4627fbfe1ce10d52d494cd6ba
 int id book_now 0x7f080010
 int id buyButton 0x7f08000a
 int id buy_now 0x7f08000f
@@ -367,29 +363,20 @@ int id buy_with_google 0x7f08000e
 int id checkbox 0x7f08003f
 int id classic 0x7f080011
 int id collapseActionView 0x7f080020
-<<<<<<< HEAD
-=======
-int id content 0x7f080059
 int id currentSealCount 0x7f080056
 int id deck 0x7f080052
->>>>>>> 3d73cc04015e8ba4627fbfe1ce10d52d494cd6ba
 int id default_activity_button 0x7f08003a
 int id dialog 0x7f080021
 int id disableHome 0x7f08001b
 int id dropdown 0x7f080022
 int id edit_query 0x7f080042
 int id end 0x7f080025
-<<<<<<< HEAD
-int id exp_container 0x7f080054
-int id exp_display 0x7f080055
-=======
-int id exp 0x7f08005d
-int id exp_container 0x7f08005b
-int id exp_display 0x7f08005c
-int id exp_parameter 0x7f08005a
->>>>>>> 3d73cc04015e8ba4627fbfe1ce10d52d494cd6ba
+int id exp_container 0x7f08005e
+int id exp_display 0x7f08005f
 int id expand_activities_button 0x7f080038
 int id expanded_menu 0x7f08003e
+int id glass_ball 0x7f080062
+int id glass_ball_magic_effect 0x7f080061
 int id grayscale 0x7f080012
 int id holo_dark 0x7f080005
 int id holo_light 0x7f080006
@@ -399,9 +386,11 @@ int id hybrid 0x7f080004
 int id icon 0x7f08003c
 int id ifRoom 0x7f08001d
 int id image 0x7f080039
+int id level 0x7f08005b
 int id listMagimon 0x7f08004e
 int id listMode 0x7f080014
 int id list_item 0x7f08003b
+int id magic_ball 0x7f080060
 int id map 0x7f080053
 int id match_parent 0x7f08000c
 int id menu 0x7f080055
@@ -441,8 +430,11 @@ int id terrain 0x7f080003
 int id title 0x7f08003d
 int id top_action_bar 0x7f080032
 int id train 0x7f080050
+int id training_bg_stars_cover 0x7f080058
+int id training_bg_stars_magician 0x7f080059
 int id up 0x7f080033
 int id useLogo 0x7f080016
+int id userAndLevel 0x7f08005a
 int id username 0x7f08004f
 int id withText 0x7f08001f
 int id wrap_content 0x7f08000d
