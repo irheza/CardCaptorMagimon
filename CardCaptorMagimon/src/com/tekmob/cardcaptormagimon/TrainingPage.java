@@ -5,6 +5,7 @@ import trainingsensor.TrainingSensorListener;
 import trainingsensor.TrainingSensorManager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -31,6 +32,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        userIs = intent.getStringExtra("user");
         setContentView(R.layout.activity_training_page);
 
         expDisplay = (TextView) findViewById(R.id.exp_display);

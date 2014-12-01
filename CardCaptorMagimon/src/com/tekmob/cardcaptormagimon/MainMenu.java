@@ -18,6 +18,7 @@ import android.content.Intent;
 public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
+	String user = magician.getUserID();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,7 @@ public class MainMenu extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), TrainingPage.class);
+                i.putExtra("user", user);
                 startActivity(i);
                // finish();
              }
