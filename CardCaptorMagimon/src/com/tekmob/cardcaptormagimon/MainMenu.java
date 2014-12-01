@@ -18,7 +18,7 @@ import android.content.Intent;
 public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
-	String user = magician.getUserID();
+	String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class MainMenu extends Activity {
         userText = (TextView) findViewById(R.id.username);
         //userText.setText("User ID: "+Magician.userID);
         userText.setText("User ID: "+magician.getUserID());
+        user = magician.getUserID();
         if(magician.isSet()==false)
 		{
         	setMagimon();
