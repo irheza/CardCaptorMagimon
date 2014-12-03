@@ -31,8 +31,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	private final int baseExpMultiplication = 200;
 	private int expNeededToLevelUp;
 	private TextView expDisplay, username, level;
-	private RelativeLayout expContainer, bar_parameter, magic_ball;
-	private ImageView glass_ball_magic_effect, black_screen;
+	private RelativeLayout expContainer, bar_parameter, magic_ball, black_screen;
+	private ImageView glass_ball_magic_effect;
 	private MagicianModel mm;
 	private Magician magician;
 	private Animation screen_off, screen_on;
@@ -55,8 +55,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         bar_parameter = (RelativeLayout) findViewById(R.id.bar_parameter);
         expContainer = (RelativeLayout) findViewById(R.id.exp_container);
         magic_ball = (RelativeLayout) findViewById(R.id.magic_ball);
+        black_screen = (RelativeLayout) findViewById(R.id.black_screen);
         glass_ball_magic_effect = (ImageView) findViewById(R.id.glass_ball_magic_effect);
-        black_screen = (ImageView) findViewById(R.id.black_screen);
         
         screen_on = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.turn_on_screen);
         screen_off = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.turn_off_screen);
