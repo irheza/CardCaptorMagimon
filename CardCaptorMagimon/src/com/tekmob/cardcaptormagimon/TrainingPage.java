@@ -1,6 +1,8 @@
 package com.tekmob.cardcaptormagimon;
 
 
+import entity.*;
+import model.*;
 import trainingsensor.TrainingSensorListener;
 import trainingsensor.TrainingSensorManager;
 
@@ -28,13 +30,19 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	private TextView expDisplay, username, level;
 	private RelativeLayout expContainer, bar_parameter, magic_ball;
 	private ImageView glass_ball_magic_effect;
+	private MagicianModel mm;
+	private Magician magician;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        userIs = intent.getStringExtra("user");
+        mm = new MagicianModel();
+        //Intent intent = getIntent();
+        //userIs = intent.getStringExtra("user");
         setContentView(R.layout.activity_training_page);
+        
+        magician = mm.getMagician("1");
+        currentExp = magician.getExp();
 
         expDisplay = (TextView) findViewById(R.id.exp_display);
         username = (TextView) findViewById(R.id.username);
@@ -91,7 +99,15 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
                 Toast.makeText(getBaseContext(), "onStop Accelerometer Stoped", 
                          Toast.LENGTH_SHORT).show();
             }
-            
+            magician.setExp(currentExp);
+            mm.update(magician);
+    }
+    
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	magician.setExp(currentExp);
+        mm.update(magician);
     }
      
     @Override

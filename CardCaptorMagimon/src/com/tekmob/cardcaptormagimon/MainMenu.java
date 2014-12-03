@@ -1,8 +1,9 @@
 package com.tekmob.cardcaptormagimon;
 
 
-import magician.Magician;
+import entity.Magician;
 import magimon.Magimon;
+import model.MagicianModel;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
@@ -18,18 +19,31 @@ import android.content.Intent;
 public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
-	String user = magician.getUserID();
+	MagicianModel magicianModel = new MagicianModel();
+	String userID = "";
+	//String user = magician.getUserID();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         magician = (Magician)getApplicationContext();
+        
+        if(magician.getId()!=null)
+        
+        
         setMagician();
         
         setMenuListener();
 
         
+    }
+    
+    public boolean checkMagicianInServer(String id){
+		magician = magicianModel.getMagician(id);
+    	
+		if(magician!=null) return true;
+		else return false;
     }
     
     /*
@@ -38,21 +52,23 @@ public class MainMenu extends Activity {
     public void setMagician()
     {
     	TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String deviceIMEI = tManager.getDeviceId(); 
         
-    	String deviceIMEI = tManager.getDeviceId(); 
+        
+        
         if(deviceIMEI!=null)
         {
-        	magician.setUserID(deviceIMEI);
+        	//magician.setUserID(deviceIMEI);
         }
         else
         {
         	String androidID = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
-        	magician.setUserID(androidID);
+        	//magician.setUserID(androidID);
         }
         //Magician user = new Magician(deviceIMEI);
         userText = (TextView) findViewById(R.id.username);
         //userText.setText("User ID: "+Magician.userID);
-        userText.setText("User ID: "+magician.getUserID());
+        //userText.setText("User ID: "+magician.getUserID());
         if(magician.isSet()==false)
 		{
         	setMagimon();
@@ -67,13 +83,13 @@ public class MainMenu extends Activity {
     	Magimon secondPartner =  new Magimon("2"); 
     	Magimon thirdPartner =  new Magimon("3"); 
     	Magimon fourthPartner =  new Magimon("4"); 
-    	magician.addMagimon(firstPartner);
-    	magician.addMagimon(secondPartner);
-    	magician.addMagimon(thirdPartner);
-    	magician.addMagimon(fourthPartner);
+    	//magician.addMagimon(firstPartner);
+//    	magician.addMagimon(secondPartner);
+//    	magician.addMagimon(thirdPartner);
+//    	magician.addMagimon(fourthPartner);
     	//digunakan agar magimon yang sudah di set  tinggal di set lagi saat
     	//kembali ke menu utama
-    	magician.doneSetting();
+//    	magician.doneSetting();
     }
     
     public void setMenuListener()
@@ -86,7 +102,7 @@ public class MainMenu extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), TrainingPage.class);
-                i.putExtra("user", user);
+                //i.putExtra("user", user);
                 startActivity(i);
                // finish();
              }
