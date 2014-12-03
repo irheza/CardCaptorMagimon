@@ -19,9 +19,13 @@ import android.content.Intent;
 public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
+<<<<<<< HEAD
 	MagicianModel magicianModel = new MagicianModel();
 	String userID = "";
 	//String user = magician.getUserID();
+=======
+	String user;
+>>>>>>> a03c8d947cce9365cd50514baafec29e279963b1
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +72,12 @@ public class MainMenu extends Activity {
         //Magician user = new Magician(deviceIMEI);
         userText = (TextView) findViewById(R.id.username);
         //userText.setText("User ID: "+Magician.userID);
+<<<<<<< HEAD
         //userText.setText("User ID: "+magician.getUserID());
+=======
+        userText.setText("User ID: "+magician.getUserID());
+        user = magician.getUserID();
+>>>>>>> a03c8d947cce9365cd50514baafec29e279963b1
         if(magician.isSet()==false)
 		{
         	setMagimon();
