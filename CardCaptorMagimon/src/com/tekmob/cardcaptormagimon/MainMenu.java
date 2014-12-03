@@ -19,13 +19,8 @@ import android.content.Intent;
 public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
-<<<<<<< HEAD
 	MagicianModel magicianModel = new MagicianModel();
-	String userID = "";
-	//String user = magician.getUserID();
-=======
-	String user;
->>>>>>> a03c8d947cce9365cd50514baafec29e279963b1
+	//String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +67,9 @@ public class MainMenu extends Activity {
         //Magician user = new Magician(deviceIMEI);
         userText = (TextView) findViewById(R.id.username);
         //userText.setText("User ID: "+Magician.userID);
-<<<<<<< HEAD
-        //userText.setText("User ID: "+magician.getUserID());
-=======
-        userText.setText("User ID: "+magician.getUserID());
-        user = magician.getUserID();
->>>>>>> a03c8d947cce9365cd50514baafec29e279963b1
+        //userText.setText("User ID: "+magician.getU.getUserID());
+        //user = magician.getUserID();
+        
         if(magician.isSet()==false)
 		{
         	setMagimon();
@@ -91,7 +83,7 @@ public class MainMenu extends Activity {
     	Magimon firstPartner =  new Magimon("1"); 
     	Magimon secondPartner =  new Magimon("2"); 
     	Magimon thirdPartner =  new Magimon("3"); 
-    	Magimon fourthPartner =  new Magimon("4"); 
+    	Magimon fourthPartner =  new Magimon("4");
     	//magician.addMagimon(firstPartner);
 //    	magician.addMagimon(secondPartner);
 //    	magician.addMagimon(thirdPartner);
@@ -113,6 +105,7 @@ public class MainMenu extends Activity {
                 Intent i = new Intent(getApplicationContext(), TrainingPage.class);
                 //i.putExtra("user", user);
                 startActivity(i);
+            	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                // finish();
              }
         });
@@ -122,6 +115,7 @@ public class MainMenu extends Activity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Peta.class);
                 startActivity(i);
+            	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                // finish();
              }
         });
@@ -131,6 +125,7 @@ public class MainMenu extends Activity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), DeckPage.class);
                 startActivity(i);
+            	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                // finish();
              }
         });

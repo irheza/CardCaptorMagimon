@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/training_bg_basic"
-    android:keepScreenOn="true"
     tools:context="com.tekmob.cardcaptormagimon.TrainingPage">
     
     <ImageView
@@ -112,6 +111,13 @@
 	        android:scaleType="fitCenter"
 	        android:src="@drawable/glass_ball" />
 	    
+    </RelativeLayout>
+    
+    <RelativeLayout 
+        android:id="@+id/black_screen"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/pitch_black">
     </RelativeLayout>
     
 </RelativeLayout>

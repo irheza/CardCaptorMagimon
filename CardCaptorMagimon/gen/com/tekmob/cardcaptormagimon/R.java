@@ -15,6 +15,10 @@ public final class R {
         public static final int abc_slide_in_top=0x7f040003;
         public static final int abc_slide_out_bottom=0x7f040004;
         public static final int abc_slide_out_top=0x7f040005;
+        public static final int fade_in=0x7f040006;
+        public static final int fade_out=0x7f040007;
+        public static final int turn_off_screen=0x7f040008;
+        public static final int turn_on_screen=0x7f040009;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
@@ -1174,7 +1178,7 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f0a0002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f07001e;
+        public static final int abc_search_url_text_holo=0x7f07001f;
         public static final int abc_search_url_text_normal=0x7f070017;
         public static final int abc_search_url_text_pressed=0x7f070019;
         public static final int abc_search_url_text_selected=0x7f070018;
@@ -1190,11 +1194,12 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f070006;
         public static final int common_signin_btn_light_text_focused=0x7f070007;
         public static final int common_signin_btn_light_text_pressed=0x7f070005;
-        public static final int common_signin_btn_text_dark=0x7f07001f;
-        public static final int common_signin_btn_text_light=0x7f070020;
+        public static final int common_signin_btn_text_dark=0x7f070020;
+        public static final int common_signin_btn_text_light=0x7f070021;
         public static final int dark_black=0x7f07001a;
         public static final int light_black=0x7f07001b;
         public static final int light_white=0x7f07001c;
+        public static final int pitch_black=0x7f07001e;
         public static final int pure_white=0x7f07001d;
         public static final int wallet_bright_foreground_disabled_holo_light=0x7f07000f;
         /** 
@@ -1214,8 +1219,8 @@ containing a value of this type.
         public static final int wallet_hint_foreground_holo_light=0x7f070011;
         public static final int wallet_holo_blue_light=0x7f070015;
         public static final int wallet_link_text_light=0x7f070016;
-        public static final int wallet_primary_text_holo_light=0x7f070021;
-        public static final int wallet_secondary_text_holo_dark=0x7f070022;
+        public static final int wallet_primary_text_holo_light=0x7f070022;
+        public static final int wallet_secondary_text_holo_dark=0x7f070023;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1485,13 +1490,14 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f080028;
         public static final int action_menu_presenter=0x7f080029;
         public static final int action_mode_close_button=0x7f080036;
-        public static final int action_settings=0x7f080063;
+        public static final int action_settings=0x7f080064;
         public static final int activity_chooser_view_content=0x7f080037;
         public static final int always=0x7f08001e;
         public static final int bar=0x7f08005c;
         public static final int bar_parameter=0x7f08005d;
         public static final int beginning=0x7f080023;
         public static final int bg_magician=0x7f080057;
+        public static final int black_screen=0x7f080063;
         public static final int book_now=0x7f080010;
         public static final int buyButton=0x7f08000a;
         public static final int buy_now=0x7f08000f;
