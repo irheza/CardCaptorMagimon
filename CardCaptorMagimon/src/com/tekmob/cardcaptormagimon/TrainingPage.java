@@ -10,9 +10,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,6 +62,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         
         screen_on = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.turn_on_screen);
         screen_off = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.turn_off_screen);
+        black_screen.setVisibility(View.GONE);
     	
     	expNeededToLevelUp = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
 		expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
@@ -178,11 +181,22 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 		if (nilaiProximity == 0) {
 			WindowManager.LayoutParams lp = getWindow().getAttributes();
 			lp.screenBrightness = 0.0f;
+			black_screen.setVisibility(View.VISIBLE);
 			black_screen.startAnimation(screen_off);
 			getWindow().setAttributes(lp);
 		} else {
 			WindowManager.LayoutParams lp = getWindow().getAttributes();
 			lp.screenBrightness = -1.0f;
+			screen_on.setAnimationListener(new AnimationListener(){
+				@Override
+				public void onAnimationEnd(Animation arg0) {
+					black_screen.setVisibility(View.GONE);
+				}
+				@Override
+				public void onAnimationRepeat(Animation arg0) {}
+				@Override
+				public void onAnimationStart(Animation arg0) {}
+	        });
 			black_screen.startAnimation(screen_on);
 			getWindow().setAttributes(lp);
 		}
