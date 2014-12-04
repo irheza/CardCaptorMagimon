@@ -61,6 +61,17 @@ public class MainMenu extends Activity {
 				
 			}
 			magician.setSet(true);
+		}else{
+			JSONObject jo = magicianModel.getMagician(userID);
+			try {
+				magician.setUsername((String)jo.get("username"));
+				magician.setExp(Integer.parseInt(((String)jo.get("exp"))));
+				userText = (TextView) findViewById(R.id.username);
+				userText.setText(magician.toString());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		magician.setPersonalMagimon(pmModel.getPersonalMagimonByMagician(magician.getId()));
