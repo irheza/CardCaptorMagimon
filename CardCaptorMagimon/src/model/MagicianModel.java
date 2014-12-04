@@ -45,18 +45,15 @@ public class MagicianModel extends Model{
 	}*/
 	
 	public int registerMagician(Magician magician){
-		JSONObject jo = new JSONObject();
-		try{
-			jo.put("id", magician.getId());
-			jo.put("username", magician.getUsername());
-			jo.put("hp", magician.getHp());
-			jo.put("exp", magician.getExp());
-		}catch(Exception ex){
-			return -1;
-		}
+		String data = String.format("id=%s&username=%s&hp=%s&exp=%s", 
+				magician.getId(), 
+				magician.getUsername(), 
+				magician.getHp(), 
+				magician.getExp());
 		URL url;
+		Log.w("String akan di POST", data);
 		try {
-			AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(super.URL_SERVER+"magician/insert", jo.toString());
+			AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(super.URL_SERVER+"magician/insert", data);
 			
 			String result = asyncResult.get();
 			Log.w("", "string berhasil di POST");

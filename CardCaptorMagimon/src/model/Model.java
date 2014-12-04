@@ -118,7 +118,7 @@ class StringAsyncUploader extends AsyncTask<String, String, String> {
 			con.setRequestProperty("User-Agent", USER_AGENT);
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-			String urlParameters = "id_magician=123&exp_gained=450";
+			String urlParameters = data;
 
 			// Send post request
 			con.setDoOutput(true);
