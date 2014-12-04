@@ -22,8 +22,12 @@ public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
 	MagicianModel magicianModel = new MagicianModel();
+<<<<<<< HEAD
 	String userID = "";
 	//String user = magician.getUserID();
+=======
+	//String user;
+>>>>>>> 8d9143ce225fc3538bcb36e201ee72069a2e08c5
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +80,36 @@ public class MainMenu extends Activity {
      */
     public void registerMagician()
     {
+<<<<<<< HEAD
     	magician.setId(userID);
     	magicianModel.registerMagician(magician);
+=======
+    	TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String deviceIMEI = tManager.getDeviceId(); 
+        
+        
+        
+        if(deviceIMEI!=null)
+        {
+        	//magician.setUserID(deviceIMEI);
+        }
+        else
+        {
+        	String androidID = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+        	//magician.setUserID(androidID);
+        }
+        //Magician user = new Magician(deviceIMEI);
+        userText = (TextView) findViewById(R.id.username);
+        //userText.setText("User ID: "+Magician.userID);
+        //userText.setText("User ID: "+magician.getU.getUserID());
+        //user = magician.getUserID();
+        
+        if(magician.isSet()==false)
+		{
+        	setMagimon();
+		}
+    	
+>>>>>>> 8d9143ce225fc3538bcb36e201ee72069a2e08c5
     }
     
     public void setMagimon()
@@ -86,7 +118,7 @@ public class MainMenu extends Activity {
     	Magimon firstPartner =  new Magimon("1"); 
     	Magimon secondPartner =  new Magimon("2"); 
     	Magimon thirdPartner =  new Magimon("3"); 
-    	Magimon fourthPartner =  new Magimon("4"); 
+    	Magimon fourthPartner =  new Magimon("4");
     	//magician.addMagimon(firstPartner);
 //    	magician.addMagimon(secondPartner);
 //    	magician.addMagimon(thirdPartner);
@@ -108,6 +140,7 @@ public class MainMenu extends Activity {
                 Intent i = new Intent(getApplicationContext(), TrainingPage.class);
                 //i.putExtra("user", user);
                 startActivity(i);
+            	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                // finish();
              }
         });
@@ -117,6 +150,7 @@ public class MainMenu extends Activity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Peta.class);
                 startActivity(i);
+            	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                // finish();
              }
         });
@@ -126,6 +160,7 @@ public class MainMenu extends Activity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), DeckPage.class);
                 startActivity(i);
+            	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                // finish();
              }
         });
