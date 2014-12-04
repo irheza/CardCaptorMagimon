@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
@@ -25,23 +26,29 @@ import android.util.Log;
 
 public class Model {
 	// pake garis miring di akhirnya
-	final String URL_SERVER = "http://johanes.tigasekawansolution.com/index.php/";
+	public final String URL_SERVER = "http://johanes.tigasekawansolution.com/index.php/";
 
 	public JSONObject getData(String subURL) {
-
+		JSONObject jo = null;
 		try {
 			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
 					.execute(URL_SERVER + subURL);
 			String result = asyncResult.get();
-			JSONObject jo = new JSONObject(result);
-
-			return jo;
-		} catch (Exception e) {
-			System.out.println("parsing json gagal");
-			System.out.print("e stacktrace: " + e.getMessage());
+			jo = new JSONObject(result);
+			System.out.println("sampe sini");
+		}catch(JSONException je){
+			System.out.println(je.toString());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e.toString());
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 
-		return null;
+		return jo;
 	}
 
 	public ArrayList<JSONObject> getArrayData(String subURL) {
@@ -177,8 +184,6 @@ class StringAsyncDownloader extends AsyncTask<String, String, String> {
 				}
 			}
 			String result = builder.toString();
-
-			Log.w("JSON", result);
 			if (result == null || result.equals("[]") || result.equals("false")) {
 				return null;
 			}

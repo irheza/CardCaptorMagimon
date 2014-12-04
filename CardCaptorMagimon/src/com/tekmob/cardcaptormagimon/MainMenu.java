@@ -1,5 +1,8 @@
 package com.tekmob.cardcaptormagimon;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import magimon.Magimon;
 import model.MagicianModel;
 import android.app.Activity;
@@ -24,7 +27,6 @@ public class MainMenu extends Activity {
 	MagicianModel magicianModel = new MagicianModel();
 
 	String userID = "";
-	// String user = magician.getUserID();
 
 	String user;
 
@@ -38,18 +40,26 @@ public class MainMenu extends Activity {
 		if (!magician.isSet()) {
 			// cek dulu udah terdaftar apa belom
 			Log.w("", "magician di app context blm ada");
-			if (!checkMagicianInServer(userID)) {
+			if (!magicianModel.checkMagician(userID)) {
 				Log.w("", "magician belom ada di server");
 				registerMagician();
+			}else{
+				JSONObject jo = magicianModel.getMagician(userID);
+				try {
+					magician.setId((String)jo.get("id"));
+					magician.setUsername((String)jo.get("username"));
+					magician.setExp(Integer.parseInt(((String)jo.get("exp"))));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 			magician.setSet(true);
 		}
 		// Log.w("", "setelah IF");
 		userText = (TextView) findViewById(R.id.username);
-		userText.setText("User ID: " + magician.getId());
-
-		// Toast.makeText(getApplicationContext(), "CUUUYYYY",
-		// Toast.LENGTH_SHORT).show();
+		userText.setText(magician.toString());
 
 		setMenuListener();
 	}
@@ -66,15 +76,6 @@ public class MainMenu extends Activity {
 		}
 	}
 
-	public boolean checkMagicianInServer(String id) {
-		// magician = magicianModel.getMagician(id);
-
-		if (magician.getId() != null)
-			return true;
-		else
-			return false;
-	}
-
 	/*
 	 * Fungsi untuk mengkonfigurasi awal Magician player
 	 */
@@ -89,7 +90,7 @@ public class MainMenu extends Activity {
 		final EditText input = new EditText(this);
 		alert.setView(input);
 		
-		alert.setPositiveButton("register", new DialogInterface.OnClickListener() {
+		alert.setPositiveButton("Register", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				magician.setUsername(input.getText().toString());
 				magicianModel.registerMagician(magician);
@@ -97,44 +98,8 @@ public class MainMenu extends Activity {
 		});
 
 		alert.show();
-		
-
-		/*
-		 * TelephonyManager tManager = (TelephonyManager)
-		 * getSystemService(Context.TELEPHONY_SERVICE); String deviceIMEI =
-		 * tManager.getDeviceId();
-		 * 
-		 * 
-		 * 
-		 * if(deviceIMEI!=null) { //magician.setUserID(deviceIMEI); } else {
-		 * String androidID =
-		 * Secure.getString(getApplicationContext().getContentResolver(),
-		 * Secure.ANDROID_ID); //magician.setUserID(androidID); } //Magician
-		 * user = new Magician(deviceIMEI); userText = (TextView)
-		 * findViewById(R.id.username);
-		 * //userText.setText("User ID: "+Magician.userID);
-		 * //userText.setText("User ID: "+magician.getU.getUserID()); //user =
-		 * magician.getUserID();
-		 * 
-		 * if(magician.isSet()==false) { setMagimon(); }
-		 */
-
 	}
 	
-	public void setMagimon() {
-		// tester add Magimon, seharusnya semua parameter lengkap
-		Magimon firstPartner = new Magimon("1");
-		Magimon secondPartner = new Magimon("2");
-		Magimon thirdPartner = new Magimon("3");
-		Magimon fourthPartner = new Magimon("4");
-		// magician.addMagimon(firstPartner);
-		// magician.addMagimon(secondPartner);
-		// magician.addMagimon(thirdPartner);
-		// magician.addMagimon(fourthPartner);
-		// digunakan agar magimon yang sudah di set tinggal di set lagi saat
-		// kembali ke menu utama
-		// magician.doneSetting();
-	}
 
 	public void setMenuListener() {
 		Button train = (Button) findViewById(R.id.train);
