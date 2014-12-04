@@ -50,6 +50,24 @@ public class Model {
 
 		return jo;
 	}
+	
+	public ArrayList<JSONObject> getArrayDataNew(String subURL) throws JSONException
+	{
+		AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
+		.execute(URL_SERVER + subURL);
+		String result="";
+		try {
+			result = asyncResult.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JSONArray ja = new JSONArray(result);
+		return convertJAtoArrJO(ja);
+	}
 
 	public ArrayList<JSONObject> getArrayData(String subURL) {
 		try {

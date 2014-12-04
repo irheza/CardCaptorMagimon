@@ -44,5 +44,26 @@
                 android:drawablePadding="5dip"
                 android:text="@string/deck"
                 android:textSize="12sp" />
+        
+         <Button
+                android:id="@+id/duel"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/deck"
+                android:layout_marginLeft="36dp"
+
+                android:drawablePadding="5dip"
+                android:text="@string/duel"
+                android:textSize="12sp" />
+        <Button
+                android:id="@+id/about"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/duel"
+                android:layout_marginLeft="36dp"
+
+                android:drawablePadding="5dip"
+                android:text="@string/about"
+                android:textSize="12sp" />
 
 </RelativeLayout>
