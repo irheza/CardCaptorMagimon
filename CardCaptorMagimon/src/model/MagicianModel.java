@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 import org.json.*;
 
+import android.os.AsyncTask;
+import android.util.Log;
+
 import entity.Magician;
 import entity.SpawnPoint;
 
@@ -53,37 +56,13 @@ public class MagicianModel extends Model{
 		}
 		URL url;
 		try {
-			url = new URL(super.URL_SERVER+"magician/insert");
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("POST");
-			OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
-			wr.write(jo.toString());
-			wr.flush();
+			AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(super.URL_SERVER+"magician/insert", jo.toString());
 			
-			StringBuilder sb = new StringBuilder();
-			int HttpResult =con.getResponseCode();
-
-			if(HttpResult ==HttpURLConnection.HTTP_OK){
-			    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(),"utf-8"));  
-
-			    String line = null;  
-			    while ((line = br.readLine()) != null) {  
-			    	sb.append(line + "\n");  
-			    }
-			    br.close();
-			    System.out.println(""+sb.toString());
-
-			}else{
-			    System.out.println(con.getResponseMessage());  
-			}  
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String result = asyncResult.get();
+			Log.w("", "string berhasil di POST");
+		}catch(Exception e){
+			
 		}
-		
 		return 1;
 		
 	}
