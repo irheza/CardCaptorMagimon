@@ -9,12 +9,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+
 import org.json.*;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import entity.Magician;
+import entity.MagicianEnemy;
 import entity.SpawnPoint;
 
 
@@ -34,15 +36,20 @@ public class MagicianModel extends Model{
 /*	public Magician getMagician(String id){
 		return new Magician(super.getData("magician/select/"+id));
 	}
-	
-	public ArrayList<Magician> getAllMagician(){
-		ArrayList<JSONObject> jorr = super.getArrayData("magician/select_all");
-		ArrayList<Magician> result = new ArrayList<Magician>();
+	*/
+	public ArrayList<MagicianEnemy> getAllEnemyMagician(String own_id) throws JSONException{
+		//ArrayList<JSONObject> jorr = super.getArrayData("magician/select_all");
+		
+		ArrayList<JSONObject> jorr = super.getArrayDataNew("magician/select_all");
+		ArrayList<MagicianEnemy> result = new ArrayList<MagicianEnemy>();
 		for(JSONObject jo:jorr){
-			result.add(new Magician(jo));
+			if(!jo.get("id").toString().equalsIgnoreCase(own_id))
+			{
+				result.add(new MagicianEnemy(jo));
+			}
 		}
 		return result;
-	}*/
+	}
 	
 	public int registerMagician(Magician magician){
 		JSONObject jo = new JSONObject();

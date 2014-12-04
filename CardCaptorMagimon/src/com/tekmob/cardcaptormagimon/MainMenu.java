@@ -134,6 +134,8 @@ public class MainMenu extends Activity {
     	Button train = (Button) findViewById(R.id.train);
     	Button peta = (Button) findViewById(R.id.peta);
     	Button deck = (Button) findViewById(R.id.deck);
+    	Button duel = (Button) findViewById(R.id.duel);
+    	Button about = (Button) findViewById(R.id.about);
     	train.setOnClickListener(new View.OnClickListener() {
        	 
             @Override
@@ -160,6 +162,26 @@ public class MainMenu extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), DeckPage.class);
+                startActivity(i);
+            	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+               // finish();
+             }
+        });
+    	duel.setOnClickListener(new View.OnClickListener() {
+        	 
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), DuelPage.class);
+                startActivity(i);
+            	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+               // finish();
+             }
+        });
+    	about.setOnClickListener(new View.OnClickListener() {
+       	 
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), AboutPage.class);
                 startActivity(i);
             	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                // finish();

@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
@@ -42,6 +43,24 @@ public class Model {
 		}
 
 		return null;
+	}
+	
+	public ArrayList<JSONObject> getArrayDataNew(String subURL) throws JSONException
+	{
+		AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
+		.execute(URL_SERVER + subURL);
+		String result="";
+		try {
+			result = asyncResult.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JSONArray ja = new JSONArray(result);
+		return convertJAtoArrJO(ja);
 	}
 
 	public ArrayList<JSONObject> getArrayData(String subURL) {
