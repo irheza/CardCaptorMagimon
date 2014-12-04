@@ -17,18 +17,18 @@ import entity.SpawnPoint;
 
 public class MagicianModel extends Model{
 	
-	public static void main(String[] arhs){
+/*	public static void main(String[] arhs){
 		MagicianModel mm = new MagicianModel();
-		Magician m = new Magician("idku123123123", "jojoeffe", 0, 0);
-		mm.registerMagician(m);
-	}
+	//	Magician m = new Magician("idku123123123", "jojoeffe", 0, 0);
+	//	mm.registerMagician(m);
+	}*/
 	
-	public MagicianModel(){
-		super();
-	}
+/*	public MagicianModel(){
+		//super();
+	}*/
 	
 	
-	public Magician getMagician(String id){
+/*	public Magician getMagician(String id){
 		return new Magician(super.getData("magician/select/"+id));
 	}
 	
@@ -39,7 +39,7 @@ public class MagicianModel extends Model{
 			result.add(new Magician(jo));
 		}
 		return result;
-	}
+	}*/
 	
 	public int registerMagician(Magician magician){
 		JSONObject jo = new JSONObject();

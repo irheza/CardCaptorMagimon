@@ -48,9 +48,9 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         setContentView(R.layout.activity_training_page);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         
-        magician = mm.getMagician("1");
-        currentExp = magician.getExp();
-
+        //magician = mm.getMagician("1");
+        //currentExp = magician.getExp();
+        
         expDisplay = (TextView) findViewById(R.id.exp_display);
         username = (TextView) findViewById(R.id.username);
         level = (TextView) findViewById(R.id.level);

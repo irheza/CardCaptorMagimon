@@ -11,18 +11,18 @@ public class Magician extends Application {
 	private int exp;
 	private boolean isSet = false;
 
-	public Magician() {
-		super();
-	}
+	//public Magician() {
+		//super();
+	//}
 
-	public Magician(String id, String username, int hp, int exp) {
-		super();
+/*	public Magician(String id, String username, int hp, int exp) {
+		//super();
 		this.id = id;
 		this.username = username;
 		this.hp = hp;
 		this.exp = exp;
-	}
-
+	}*/
+/*
 	public Magician(JSONObject jo) {
 		try {
 			this.id = (String) jo.get("id");
@@ -32,7 +32,7 @@ public class Magician extends Application {
 		} catch (Exception e) {
 
 		}
-	}
+	}*/
 
 	public String getId() {
 		return id;

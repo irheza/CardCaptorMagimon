@@ -2,7 +2,7 @@ package com.tekmob.cardcaptormagimon;
 
 import java.util.ArrayList;
 
-import magician.Magician;
+import entity.Magician;
 import magimon.Magimon;
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ public class DeckPage extends Activity {
 	public void setAllMagimon()
 	{
 		listMagimon = (TextView) findViewById(R.id.listMagimon);
-		partners = magician.getListMagimon();
+		//partners = magician.getListMagimon();
 		//Coba-coba
 		String all="Partners: ";
 		for(Magimon magimon: partners)
