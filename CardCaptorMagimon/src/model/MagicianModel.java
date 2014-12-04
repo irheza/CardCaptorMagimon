@@ -50,7 +50,25 @@ public class MagicianModel extends Model{
 		}
 		return result;
 	}
-	
+	public boolean checkMagician(String id) {
+		JSONObject jo = super.getData("magician/select/" + id);
+		if (jo == null) {
+			return false;
+		}
+		try {
+			String idku = (String) jo.get("id");
+			if (idku == null || idku.equals("")) {
+				return false;
+			}
+		} catch (Exception cce) {
+			return false;
+		}
+
+		return true;
+	}
+	public JSONObject getMagician(String id) {
+		return super.getData("magician/select/" + id);
+	}
 	public int registerMagician(Magician magician){
 		JSONObject jo = new JSONObject();
 		try{

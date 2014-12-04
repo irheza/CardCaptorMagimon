@@ -1,6 +1,9 @@
 package com.tekmob.cardcaptormagimon;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import entity.Magician;
 import magimon.Magimon;
 import model.MagicianModel;
