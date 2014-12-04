@@ -17,7 +17,8 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.tekmob.cardcaptormagimon.permission.MAPS_RECEIVE" />
-
+ 	<uses-permission android:name="android.permission.INTERNET" />
+ 	
     <application
         android:name="entity.Magician"
         android:allowBackup="true"

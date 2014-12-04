@@ -1,6 +1,6 @@
 package entity;
 
-import org.json.simple.JSONObject;
+import org.json.*;
 
 import android.app.Application;
 
@@ -11,6 +11,10 @@ public class Magician extends Application {
 	private int exp;
 	private boolean isSet = false;
 
+	public Magician() {
+		super();
+	}
+
 	public Magician(String id, String username, int hp, int exp) {
 		super();
 		this.id = id;
@@ -20,10 +24,14 @@ public class Magician extends Application {
 	}
 
 	public Magician(JSONObject jo) {
-		this.id = (String) jo.get("id");
-		this.username = (String) jo.get("username");
-		this.hp = Integer.parseInt((String) jo.get("hp"));
-		this.exp = Integer.parseInt((String) jo.get("exp"));
+		try {
+			this.id = (String) jo.get("id");
+			this.username = (String) jo.get("username");
+			this.hp = Integer.parseInt((String) jo.get("hp"));
+			this.exp = Integer.parseInt((String) jo.get("exp"));
+		} catch (Exception e) {
+
+		}
 	}
 
 	public String getId() {
@@ -65,6 +73,5 @@ public class Magician extends Application {
 	public void setSet(boolean isSet) {
 		this.isSet = isSet;
 	}
-	
-	
+
 }

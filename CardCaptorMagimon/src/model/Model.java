@@ -1,31 +1,57 @@
 package model;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.*;
+
+import android.os.AsyncTask;
+import android.util.Log;
 
 public class Model {
-	//pake garis miring di akhirnya
+	// pake garis miring di akhirnya
 	final String URL_SERVER = "http://johanes.tigasekawansolution.com/index.php/";
-	private final String USER_AGENT = "Mozilla/5.0";
-	
-	public JSONObject getData(String subURL){
+
+	public JSONObject getData(String subURL) {
+
 		try {
-			String urlKonek = URL_SERVER+subURL;
+			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
+					.execute(URL_SERVER + subURL);
+			String result = asyncResult.get();
+			JSONObject jo = new JSONObject(result);
+
+			return jo;
+		} catch (Exception e) {
+			System.out.println("parsing json gagal");
+			System.out.print("e stacktrace: " + e.getMessage());
+		}
+
+		return null;
+	}
+
+	public ArrayList<JSONObject> getArrayData(String subURL) {
+		try {
+			String urlKonek = URL_SERVER + subURL;
 			URL url = new URL(urlKonek);
 			URLConnection urlConnection = url.openConnection();
 			InputStream is = urlConnection.getInputStream();
 			InputStreamReader isr = new InputStreamReader(is);
-			
+
 			int numCharsRead;
 			char[] charArray = new char[1024];
 			StringBuffer sb = new StringBuffer();
@@ -33,111 +59,133 @@ public class Model {
 				sb.append(charArray, 0, numCharsRead);
 			}
 			String result = sb.toString();
-			
-			if(result == null || result.equals("[]") || result.equals("false")){
-				return null;
-			}
-			
-			JSONParser parser = new JSONParser();
-			
-			JSONObject jo = (JSONObject) parser.parse(result);
-			
-			return jo;
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("kena exception");
-			System.out.print("parse ex stacktrace: "+e.toString());
-		} catch (Exception e){
-			System.out.println("parsing json gagal");
-			System.out.print("e stacktrace: "+e.toString());
-		}
-		
-		return null;
-	}
-	
-	public ArrayList<JSONObject> getArrayData(String subURL){
-		try {
-			String urlKonek = URL_SERVER+subURL;
-			URL url = new URL(urlKonek);
-			URLConnection urlConnection = url.openConnection();
-			InputStream is = urlConnection.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is);
-			
-			int numCharsRead;
-			char[] charArray = new char[1024];
-			StringBuffer sb = new StringBuffer();
-			while ((numCharsRead = isr.read(charArray)) > 0) {
-				sb.append(charArray, 0, numCharsRead);
-			}
-			String result = sb.toString();			
-			JSONParser parser = new JSONParser();			
-			JSONArray ja = (JSONArray) parser.parse(result);
-			
+			JSONArray ja = new JSONArray(result);
+
 			return convertJAtoArrJO(ja);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("kena exception");
-			System.out.print("parse ex stacktrace: "+e.toString());
-		} catch (Exception e){
+		} catch (Exception e) {
 			System.out.println("parsing json gagal");
-			System.out.print("e stacktrace: "+e.toString());
+			System.out.print("e stacktrace: " + e.toString());
 		}
-		
+
 		return null;
 	}
-	
-	private ArrayList<JSONObject> convertJAtoArrJO(JSONArray ja){
+
+	private ArrayList<JSONObject> convertJAtoArrJO(JSONArray ja) {
 		ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
-		for(int i=0;i<ja.size();i++){
-			arr.add((JSONObject)ja.get(i));
+		for (int i = 0; i < ja.length(); i++) {
+			try {
+				arr.add((JSONObject) ja.getJSONObject(i));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return arr;
 	}
-	
-	public boolean post(String targetSubURL, String data) throws Exception{
-		String url = URL_SERVER+targetSubURL;
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
- 
-		//add reuqest header
-		con.setRequestMethod("POST");
-		con.setRequestProperty("User-Agent", USER_AGENT);
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
- 
-		String urlParameters = "id_magician=123&exp_gained=450";
- 
-		// Send post request
-		con.setDoOutput(true);
-		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
-		wr.flush();
-		wr.close();
- 
-		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + urlParameters);
-		System.out.println("Response Code : " + responseCode);
- 
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
- 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
- 
-		//print result
-		System.out.println(response.toString());
-		if(response.toString().contains("Response Code : 200")){
+
+	public boolean post(String targetSubURL, String data) throws Exception {
+		String url = URL_SERVER + targetSubURL;
+		AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(url, data);
+		String response = asyncResult.get();
+		// print result
+		if (response.toString().contains("Response Code : 200")) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
-	
+
+}
+
+class StringAsyncUploader extends AsyncTask<String, String, String> {
+	private final String USER_AGENT = "Mozilla/5.0";
+
+	protected String doInBackground(String... args) {
+		if (args[0] == null && args[1] == null) {
+			return null;
+		}
+		String urlKonek = args[0];
+		String data = args[1];
+
+		URL obj;
+		try {
+			obj = new URL(urlKonek);
+
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+			// add reuqest header
+			con.setRequestMethod("POST");
+			con.setRequestProperty("User-Agent", USER_AGENT);
+			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+			String urlParameters = "id_magician=123&exp_gained=450";
+
+			// Send post request
+			con.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.writeBytes(urlParameters);
+			wr.flush();
+			wr.close();
+
+			int responseCode = con.getResponseCode();
+			System.out.println("\nSending 'POST' request to URL : " + urlKonek);
+			System.out.println("Post parameters : " + urlParameters);
+			System.out.println("Response Code : " + responseCode);
+
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+			return response.toString();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+}
+
+class StringAsyncDownloader extends AsyncTask<String, String, String> {
+	protected String doInBackground(String... args) {
+		if (args[0] == null) {
+			return null;
+		}
+		String urlKonek = args[0];
+		StringBuilder builder = new StringBuilder();
+		HttpClient client = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(urlKonek);
+		HttpResponse response;
+		try {
+			response = client.execute(httpGet);
+
+			StatusLine statusLine = response.getStatusLine();
+			int statusCode = statusLine.getStatusCode();
+			if (statusCode == 200) {
+				HttpEntity entity = response.getEntity();
+				InputStream content = entity.getContent();
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(content));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					builder.append(line);
+				}
+			}
+			String result = builder.toString();
+
+			Log.w("JSON", result);
+			if (result == null || result.equals("[]") || result.equals("false")) {
+				return null;
+			}
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

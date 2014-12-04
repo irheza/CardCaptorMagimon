@@ -1,6 +1,6 @@
 package entity;
 
-import org.json.simple.JSONObject;
+import org.json.*;
 
 public class ShakeEvent {
 	private String id;
@@ -15,9 +15,13 @@ public class ShakeEvent {
 	}
 	
 	public ShakeEvent(JSONObject jo){
+		try{
 		this.id = (String) jo.get("id");
 		this.magicianID = (String) jo.get("id_magician");
 		this.expGained = Integer.parseInt((String) jo.get("exp_gained"));
+		}catch(Exception e){
+			
+		}
 	}
 
 	public String getId() {

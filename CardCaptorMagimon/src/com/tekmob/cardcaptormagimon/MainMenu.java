@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,70 +21,63 @@ import android.content.Intent;
 public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
-<<<<<<< HEAD
 	MagicianModel magicianModel = new MagicianModel();
 	String userID = "";
 	//String user = magician.getUserID();
-=======
-	String user;
->>>>>>> a03c8d947cce9365cd50514baafec29e279963b1
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         magician = (Magician)getApplicationContext();
+        userID = getIMEI();
         
-        if(magician.getId()!=null)
+        if(!magician.isSet()){
+        	//cek dulu udah terdaftar apa belom
+        	Log.w("", "magician di app context blm ada");
+        	if(!checkMagicianInServer(userID)){
+        		Log.w("", "magician belom ada di server");
+        		registerMagician();
+        	}
+        	magician.setSet(true);
+        }
+        Log.w("", "setelah IF");
+    	userText = (TextView) findViewById(R.id.username);
+        userText.setText("User ID: "+magician.getId());
         
-        
-        setMagician();
+        //Toast.makeText(getApplicationContext(), "CUUUYYYY", Toast.LENGTH_SHORT).show();
         
         setMenuListener();
-
+    }
+    
+    public String getIMEI(){
+    	TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String deviceIMEI = tManager.getDeviceId(); 
         
+        if(deviceIMEI!=null)
+        {
+        	return deviceIMEI;
+        }
+        else
+        {
+        	return Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
+        }
     }
     
     public boolean checkMagicianInServer(String id){
 		magician = magicianModel.getMagician(id);
     	
-		if(magician!=null) return true;
+		if(magician.getId()!=null) return true;
 		else return false;
     }
     
     /*
      * Fungsi untuk mengkonfigurasi awal Magician player
      */
-    public void setMagician()
+    public void registerMagician()
     {
-    	TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String deviceIMEI = tManager.getDeviceId(); 
-        
-        
-        
-        if(deviceIMEI!=null)
-        {
-        	//magician.setUserID(deviceIMEI);
-        }
-        else
-        {
-        	String androidID = Secure.getString(getApplicationContext().getContentResolver(), Secure.ANDROID_ID);
-        	//magician.setUserID(androidID);
-        }
-        //Magician user = new Magician(deviceIMEI);
-        userText = (TextView) findViewById(R.id.username);
-        //userText.setText("User ID: "+Magician.userID);
-<<<<<<< HEAD
-        //userText.setText("User ID: "+magician.getUserID());
-=======
-        userText.setText("User ID: "+magician.getUserID());
-        user = magician.getUserID();
->>>>>>> a03c8d947cce9365cd50514baafec29e279963b1
-        if(magician.isSet()==false)
-		{
-        	setMagimon();
-		}
-    	
+    	magician.setId(userID);
+    	magicianModel.registerMagician(magician);
     }
     
     public void setMagimon()

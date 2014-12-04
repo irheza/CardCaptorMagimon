@@ -1,6 +1,6 @@
 package entity;
 
-import org.json.simple.JSONObject;
+import org.json.*;
 
 public class Battle {
 	private String id;
@@ -37,6 +37,7 @@ public class Battle {
 	}
 
 	public Battle(JSONObject jo){
+		try{
 		this.id = (String) jo.get("id");
 		this.attackerID = (String) jo.get("id_attacker");
 		this.defenderID = (String) jo.get("id_defender");
@@ -50,6 +51,9 @@ public class Battle {
 		this.firstDefenderID = (String) jo.get("id_atk_1");
 		this.firstDefenderID = (String) jo.get("id_def_2");
 		this.firstDefenderID = (String) jo.get("id_def_3");
+		}catch(Exception e){
+			
+		}
 		
 	}
 }

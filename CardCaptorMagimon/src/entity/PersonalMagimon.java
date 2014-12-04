@@ -1,6 +1,6 @@
 package entity;
 
-import org.json.simple.JSONObject;
+import org.json.*;
 
 public class PersonalMagimon{
 	private String id;
@@ -18,10 +18,14 @@ public class PersonalMagimon{
 	}
 	
 	public PersonalMagimon(JSONObject jo){
-		this.id = (String) jo.get("id");
-		this.magicianID = (String) jo.get("id_magician");
-		this.magimonID = (String) jo.get("id_magimon");
-		this.mode = (String) jo.get("mode");
+		try{
+			this.id = (String) jo.get("id");
+			this.magicianID = (String) jo.get("id_magician");
+			this.magimonID = (String) jo.get("id_magimon");
+			this.mode = (String) jo.get("mode");
+		}catch(Exception e){
+			
+		}
 	}
 
 	public String getId() {

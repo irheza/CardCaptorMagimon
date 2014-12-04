@@ -1,6 +1,6 @@
 package entity;
 
-import org.json.simple.JSONObject;
+import org.json.*;
 
 public class SpawnPoint {
 	private String id;
@@ -20,11 +20,15 @@ public class SpawnPoint {
 	}
 	
 	public SpawnPoint(JSONObject jo){
+		try{
 		this.id = (String) jo.get("id");
 		this.latitude = Double.parseDouble((String) jo.get("latitude"));
 		this.longitude = Double.parseDouble((String) jo.get("longitude"));
 		this.timeExpired = (String) jo.get("time_expired");
 		this.magimonID = (String) jo.get("magimon_id");
+		}catch(Exception e){
+			
+		}
 	}
 
 	public String getId() {

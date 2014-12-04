@@ -1,6 +1,6 @@
 package entity;
 
-import org.json.simple.JSONObject;
+import org.json.*;
 
 public class Magimon {
 	private String id;
@@ -27,11 +27,15 @@ public class Magimon {
 	}
 	
 	public Magimon(JSONObject jo){
-		this.id = (String) jo.get("id");
-		this.name = (String) jo.get("name");
-		this.attack = Integer.parseInt((String)jo.get("attack"));
-		this.defense = Integer.parseInt((String)jo.get("defense"));
-		this.image = (String) jo.get("image");
+		try{
+			this.id = (String) jo.get("id");
+			this.name = (String) jo.get("name");
+			this.attack = Integer.parseInt((String)jo.get("attack"));
+			this.defense = Integer.parseInt((String)jo.get("defense"));
+			this.image = (String) jo.get("image");
+		}catch(Exception e){
+			
+		}
 	}
 
 	public String getId() {

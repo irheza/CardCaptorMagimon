@@ -9,7 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
+import org.json.*;
+
 import entity.Magician;
 import entity.SpawnPoint;
 
@@ -42,11 +43,14 @@ public class MagicianModel extends Model{
 	
 	public int registerMagician(Magician magician){
 		JSONObject jo = new JSONObject();
-		jo.put("id", magician.getId());
-		jo.put("username", magician.getUsername());
-		jo.put("hp", magician.getHp());
-		jo.put("exp", magician.getExp());
-		
+		try{
+			jo.put("id", magician.getId());
+			jo.put("username", magician.getUsername());
+			jo.put("hp", magician.getHp());
+			jo.put("exp", magician.getExp());
+		}catch(Exception ex){
+			return -1;
+		}
 		URL url;
 		try {
 			url = new URL(super.URL_SERVER+"magician/insert");
