@@ -53,24 +53,14 @@ public class Model {
 
 	public ArrayList<JSONObject> getArrayData(String subURL) {
 		try {
-			String urlKonek = URL_SERVER + subURL;
-			URL url = new URL(urlKonek);
-			URLConnection urlConnection = url.openConnection();
-			InputStream is = urlConnection.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is);
-
-			int numCharsRead;
-			char[] charArray = new char[1024];
-			StringBuffer sb = new StringBuffer();
-			while ((numCharsRead = isr.read(charArray)) > 0) {
-				sb.append(charArray, 0, numCharsRead);
-			}
-			String result = sb.toString();
+			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
+			.execute(URL_SERVER + subURL);
+			String result = asyncResult.get();
 			JSONArray ja = new JSONArray(result);
 
 			return convertJAtoArrJO(ja);
 		} catch (Exception e) {
-			System.out.println("parsing json gagal");
+			System.out.println("parsing json array gagal");
 			System.out.print("e stacktrace: " + e.toString());
 		}
 

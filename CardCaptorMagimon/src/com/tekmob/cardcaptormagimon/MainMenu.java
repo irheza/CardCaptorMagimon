@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import magimon.Magimon;
 import model.MagicianModel;
+import model.PersonalMagimonModel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,6 +26,7 @@ public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
 	MagicianModel magicianModel = new MagicianModel();
+	PersonalMagimonModel pmModel = new PersonalMagimonModel();
 
 	String userID = "";
 
@@ -57,10 +59,15 @@ public class MainMenu extends Activity {
 			}
 			magician.setSet(true);
 		}
+		
+		magician.setPersonalMagimon(pmModel.getPersonalMagimonByMagician(magician.getId()));
+		
 		// Log.w("", "setelah IF");
 		userText = (TextView) findViewById(R.id.username);
 		userText.setText(magician.toString());
-
+		
+		
+		
 		setMenuListener();
 	}
 

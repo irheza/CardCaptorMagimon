@@ -90,4 +90,14 @@ public class Magician extends Application {
 				pms.size());
 	}
 
+	public ArrayList<PersonalMagimon> getPersonalMagimon() {
+		return pms;
+	}
+
+	public void setPersonalMagimon(ArrayList<PersonalMagimon> pms) {
+		this.pms = pms;
+	}
+	
+	
+
 }
