@@ -1,15 +1,19 @@
 package entity;
 
-import org.json.*;
+import java.util.ArrayList;
 
+import org.json.JSONObject;
+
+import model.Model;
 import android.app.Application;
 
 public class Magician extends Application {
 	private String id;
-	private String username;
+	private String username = "";
 	private int hp;
 	private int exp;
 	private boolean isSet = false;
+	private ArrayList<PersonalMagimon> pms = new ArrayList<PersonalMagimon>();
 
 	//public Magician() {
 		//super();
@@ -33,7 +37,7 @@ public class Magician extends Application {
 
 		}
 	}*/
-
+	
 	public String getId() {
 		return id;
 	}
@@ -72,6 +76,18 @@ public class Magician extends Application {
 
 	public void setSet(boolean isSet) {
 		this.isSet = isSet;
+	}
+	
+	public String toString(){
+		return String.format(
+				"id: %s\n" +
+				"username: %s\n" +
+				"exp: %s\n" +
+				"jumlah magimon: %s\n", 
+				getId(),
+				getUsername(),
+				getExp(),
+				pms.size());
 	}
 
 }

@@ -26,23 +26,29 @@ import android.util.Log;
 
 public class Model {
 	// pake garis miring di akhirnya
-	final String URL_SERVER = "http://johanes.tigasekawansolution.com/index.php/";
+	public final String URL_SERVER = "http://johanes.tigasekawansolution.com/index.php/";
 
 	public JSONObject getData(String subURL) {
-
+		JSONObject jo = null;
 		try {
 			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
 					.execute(URL_SERVER + subURL);
 			String result = asyncResult.get();
-			JSONObject jo = new JSONObject(result);
-
-			return jo;
-		} catch (Exception e) {
-			System.out.println("parsing json gagal");
-			System.out.print("e stacktrace: " + e.getMessage());
+			jo = new JSONObject(result);
+			System.out.println("sampe sini");
+		}catch(JSONException je){
+			System.out.println(je.toString());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e.toString());
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 
-		return null;
+		return jo;
 	}
 	
 	public ArrayList<JSONObject> getArrayDataNew(String subURL) throws JSONException
@@ -137,7 +143,7 @@ class StringAsyncUploader extends AsyncTask<String, String, String> {
 			con.setRequestProperty("User-Agent", USER_AGENT);
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-			String urlParameters = "id_magician=123&exp_gained=450";
+			String urlParameters = data;
 
 			// Send post request
 			con.setDoOutput(true);
@@ -196,8 +202,6 @@ class StringAsyncDownloader extends AsyncTask<String, String, String> {
 				}
 			}
 			String result = builder.toString();
-
-			Log.w("JSON", result);
 			if (result == null || result.equals("[]") || result.equals("false")) {
 				return null;
 			}
