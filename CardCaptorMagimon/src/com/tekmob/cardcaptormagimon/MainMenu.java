@@ -82,8 +82,9 @@ public class MainMenu extends Activity {
     {
 
     	magician.setId(userID);
-    	//magicianModel.registerMagician(magician);
-
+    	magicianModel.registerMagician(magician);
+    	
+    	/*
     	TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         String deviceIMEI = tManager.getDeviceId(); 
         
@@ -108,7 +109,7 @@ public class MainMenu extends Activity {
 		{
         	setMagimon();
 		}
-    	
+    	*/
 
     }
     
