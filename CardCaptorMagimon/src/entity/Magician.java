@@ -6,7 +6,7 @@ import android.app.Application;
 
 public class Magician extends Application {
 	private String id;
-	private String username;
+	private String username = "";
 	private int hp;
 	private int exp;
 	private boolean isSet = false;
