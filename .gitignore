@@ -3,3 +3,4 @@ google_play_services/samples/*
 google_play_services/libproject/google-play-services_lib/bin/*
 appcompat_v7/bin/*
 .metadata/*
+google-play-services_lib/bin/*
