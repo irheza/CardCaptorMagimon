@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DuelPage extends Activity {
@@ -70,6 +71,14 @@ public class DuelPage extends Activity {
 			"OnClickListener : " + 
 	        "\nSpinner 1 : "+ String.valueOf(list_enemies.getSelectedItem()) ,
 				Toast.LENGTH_SHORT).show();
+		    
+		    for(MagicianEnemy enemy : enemies)
+			{
+				if(enemy.getUsername().equals(String.valueOf(list_enemies.getSelectedItem()))){
+					TextView textView = (TextView) findViewById(R.id.textView1);
+					textView.setText(enemy.toString());
+				}
+			}
 		  }
 	 
 		});
@@ -80,9 +89,11 @@ public class DuelPage extends Activity {
 		ArrayList<String> listEnemiesInString = new ArrayList<String>();
 		for(MagicianEnemy enemy : enemies)
 		{
-			listEnemiesInString.add(enemy.getUserID());
+			listEnemiesInString.add(enemy.getUsername());
 		}
 		return listEnemiesInString;
 	}
+	
+	
 }
 

@@ -1,8 +1,7 @@
 package magimon;
 
-import java.util.ArrayList;
-
 import com.google.android.gms.maps.model.LatLng;
+
 
 public class SpawnLocation {
 	static final LatLng posisi1 = new LatLng(-6.364100, 106.828544);
