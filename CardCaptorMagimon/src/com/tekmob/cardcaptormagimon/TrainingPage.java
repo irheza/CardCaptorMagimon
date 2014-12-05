@@ -7,7 +7,6 @@ import trainingsensor.TrainingSensorListener;
 import trainingsensor.TrainingSensorManager;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,12 +65,12 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         screen_off = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.turn_off_screen);
         black_screen.setVisibility(View.GONE);
     	
+        currentLevel = getCurrentLevel(currentExp);
     	expNeededToLevelUp = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
 		expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
 
 		// Init bar views
         Bar.initBarVariables(TrainingPage.this);
-        ProgressBar.initBarVariables(TrainingPage.this);
         Bar.setCurrentExpInThisLevel(expInCurrentLevel);
         Bar.setExpNeededToLevelUp(expNeededToLevelUp);
         Bar.initMagicBall(magic_ball, glass_ball_magic_effect);
@@ -80,6 +79,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         Bar.initBarContainer(expContainer);
         Bar.initBarParameter(bar_parameter);
         Bar.initExpDisplay(expDisplay);
+        ProgressBar.initBarVariables(TrainingPage.this);
+        ProgressBar.initProgressBar(progress_bar_container);
         updateBar();
         // Check onResume Method to start accelerometer listener
     }
@@ -218,6 +219,29 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
      */
     private int getNextLevelParam(int currentLevel) {
     	int ret = (int)(baseExpMultiplication*Math.pow(currentLevel, 1.5));
+    	
+    	return ret;
+    }
+    
+    /**
+     * To get current level
+     * 
+     * @param currentExp
+     * @return
+     */
+    private int getCurrentLevel(int currentExp) {
+    	int ret = 1;
+    	int temp = currentExp;
+    	boolean notFound = true;
+    	
+    	while (notFound) {
+    		if (temp < getNextLevelParam(ret)) {
+    			notFound = false;
+    		} else {
+    			temp = temp - getNextLevelParam(ret);
+    			ret++;
+    		}
+    	}
     	
     	return ret;
     }

@@ -61,81 +61,112 @@
 	    	android:layout_weight="3"
 			android:gravity="center" >
 		   	
-			<RelativeLayout 
+			<LinearLayout 
 		    	android:layout_width="fill_parent"
 		    	android:layout_height="match_parent"
-		    	android:layout_marginLeft="20dp"
-		    	android:layout_marginRight="20dp"
+		    	android:orientation="vertical"
+		    	android:layout_marginLeft="30dp"
+		    	android:layout_marginRight="30dp"
 		    	android:layout_marginTop="40dp"
 		    	android:layout_marginBottom="40dp"
 				android:gravity="center" >
 				
-			   	<RelativeLayout 
+			   	<LinearLayout 
 			   	    android:id="@+id/train_peta"
+			   	    android:orientation="horizontal"
 			    	android:layout_width="fill_parent"
 			    	android:layout_height="wrap_content"
+	    			android:layout_weight="1"
 			    	android:layout_marginTop="5dp" >
-			 	    <Button
-		                android:id="@+id/train"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_alignParentLeft="true"
-		                android:drawablePadding="5dip"
-		                android:text="@string/training"
-		                android:textSize="12sp" />
-			        <Button
-		                android:id="@+id/peta"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_alignParentRight="true"
-		                android:drawablePadding="5dip"
-		                android:text="@string/judul_peta"
-		                android:textSize="12sp" />
-		        </RelativeLayout>
+			    	<ImageButton
+				 	    android:id="@+id/train"
+				 	    android:layout_width="match_parent"
+				 	    android:layout_height="match_parent"
+				 	    android:scaleType="fitCenter"
+				 	    android:clickable="true"
+				 	    android:background="@null"
+	    				android:layout_weight="1"
+				 	    android:src="@drawable/button_train" />
+			    	
+			    	<ImageView
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+	    				android:layout_weight="1" />
+			    	
+			    	<ImageButton
+				 	    android:id="@+id/peta"
+				 	    android:layout_width="match_parent"
+				 	    android:layout_height="match_parent"
+				 	    android:scaleType="fitCenter"
+				 	    android:clickable="true"
+				 	    android:background="@null"
+	    				android:layout_weight="1"
+				 	    android:src="@drawable/button_map" />
+		        </LinearLayout>
 		       
-		   		<RelativeLayout 
+		   		<LinearLayout 
 			   	    android:id="@+id/deck_duel"
+			   	    android:orientation="horizontal"
 			    	android:layout_width="fill_parent"
 			    	android:layout_height="wrap_content"
-			    	android:layout_marginTop="30dp"
-			    	android:layout_below="@id/train_peta" >
-			        <Button
-		                android:id="@+id/deck"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_alignParentLeft="true"
-		                android:drawablePadding="5dip"
-		                android:text="@string/deck"
-		                android:textSize="12sp" />
+	    			android:layout_weight="1"
+			    	android:layout_marginTop="20dp" >
+			        <ImageButton
+				 	    android:id="@+id/deck"
+				 	    android:layout_width="match_parent"
+				 	    android:layout_height="match_parent"
+				 	    android:scaleType="fitCenter"
+				 	    android:clickable="true"
+				 	    android:background="@null"
+	    				android:layout_weight="1"
+				 	    android:src="@drawable/button_deck" />
 			        
-			        <Button
-		                android:id="@+id/duel"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_alignParentRight="true"
-		                android:drawablePadding="5dip"
-		                android:text="@string/duel"
-		                android:textSize="12sp" />
-	        	</RelativeLayout>
+			    	<ImageView
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+	    				android:layout_weight="1" />
+			    	
+			        <ImageButton
+				 	    android:id="@+id/duel"
+				 	    android:layout_width="match_parent"
+				 	    android:layout_height="match_parent"
+				 	    android:scaleType="fitCenter"
+				 	    android:clickable="true"
+				 	    android:background="@null"
+	    				android:layout_weight="1"
+				 	    android:src="@drawable/button_duel" />
+	        	</LinearLayout>
 	        	
-	        	<RelativeLayout 
+	        	<LinearLayout 
 			   	    android:id="@+id/about_button"
+			   	    android:orientation="horizontal"
 			    	android:layout_width="fill_parent"
 			    	android:layout_height="wrap_content"
-			    	android:layout_marginTop="30dp"
-			    	android:layout_below="@id/deck_duel"
+	    			android:layout_weight="1"
+			    	android:layout_marginTop="20dp"
 			    	android:layout_marginBottom="5dp" >
-			        <Button
-		                android:id="@+id/about"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_alignParentLeft="true"
-		                android:drawablePadding="5dip"
-		                android:text="@string/about"
-		                android:textSize="12sp" />
-		        </RelativeLayout>
+			        <ImageButton
+				 	    android:id="@+id/about"
+				 	    android:layout_width="match_parent"
+				 	    android:layout_height="match_parent"
+				 	    android:scaleType="fitCenter"
+				 	    android:clickable="true"
+				 	    android:background="@null"
+	    				android:layout_weight="1"
+				 	    android:src="@drawable/button_about" />
+			        
+			    	<ImageView
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+	    				android:layout_weight="1" />
+			    	
+			    	<ImageView
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+	    				android:layout_weight="1" />
+		        </LinearLayout>
 		        
-	        </RelativeLayout>
+	        </LinearLayout>
         
         </LinearLayout>
         

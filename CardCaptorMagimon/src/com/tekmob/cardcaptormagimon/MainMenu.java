@@ -4,6 +4,8 @@ package com.tekmob.cardcaptormagimon;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import trainingsensor.TrainingSensorManager;
+
 import entity.Magician;
 import magimon.Magimon;
 import model.MagicianModel;
@@ -20,8 +22,10 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import animation.Bar;
 
  
 public class MainMenu extends Activity {
@@ -29,6 +33,11 @@ public class MainMenu extends Activity {
 	Magician magician;
 	MagicianModel magicianModel = new MagicianModel();
 	PersonalMagimonModel pmModel = new PersonalMagimonModel();
+	private final ImageButton train = (ImageButton) findViewById(R.id.train);
+	private final ImageButton peta = (ImageButton) findViewById(R.id.peta);
+	private final ImageButton deck = (ImageButton) findViewById(R.id.deck);
+	private final ImageButton duel = (ImageButton) findViewById(R.id.duel);
+	private final ImageButton about = (ImageButton) findViewById(R.id.about);
 
 	String userID = "";
 	//String user = magician.getUserID();
@@ -41,6 +50,12 @@ public class MainMenu extends Activity {
 		setContentView(R.layout.activity_main_menu);
 		magician = (Magician) getApplicationContext();
 		userID = getIMEI();
+
+    	train.setClickable(true);
+    	peta.setClickable(true);
+    	deck.setClickable(true);
+    	duel.setClickable(true);
+    	about.setClickable(true);
 
 		if (!magician.isSet()) {
 			// cek dulu udah terdaftar apa belom
@@ -82,6 +97,16 @@ public class MainMenu extends Activity {
 		
 		setMenuListener();
 	}
+	
+	@Override
+    public void onResume() {
+    	train.setClickable(true);
+    	peta.setClickable(true);
+    	deck.setClickable(true);
+    	duel.setClickable(true);
+    	about.setClickable(true);
+        super.onResume();
+    }
 
     
     public String getIMEI(){
@@ -161,17 +186,16 @@ public class MainMenu extends Activity {
     
     public void setMenuListener()
     {
-    	Button train = (Button) findViewById(R.id.train);
-    	Button peta = (Button) findViewById(R.id.peta);
-    	Button deck = (Button) findViewById(R.id.deck);
-    	Button duel = (Button) findViewById(R.id.duel);
-    	Button about = (Button) findViewById(R.id.about);
     	train.setOnClickListener(new View.OnClickListener() {
        	 
             @Override
             public void onClick(View view) {
+            	train.setClickable(false);
+            	peta.setClickable(false);
+            	deck.setClickable(false);
+            	duel.setClickable(false);
+            	about.setClickable(false);
                 Intent i = new Intent(getApplicationContext(), TrainingPage.class);
-                //i.putExtra("user", user);
                 startActivity(i);
             	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
                // finish();
@@ -181,6 +205,11 @@ public class MainMenu extends Activity {
           	 
             @Override
             public void onClick(View view) {
+            	train.setClickable(false);
+            	peta.setClickable(false);
+            	deck.setClickable(false);
+            	duel.setClickable(false);
+            	about.setClickable(false);
                 Intent i = new Intent(getApplicationContext(), Peta.class);
                 startActivity(i);
             	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
@@ -191,6 +220,11 @@ public class MainMenu extends Activity {
          	 
             @Override
             public void onClick(View view) {
+            	train.setClickable(false);
+            	peta.setClickable(false);
+            	deck.setClickable(false);
+            	duel.setClickable(false);
+            	about.setClickable(false);
                 Intent i = new Intent(getApplicationContext(), DeckPage.class);
                 startActivity(i);
             	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
@@ -201,6 +235,11 @@ public class MainMenu extends Activity {
         	 
             @Override
             public void onClick(View view) {
+            	train.setClickable(false);
+            	peta.setClickable(false);
+            	deck.setClickable(false);
+            	duel.setClickable(false);
+            	about.setClickable(false);
                 Intent i = new Intent(getApplicationContext(), DuelPage.class);
                 startActivity(i);
             	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
@@ -211,6 +250,11 @@ public class MainMenu extends Activity {
        	 
             @Override
             public void onClick(View view) {
+            	train.setClickable(false);
+            	peta.setClickable(false);
+            	deck.setClickable(false);
+            	duel.setClickable(false);
+            	about.setClickable(false);
                 Intent i = new Intent(getApplicationContext(), AboutPage.class);
                 startActivity(i);
             	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);

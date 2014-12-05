@@ -2,8 +2,7 @@ package com.tekmob.cardcaptormagimon;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import animation.ProgressBar;
 
 public class AboutPage extends Activity {
 
@@ -12,4 +11,10 @@ public class AboutPage extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about_page);
 	}
+	
+	@Override
+    public void onBackPressed() {
+    	super.onBackPressed();
+    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
 }

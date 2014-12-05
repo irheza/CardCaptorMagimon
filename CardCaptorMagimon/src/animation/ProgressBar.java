@@ -25,6 +25,11 @@ public class ProgressBar {
 	}
 	
 	public static void showProgressBar(RelativeLayout progress_bar_container, RelativeLayout content) {
+		AlphaAnimation preHide = new AlphaAnimation(1.0f, 0.0f);
+		preHide.setFillAfter(true);
+		progress_bar_container.startAnimation(preHide);
+		progress_bar_container.setVisibility(View.VISIBLE);
+		
 		AlphaAnimation hide = new AlphaAnimation(1.0f, 0.0f);
 		hide.setDuration(1000);
 		hide.setFillAfter(true);
@@ -37,7 +42,6 @@ public class ProgressBar {
 		progress_bar_container.startAnimation(show);
 		content.startAnimation(hide);
 		
-		progress_bar_container.setVisibility(View.VISIBLE);
 		content.setVisibility(View.GONE);
 	}
 	
@@ -48,6 +52,11 @@ public class ProgressBar {
 	 * @param content
 	 */
 	public static void hideProgressBar(RelativeLayout progress_bar_container, RelativeLayout content) {
+		AlphaAnimation preHide = new AlphaAnimation(1.0f, 0.0f);
+		preHide.setFillAfter(true);
+		content.startAnimation(preHide);
+		content.setVisibility(View.VISIBLE);
+		
 		AlphaAnimation hide = new AlphaAnimation(1.0f, 0.0f);
 		hide.setDuration(1000);
 		hide.setFillAfter(true);
@@ -61,6 +70,5 @@ public class ProgressBar {
 		content.startAnimation(show);
 		
 		progress_bar_container.setVisibility(View.GONE);
-		content.setVisibility(View.VISIBLE);
 	}
 }
