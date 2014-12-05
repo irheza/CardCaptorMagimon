@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import animation.Bar;
+import animation.ProgressBar;
 
 
 public class TrainingPage extends Activity implements TrainingSensorListener {
@@ -34,6 +35,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	private int expNeededToLevelUp;
 	private TextView expDisplay, username, level;
 	private RelativeLayout expContainer, bar_parameter, magic_ball, black_screen;
+	private RelativeLayout progress_bar_container, content;
 	private ImageView glass_ball_magic_effect;
 	private MagicianModel mm;
 	private Magician magician;
@@ -56,6 +58,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         expContainer = (RelativeLayout) findViewById(R.id.exp_container);
         magic_ball = (RelativeLayout) findViewById(R.id.magic_ball);
         black_screen = (RelativeLayout) findViewById(R.id.black_screen);
+        progress_bar_container = (RelativeLayout) findViewById(R.id.progress_bar_container);
+        content = (RelativeLayout) findViewById(R.id.content);
         glass_ball_magic_effect = (ImageView) findViewById(R.id.glass_ball_magic_effect);
         
         screen_on = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.turn_on_screen);
@@ -67,6 +71,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 
 		// Init bar views
         Bar.initBarVariables(TrainingPage.this);
+        ProgressBar.initBarVariables(TrainingPage.this);
         Bar.setCurrentExpInThisLevel(expInCurrentLevel);
         Bar.setExpNeededToLevelUp(expNeededToLevelUp);
         Bar.initMagicBall(magic_ball, glass_ball_magic_effect);
@@ -75,9 +80,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         Bar.initBarContainer(expContainer);
         Bar.initBarParameter(bar_parameter);
         Bar.initExpDisplay(expDisplay);
-        
-        onShake();
-
+        updateBar();
         // Check onResume Method to start accelerometer listener
     }
     
@@ -122,6 +125,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     @Override
     public void onBackPressed() {
     	super.onBackPressed();
+    	ProgressBar.showProgressBar(progress_bar_container, content);
     	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
     
@@ -151,11 +155,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	@Override
 	public void onShake() {
         // Called when Motion Detected
-    	updateStatus();
-    	Bar.setCurrentExpInThisLevel(expInCurrentLevel);
-    	Bar.setExpNeededToLevelUp(expNeededToLevelUp);
-        Bar.updateExpDisplay(expDisplay);
-        Bar.updateBarParameter(bar_parameter);
+		updateBar();
         Bar.fadeInMagicEffect();
         Bar.fadeOutMagicEffect();
 	}
@@ -163,7 +163,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	/**
 	 * Update player's stats
 	 */
-	public void updateStatus() {
+	private void updateStatus() {
     	currentExp++;
     	if(currentExp >= getNextLevelParam(currentLevel)) {
     		currentLevel++;
@@ -171,6 +171,14 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     		expNeededToLevelUp = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
     	}
     	expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
+	}
+	
+	private void updateBar() {
+    	updateStatus();
+    	Bar.setCurrentExpInThisLevel(expInCurrentLevel);
+    	Bar.setExpNeededToLevelUp(expNeededToLevelUp);
+        Bar.updateExpDisplay(expDisplay);
+        Bar.updateBarParameter(bar_parameter);
 	}
 
 	@Override
@@ -208,7 +216,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
      * @param currentLevel
      * @return total experience to reach next level
      */
-    public int getNextLevelParam(int currentLevel) {
+    private int getNextLevelParam(int currentLevel) {
     	int ret = (int)(baseExpMultiplication*Math.pow(currentLevel, 1.5));
     	
     	return ret;
