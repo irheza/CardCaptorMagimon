@@ -5,7 +5,7 @@
     
     tools:context="com.tekmob.cardcaptormagimon.MainMenu">
         
- 	    	<TextView
+   	<TextView
         android:id="@+id/username"
         android:layout_width="fill_parent"
         android:layout_height="40dip"
@@ -19,7 +19,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="100dp"
                 android:layout_marginLeft="36dp"
-                
                 android:drawablePadding="5dip"
                 android:text="@string/training"
                 android:textSize="12sp" />
@@ -29,7 +28,6 @@
                 android:layout_height="100dp"
                 android:layout_below="@id/train"
                 android:layout_marginLeft="36dp"
-
                 android:drawablePadding="5dip"
                 android:text="@string/judul_peta"
                 android:textSize="12sp" />
@@ -39,7 +37,6 @@
                 android:layout_height="100dp"
                 android:layout_below="@id/peta"
                 android:layout_marginLeft="36dp"
-
                 android:drawablePadding="5dip"
                 android:text="@string/deck"
                 android:textSize="12sp" />
