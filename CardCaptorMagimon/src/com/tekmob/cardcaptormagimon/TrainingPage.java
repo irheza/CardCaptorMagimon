@@ -43,12 +43,11 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mm = new MagicianModel();
-        //Intent intent = getIntent();
-        //userIs = intent.getStringExtra("user");
         setContentView(R.layout.activity_training_page);
         
         magician = (Magician)getApplicationContext();
-        //currentExp = magician.getExp();
+        currentExp = magician.getExp();
+        userIs = magician.getUsername();
         
         expDisplay = (TextView) findViewById(R.id.exp_display);
         username = (TextView) findViewById(R.id.username);
@@ -76,6 +75,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         Bar.initBarContainer(expContainer);
         Bar.initBarParameter(bar_parameter);
         Bar.initExpDisplay(expDisplay);
+        
+        onShake();
 
         // Check onResume Method to start accelerometer listener
     }
@@ -114,8 +115,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
                 Toast.makeText(getBaseContext(), "onStop Accelerometer Stoped", 
                          Toast.LENGTH_SHORT).show();
             }
-            //magician.setExp(currentExp);
-            //mm.update(magician);
+            magician.setExp(currentExp);
+            mm.update(magician);
     }
     
     @Override
@@ -127,8 +128,8 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     @Override
     public void onPause() {
     	super.onPause();
-    	//magician.setExp(currentExp);
-        //mm.update(magician);
+    	magician.setExp(currentExp);
+        mm.update(magician);
     }
      
     @Override

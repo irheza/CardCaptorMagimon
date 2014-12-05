@@ -11,11 +11,15 @@
     <string name="title_activity_peta">Peta</string>
     <string name="judul_peta">Peta</string>
     <string name="deck">Deck</string>
+    <string name="duel">Duel</string>
+    <string name="about">About</string>
     <string name="deck_page">Deck Page</string>
     <string name="main_menu">Main Menu</string>
     <string name="title_activity_sealing_page">Sealing Page</string>
     <string name="title_activity_sealed_page">Sealed Page</string>
     <string name="title_activity_deck_page">DeckPage</string>
     <string name="success">Sealed Magimon : </string>
+    <string name="title_activity_about_page">AboutPage</string>
+    <string name="title_activity_duel_page">DuelPage</string>
 
 </resources>

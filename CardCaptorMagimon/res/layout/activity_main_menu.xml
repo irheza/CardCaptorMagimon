@@ -8,8 +8,9 @@
    	<TextView
         android:id="@+id/username"
         android:layout_width="fill_parent"
-        android:layout_height="40dip"
+        android:layout_height="240dip"
         android:layout_marginRight="50dip"
+        android:layout_marginTop="450dip"
         android:gravity="left|center_vertical"
         android:paddingRight="5dip"
         android:textSize="14sp" />
@@ -39,6 +40,27 @@
                 android:layout_marginLeft="36dp"
                 android:drawablePadding="5dip"
                 android:text="@string/deck"
+                android:textSize="12sp" />
+        
+         <Button
+                android:id="@+id/duel"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/deck"
+                android:layout_marginLeft="36dp"
+
+                android:drawablePadding="5dip"
+                android:text="@string/duel"
+                android:textSize="12sp" />
+        <Button
+                android:id="@+id/about"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/duel"
+                android:layout_marginLeft="36dp"
+
+                android:drawablePadding="5dip"
+                android:text="@string/about"
                 android:textSize="12sp" />
 
 </RelativeLayout>
