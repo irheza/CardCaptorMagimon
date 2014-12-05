@@ -29,82 +29,20 @@
         android:src="@drawable/training_bg_stars_magician" />
     
     <RelativeLayout 
-        android:id="@+id/userAndLevel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-        <TextView
-	        android:id="@+id/username"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textColor="@color/light_white"
-	        android:layout_alignParentLeft="true"
-	        android:layout_marginLeft="25dp"
-	        android:layout_marginTop="20dp"
-	        android:textSize="20sp"
-	        android:text="" />
-        
-        <TextView
-	        android:id="@+id/level"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textColor="@color/light_white"
-	        android:layout_alignParentRight="true"
-	        android:layout_marginRight="25dp"
-	        android:layout_marginTop="20dp"
-	        android:textSize="20sp"
-	        android:text="" />
-        
-    </RelativeLayout>
-    
-    <RelativeLayout 
-        android:id="@+id/bar"
+        android:id="@+id/progress_bar_container"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
         
-        <RelativeLayout
-            android:id="@+id/bar_parameter"
-	        android:layout_height="match_parent"
-	        android:layout_width="match_parent"
-	        android:background="@drawable/exp_parameter">
-        </RelativeLayout>
-        
-        <RelativeLayout
-            android:id="@+id/exp_container"
-	        android:layout_height="match_parent"
-	        android:layout_width="match_parent"
-	        android:layout_centerHorizontal="true"
-	        android:background="@drawable/exp_container">
-        </RelativeLayout>
-        
-        <TextView
-	        android:id="@+id/exp_display"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textColor="@color/light_white"
-	        android:layout_centerHorizontal="true"
-	        android:textSize="20sp"
-	        android:text="" />
-        
-    </RelativeLayout>
-    
-    <RelativeLayout 
-        android:id="@+id/magic_ball"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        <ProgressBar
+	    	android:id="@+id/progress_bar"
+		    style="?android:attr/progressBarStyleLarge"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_margin="5dp"
+    		android:layout_centerInParent="true"/>
         
 	    <ImageView
-	        android:id="@+id/glass_ball_magic_effect"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_centerInParent="true"
-	        android:scaleType="fitCenter"
-	        android:src="@drawable/glass_ball_magic_effect" />
-	    
-	    <ImageView
-	        android:id="@+id/glass_ball"
+	        android:id="@+id/progress_ball"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:layout_centerInParent="true"
@@ -113,11 +51,104 @@
 	    
     </RelativeLayout>
     
+    
     <RelativeLayout 
-        android:id="@+id/black_screen"
-        android:layout_height="match_parent"
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:background="@color/pitch_black">
+        android:layout_height="match_parent">
+	    
+	    <RelativeLayout 
+	        android:id="@+id/userAndLevel"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent">
+	        
+	        <TextView
+		        android:id="@+id/username"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="@color/light_white"
+		        android:layout_alignParentLeft="true"
+		        android:layout_marginLeft="25dp"
+		        android:layout_marginTop="20dp"
+		        android:textSize="20sp"
+		        android:text="" />
+	        
+	        <TextView
+		        android:id="@+id/level"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="@color/light_white"
+		        android:layout_alignParentRight="true"
+		        android:layout_marginRight="25dp"
+		        android:layout_marginTop="20dp"
+		        android:textSize="20sp"
+		        android:text="" />
+	        
+	    </RelativeLayout>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/bar"
+	        android:layout_height="match_parent"
+	        android:layout_width="match_parent">
+	        
+	        <RelativeLayout
+	            android:id="@+id/bar_parameter"
+		        android:layout_height="match_parent"
+		        android:layout_width="match_parent"
+		        android:background="@drawable/exp_parameter">
+	        </RelativeLayout>
+	        
+	        <RelativeLayout
+	            android:id="@+id/exp_container"
+		        android:layout_height="match_parent"
+		        android:layout_width="match_parent"
+		        android:layout_centerHorizontal="true"
+		        android:background="@drawable/exp_container">
+	        </RelativeLayout>
+	        
+	        <TextView
+		        android:id="@+id/exp_display"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="@color/light_white"
+		        android:layout_centerHorizontal="true"
+		        android:textSize="20sp"
+		        android:text="" />
+	        
+	    </RelativeLayout>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/magic_ball"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="90dp"
+	        android:layout_height="match_parent"
+	        android:layout_width="match_parent">
+	        
+		    <ImageView
+		        android:id="@+id/glass_ball_magic_effect"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_centerInParent="true"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/glass_ball_magic_effect" />
+		    
+		    <ImageView
+		        android:id="@+id/glass_ball"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_centerInParent="true"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/glass_ball" />
+		    
+	    </RelativeLayout>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/black_screen"
+	        android:layout_height="match_parent"
+	        android:layout_width="match_parent"
+	        android:background="@color/pitch_black">
+	    </RelativeLayout>
+	    
     </RelativeLayout>
     
 </RelativeLayout>
