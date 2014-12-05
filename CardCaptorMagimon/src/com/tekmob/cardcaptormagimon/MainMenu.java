@@ -33,11 +33,6 @@ public class MainMenu extends Activity {
 	Magician magician;
 	MagicianModel magicianModel = new MagicianModel();
 	PersonalMagimonModel pmModel = new PersonalMagimonModel();
-	private final ImageButton train = (ImageButton) findViewById(R.id.train);
-	private final ImageButton peta = (ImageButton) findViewById(R.id.peta);
-	private final ImageButton deck = (ImageButton) findViewById(R.id.deck);
-	private final ImageButton duel = (ImageButton) findViewById(R.id.duel);
-	private final ImageButton about = (ImageButton) findViewById(R.id.about);
 
 	String userID = "";
 	//String user = magician.getUserID();
@@ -50,7 +45,13 @@ public class MainMenu extends Activity {
 		setContentView(R.layout.activity_main_menu);
 		magician = (Magician) getApplicationContext();
 		userID = getIMEI();
-
+		
+		ImageButton train = (ImageButton) findViewById(R.id.train);
+    	ImageButton peta = (ImageButton) findViewById(R.id.peta);
+    	ImageButton deck = (ImageButton) findViewById(R.id.deck);
+    	ImageButton duel = (ImageButton) findViewById(R.id.duel);
+    	ImageButton about = (ImageButton) findViewById(R.id.about);
+    	
     	train.setClickable(true);
     	peta.setClickable(true);
     	deck.setClickable(true);
@@ -100,6 +101,11 @@ public class MainMenu extends Activity {
 	
 	@Override
     public void onResume() {
+		ImageButton train = (ImageButton) findViewById(R.id.train);
+    	ImageButton peta = (ImageButton) findViewById(R.id.peta);
+    	ImageButton deck = (ImageButton) findViewById(R.id.deck);
+    	ImageButton duel = (ImageButton) findViewById(R.id.duel);
+    	ImageButton about = (ImageButton) findViewById(R.id.about);
     	train.setClickable(true);
     	peta.setClickable(true);
     	deck.setClickable(true);
@@ -186,6 +192,12 @@ public class MainMenu extends Activity {
     
     public void setMenuListener()
     {
+    	final ImageButton train = (ImageButton) findViewById(R.id.train);
+    	final ImageButton peta = (ImageButton) findViewById(R.id.peta);
+    	final ImageButton deck = (ImageButton) findViewById(R.id.deck);
+    	final ImageButton duel = (ImageButton) findViewById(R.id.duel);
+    	final ImageButton about = (ImageButton) findViewById(R.id.about);
+    	
     	train.setOnClickListener(new View.OnClickListener() {
        	 
             @Override
