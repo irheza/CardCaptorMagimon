@@ -1,6 +1,5 @@
 CardCaptorMagimon/bin/*
-google_play_services/samples/*
-google_play_services/libproject/google-play-services_lib/bin/*
+google_play_services/*
+google-play-services_lib/*
 appcompat_v7/bin/*
 .metadata/*
-google-play-services_lib/bin/*
