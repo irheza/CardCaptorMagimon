@@ -5,8 +5,37 @@
     tools:context="${relativePackage}.${activityClass}" >
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_below="@+id/textView1"
+        android:layout_margin="10dip"
+        android:text="Magimon is a majestic location based game, inspired by some non-location based RPG Game. We believe that by adding location aspects in RPG Game, it can enrich your experience in playing the game, doesn&apos;t it? " />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_margin="10dip"
+        android:text="Please help us creating more innovative apps by give a 5 star rating in Play Store. If you have any suggestions and comments, feel free to contact us via e-mail: hexengram@gmail.com. Your suggestions and comments are very valuable for us. \n\n.::Cardcaptor Magimon v0.1beta::." />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Us"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:layout_below="@+id/textView3"
+        android:src="@drawable/logo" />
 
 </RelativeLayout>

@@ -28,6 +28,32 @@ public class MagicianEnemy {
 		this.experience = Integer.parseInt((String) jo.get("exp"));
 	}
 	
+	
+	
+	public ArrayList<Magimon> getPersonalMagimon() {
+		return personalMagimon;
+	}
+
+	public void setPersonalMagimon(ArrayList<Magimon> personalMagimon) {
+		this.personalMagimon = personalMagimon;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public double getExperience() {
+		return experience;
+	}
+
+	public void setExperience(double experience) {
+		this.experience = experience;
+	}
+
 	public void setUserID(String userID)
 	{
 		this.userID = userID; 
@@ -57,5 +83,15 @@ public class MagicianEnemy {
 	public boolean isPartyFull()
 	{
 		return personalMagimon.size()==6;
+	}
+	
+	public String toString(){
+		return String.format(
+				"id: %s\n" +
+				"username: %s\n" +
+				"exp: %s\n", 
+				getUserID(),
+				getUsername(),
+				getExperience());
 	}
 }
