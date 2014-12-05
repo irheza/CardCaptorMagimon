@@ -27,12 +27,23 @@ public class DeckPage extends Activity {
 	MagimonModel magimonmodel = new MagimonModel();
 	PersonalMagimonModel pmmodel = new PersonalMagimonModel();
 	final Context context = this;
+	int atkModeCounter;
+	int defModeCounter;
+	final String ATK = "1";
+	final String DEF = "2";
+	final String NOPE = "0";
 	Button magimon1; 
 	Button magimon2;
 	Button magimon3; 
 	Button magimon4; 
 	Button magimon5;
 	Button magimon6; 
+	Button remove1; 
+	Button remove2;
+	Button remove3; 
+	Button remove4; 
+	Button remove5;
+	Button remove6; 
 	Button submitDeck;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +54,7 @@ public class DeckPage extends Activity {
 		setAllMagimon();
 		setMagimonButtonListener();
 		setSubmitButtonListener();
+		setRemoveButtonListener();
 		
 	}
 	
@@ -54,8 +66,40 @@ public class DeckPage extends Activity {
 		magimon4 = (Button) findViewById(R.id.magimon4);
 		magimon5 = (Button) findViewById(R.id.magimon5);
 		magimon6 = (Button) findViewById(R.id.magimon6);
+		remove1 = (Button) findViewById(R.id.remove1);
+		remove2 = (Button) findViewById(R.id.remove2);
+		remove3 = (Button) findViewById(R.id.remove3);
+		remove4 = (Button) findViewById(R.id.remove4);
+		remove5 = (Button) findViewById(R.id.remove5);
+		remove6 = (Button) findViewById(R.id.remove6);	
 		submitDeck = (Button) findViewById(R.id.btnSubmit);
 		
+	}
+	
+	public int countAtkMode()
+	{
+		int countAtk=0;
+		for(PersonalMagimon pm : partners)
+		{
+			if(pm.getMode().equals(ATK))
+			{
+				countAtk++;
+			}
+		}
+		return countAtk;
+	}
+	
+	public int countDefMode()
+	{
+		int countDef=0;
+		for(PersonalMagimon pm : partners)
+		{
+			if(pm.getMode().equals(DEF))
+			{
+				countDef++;
+			}
+		}
+		return countDef;
 	}
 	
 	public void setAllMagimon()
@@ -73,6 +117,12 @@ public class DeckPage extends Activity {
 			magimon4.setVisibility(View.GONE);
 			magimon5.setVisibility(View.GONE);
 			magimon6.setVisibility(View.GONE);
+			remove1.setVisibility(View.GONE);
+			remove2.setVisibility(View.GONE);
+			remove3.setVisibility(View.GONE);
+			remove4.setVisibility(View.GONE);
+			remove5.setVisibility(View.GONE);
+			remove6.setVisibility(View.GONE);
 		}
 		if(partners.size()>=2)
 		{
@@ -85,6 +135,11 @@ public class DeckPage extends Activity {
 			magimon4.setVisibility(View.GONE);
 			magimon5.setVisibility(View.GONE);
 			magimon6.setVisibility(View.GONE);
+			remove2.setVisibility(View.GONE);
+			remove3.setVisibility(View.GONE);
+			remove4.setVisibility(View.GONE);
+			remove5.setVisibility(View.GONE);
+			remove6.setVisibility(View.GONE);
 		}
 		if(partners.size()>=3)
 		{
@@ -96,6 +151,10 @@ public class DeckPage extends Activity {
 			magimon4.setVisibility(View.GONE);
 			magimon5.setVisibility(View.GONE);
 			magimon6.setVisibility(View.GONE);
+			remove3.setVisibility(View.GONE);
+			remove4.setVisibility(View.GONE);
+			remove5.setVisibility(View.GONE);
+			remove6.setVisibility(View.GONE);
 		}
 		if(partners.size()>=4)
 		{
@@ -106,6 +165,9 @@ public class DeckPage extends Activity {
 			magimon4.setVisibility(View.GONE);
 			magimon5.setVisibility(View.GONE);
 			magimon6.setVisibility(View.GONE);
+			remove4.setVisibility(View.GONE);
+			remove5.setVisibility(View.GONE);
+			remove6.setVisibility(View.GONE);
 		}
 		if(partners.size()>=5)
 		{
@@ -115,6 +177,8 @@ public class DeckPage extends Activity {
 		{
 			magimon5.setVisibility(View.GONE);
 			magimon6.setVisibility(View.GONE);
+			remove5.setVisibility(View.GONE);
+			remove6.setVisibility(View.GONE);
 		}
 		if(partners.size()>=6)
 		{
@@ -123,6 +187,7 @@ public class DeckPage extends Activity {
 		else
 		{
 			magimon6.setVisibility(View.GONE);
+			remove6.setVisibility(View.GONE);
 		}
 
 	}
@@ -181,19 +246,87 @@ public class DeckPage extends Activity {
     
 	public void changeModeFor(int urutanpartner)
 	{
-		if(partners.get(urutanpartner).getMode().equals("0"))
+		if(partners.get(urutanpartner).getMode().equals(NOPE))
 		{
-			partners.get(urutanpartner).setMode("1");
+			if(countAtkMode()>=3)
+			{
+				partners.get(urutanpartner).setMode(DEF);
+			}
+			else
+			{
+				partners.get(urutanpartner).setMode(ATK);
+			}
    	 	}
-		else if(partners.get(urutanpartner).getMode().equals("1"))
+		else if(partners.get(urutanpartner).getMode().equals(ATK))
 		{
-			partners.get(urutanpartner).setMode("2");
+			if(countDefMode()>=3)
+			{
+				partners.get(urutanpartner).setMode(NOPE);
+			}
+			else
+			{
+				partners.get(urutanpartner).setMode(DEF);
+			}
 		}
 		else
 		{
-			partners.get(urutanpartner).setMode("0");
+			if(countAtkMode()>=3)
+			{
+				partners.get(urutanpartner).setMode(NOPE);
+			}
+			else
+			{
+				partners.get(urutanpartner).setMode(ATK);
+			}
 		}
 	}
+	
+	public void setRemoveButtonListener()
+    {
+		remove1.setOnClickListener(new View.OnClickListener() {
+	       	 
+            @Override
+            public void onClick(View view) {
+            	 alertRemoveShow(remove1,magimon1,0);
+             }
+        });
+		remove2.setOnClickListener(new View.OnClickListener() {
+	       	 
+            @Override
+            public void onClick(View view) {
+            	alertRemoveShow(remove2,magimon2,1);
+             }
+        });
+		remove3.setOnClickListener(new View.OnClickListener() {
+	       	 
+            @Override
+            public void onClick(View view) {
+            	alertRemoveShow(remove3,magimon3,2);
+             }
+        });
+		remove4.setOnClickListener(new View.OnClickListener() {
+	       	 
+            @Override
+            public void onClick(View view) {
+            	alertRemoveShow(remove4,magimon4,3);
+             }
+        });
+		remove5.setOnClickListener(new View.OnClickListener() {
+	       	 
+            @Override
+            public void onClick(View view) {
+            	alertRemoveShow(remove5,magimon5,4);
+             }
+        });
+		remove6.setOnClickListener(new View.OnClickListener() {
+	       	 
+            @Override
+            public void onClick(View view) {
+            	alertRemoveShow(remove6,magimon6,5);
+             }
+        });
+		
+    }
 	public void setSubmitButtonListener()
     {
 		submitDeck.setOnClickListener(new View.OnClickListener() {
@@ -236,6 +369,37 @@ public class DeckPage extends Activity {
         });
 		
     }
+	
+	public void alertRemoveShow(Button buttonRemove,Button magimonButton, int numberRemoved)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle("Remove Magimon?");
+		final Button button = buttonRemove;
+		final Button magimon = magimonButton;
+		final int partnerNumber = numberRemoved;
+		
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+		{
+			
+			public void onClick(DialogInterface dialog, int id)
+			{
+				 partners.remove(partnerNumber);
+            	 button.setVisibility(View.GONE);
+            	 magimon.setVisibility(View.GONE);
+			}
+		});
+		builder.setNegativeButton("Nope", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				dialog.cancel();
+				
+			}
+		});
+		AlertDialog alertdialog = builder.create();
+		alertdialog.show();
+    	
+	}
 	//urutanpartner mulai dari 0
 	public void refreshButtonText(int urutanpartner)
 	{
