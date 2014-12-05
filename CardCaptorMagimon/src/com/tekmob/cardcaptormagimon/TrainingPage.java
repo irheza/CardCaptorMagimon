@@ -75,9 +75,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         Bar.initBarContainer(expContainer);
         Bar.initBarParameter(bar_parameter);
         Bar.initExpDisplay(expDisplay);
-        
-        onShake();
-
+        updateBar();
         // Check onResume Method to start accelerometer listener
     }
     
@@ -151,11 +149,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	@Override
 	public void onShake() {
         // Called when Motion Detected
-    	updateStatus();
-    	Bar.setCurrentExpInThisLevel(expInCurrentLevel);
-    	Bar.setExpNeededToLevelUp(expNeededToLevelUp);
-        Bar.updateExpDisplay(expDisplay);
-        Bar.updateBarParameter(bar_parameter);
+		updateBar();
         Bar.fadeInMagicEffect();
         Bar.fadeOutMagicEffect();
 	}
@@ -163,7 +157,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	/**
 	 * Update player's stats
 	 */
-	public void updateStatus() {
+	private void updateStatus() {
     	currentExp++;
     	if(currentExp >= getNextLevelParam(currentLevel)) {
     		currentLevel++;
@@ -171,6 +165,14 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     		expNeededToLevelUp = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
     	}
     	expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
+	}
+	
+	private void updateBar() {
+    	updateStatus();
+    	Bar.setCurrentExpInThisLevel(expInCurrentLevel);
+    	Bar.setExpNeededToLevelUp(expNeededToLevelUp);
+        Bar.updateExpDisplay(expDisplay);
+        Bar.updateBarParameter(bar_parameter);
 	}
 
 	@Override
@@ -208,7 +210,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
      * @param currentLevel
      * @return total experience to reach next level
      */
-    public int getNextLevelParam(int currentLevel) {
+    private int getNextLevelParam(int currentLevel) {
     	int ret = (int)(baseExpMultiplication*Math.pow(currentLevel, 1.5));
     	
     	return ret;
