@@ -5,7 +5,12 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+<<<<<<< HEAD
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/android-support-v7-appcompat"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/google-play-services_lib"/>
+=======
+	<classpathentry combineaccessrules="false" kind="src" path="/google-play-services_lib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/appcompat_v7"/>
+>>>>>>> 9caad3f7fc22a90b493facff5bf04faf7b26efdc
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
