@@ -4,17 +4,54 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <TextView
+
+
+    <Button
+        android:id="@+id/magimon1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/deck_page" />
+        android:text="Partner 1" />
     
-     <TextView
+    <Button
+        android:id="@+id/magimon2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/listMagimon"
-        android:layout_centerVertical="true"
-        android:text="" />
+        android:layout_below="@id/magimon1"
+        android:text="Partner 2" />
+    
+    <Button
+        android:id="@+id/magimon3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/magimon2"
+        android:text="Partner 3" />
+    
+    <Button
+        android:id="@+id/magimon4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/magimon3"
+        android:text="Partner 4" />
+    
+    <Button
+        android:id="@+id/magimon5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/magimon4"
+        android:text="Partner 5" />
+    
+    <Button
+        android:id="@+id/magimon6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/magimon5"
+        android:text="Partner 6" />
+    
+     <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/magimon6"
+        android:text="Submit" />
 
 </RelativeLayout>
