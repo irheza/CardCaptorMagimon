@@ -34,7 +34,9 @@ public class Model {
 			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
 					.execute(URL_SERVER + subURL);
 			String result = asyncResult.get();
+			if(result!=null){
 			jo = new JSONObject(result);
+			}
 			System.out.println("sampe sini");
 		}catch(JSONException je){
 			System.out.println(je.toString());
