@@ -1,6 +1,8 @@
 package com.tekmob.cardcaptormagimon;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.json.JSONException;
@@ -47,6 +49,8 @@ public class Peta extends FragmentActivity implements LocationListener {
 	ArrayList<SpawnPoint> listSpawnPoint;
 	HashMap<Marker, Magimon> tagMarkerWithMagimon;
 
+	HashMap<Marker, SpawnPoint> tagMarkerWithSpawnPoint;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,6 +71,9 @@ public class Peta extends FragmentActivity implements LocationListener {
 		try {
 			spawnMagimon();
 		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InternetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -111,91 +118,83 @@ public class Peta extends FragmentActivity implements LocationListener {
 		locationManager.removeUpdates(this);
 
 	}
+	public void setSealingMagimon()
+	{
+		map.setOnMarkerClickListener(new OnMarkerClickListener()
+        {
 
-	public void setSealingMagimon() {
-		map.setOnMarkerClickListener(new OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+            	LatLng posisimagimon =marker.getPosition();
+            	marker.showInfoWindow();
+            	
+        		Toast.makeText(getBaseContext(), "Klik poisi sekarang "+currentPosition.latitude+" "+currentPosition.longitude+"magimon "+ marker.getTitle() +" :"+posisimagimon.latitude+" "+posisimagimon.longitude, 
+                        Toast.LENGTH_SHORT).show();
+        		if(isNear(currentPosition,posisimagimon))
+        		{
+        			//cek waktu expired
+        			SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        			Calendar rightNow = Calendar.getInstance();
+        			//Date date = sdf.parse(dateInString);
+					String expiredTime = tagMarkerWithSpawnPoint.get(marker).getTimeExpired();
+					
+        			Magimon battledMagimon = tagMarkerWithMagimon.get(marker);
+        		    final String idMagimon = battledMagimon.getId();
+        			Toast.makeText(getBaseContext(), "Magimon Battle "+battledMagimon.getName(), 
+                            Toast.LENGTH_SHORT).show();
+        			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        			builder.setTitle("Sealing Magimon");
+        			builder.setMessage(marker.getTitle()).setCancelable(true);
+        			
+        			builder.setPositiveButton("Seal", new DialogInterface.OnClickListener()
+        			{
+        				
+        				public void onClick(DialogInterface dialog, int id)
+        				{
+        					
+        					Intent intent = new Intent(getBaseContext(), SealingPage.class);
+                			intent.putExtra("magimon", idMagimon);  
+                			startActivity(intent);
+                			finish();
+        				}
+        			});
+        			builder.setNegativeButton("Nope", new DialogInterface.OnClickListener()
+        			{
+        				public void onClick(DialogInterface dialog, int id)
+        				{
+        					dialog.cancel();
+        					
+        				}
+        			});
+        			AlertDialog alertdialog = builder.create();
+        			alertdialog.show();
+        			//Magimon battleMonster = new Magimon(marker.getId());
+        			
+        			
+        		}
+        		return true;
+            }
 
-			@Override
-			public boolean onMarkerClick(Marker marker) {
-				LatLng posisimagimon = marker.getPosition();
-				marker.showInfoWindow();
+        });
 
-				Toast.makeText(
-						getBaseContext(),
-						"Klik poisi sekarang " + currentPosition.latitude + " "
-								+ currentPosition.longitude + "magimon "
-								+ marker.getTitle() + " :"
-								+ posisimagimon.latitude + " "
-								+ posisimagimon.longitude, Toast.LENGTH_SHORT)
-						.show();
-				if (isNear(currentPosition, posisimagimon)) {
-					Magimon battledMagimon = tagMarkerWithMagimon.get(marker);
-					final String idMagimon = battledMagimon.getId();
-					Toast.makeText(getBaseContext(),
-							"Magimon Battle " + battledMagimon.getName(),
-							Toast.LENGTH_SHORT).show();
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							context);
-					builder.setTitle("Sealing Magimon");
-					builder.setMessage(marker.getTitle()).setCancelable(true);
-
-					builder.setPositiveButton("Seal",
-							new DialogInterface.OnClickListener() {
-
-								public void onClick(DialogInterface dialog,
-										int id) {
-									Intent intent = new Intent(
-											getBaseContext(), SealingPage.class);
-									intent.putExtra("magimon", idMagimon);
-									startActivity(intent);
-									finish();
-								}
-							});
-					builder.setNegativeButton("Nope",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-									dialog.cancel();
-
-								}
-							});
-					AlertDialog alertdialog = builder.create();
-					alertdialog.show();
-					// Magimon battleMonster = new Magimon(marker.getId());
-
-				}
-				return true;
-			}
-
-		});
 	}
 
 	/*
 	 * Fungsi untuk menempatkan marker magimon pada peta
 	 */
-	public void spawnMagimon() throws JSONException {
+	public void spawnMagimon() throws JSONException, InternetException
+	{
 		listSpawnPoint = spawnModel.getAllSpawnPoint();
-		tagMarkerWithMagimon = new HashMap<Marker, Magimon>();
-		for (SpawnPoint spawnPoint : listSpawnPoint) {
-			LatLng latlng = new LatLng(spawnPoint.getLatitude(),
-					spawnPoint.getLongitude());
-			Magimon magimon;
-			try {
-				magimon = magimonModel.getMagimon(spawnPoint.getMagimonID());
-				System.out.println(magimon.getName());
-				Marker magimonMark = map
-						.addMarker(new MarkerOptions()
-								.position(latlng)
-								.title(magimon.getName())
-								.snippet(
-										"Expired Time "
-												+ spawnPoint.getTimeExpired()));
-				tagMarkerWithMagimon.put(magimonMark, magimon);
-			} catch (InternetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		tagMarkerWithMagimon = new HashMap<Marker,Magimon>();
+		tagMarkerWithSpawnPoint = new HashMap<Marker,SpawnPoint>();
+		for(SpawnPoint spawnPoint : listSpawnPoint)
+		{
+			LatLng latlng = new LatLng(spawnPoint.getLatitude(),spawnPoint.getLongitude());
+			Magimon magimon= magimonModel.getMagimon(spawnPoint.getMagimonID());
+			System.out.println(magimon.getName());
+			Marker magimonMark = map.addMarker(new MarkerOptions().position(latlng).title(magimon.getName()).snippet("Expired Time "+spawnPoint.getTimeExpired()));
+			tagMarkerWithMagimon.put(magimonMark, magimon);
+			tagMarkerWithSpawnPoint.put(magimonMark, spawnPoint);
 		}
 	}
 

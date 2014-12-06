@@ -1,11 +1,15 @@
 package com.tekmob.cardcaptormagimon;
 
+import java.util.ArrayList;
+
 import trainingsensor.TrainingSensorListener;
 import trainingsensor.TrainingSensorManager;
 import entity.Magician;
+import entity.PersonalMagimon;
 import entity.Magimon;
 import magicexception.InternetException;
 import model.MagimonModel;
+import model.PersonalMagimonModel;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,20 +24,30 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 	Magimon battledMonster;
 	int sealingCount=0;
 	final int MAGIMON_SEALING_COUNT = 100;
+	final String NONE_MODE = "0";
 	boolean isSealed = false;
 	private TextView sealingText;
 	MagimonModel magimonModel = new MagimonModel();
+	PersonalMagimonModel pmModel= new PersonalMagimonModel();
+	ArrayList<PersonalMagimon> newParty;
+	Magician magician; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		magician = (Magician)getApplicationContext();
 		setContentView(R.layout.activity_sealing_page);
 		sealingText = (TextView) findViewById(R.id.currentSealCount);
-		setMagimon();
+		try {
+			setMagimon();
+		} catch (InternetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
-	public void setMagimon()
+	public void setMagimon() throws InternetException
 	{
 		Intent intent = getIntent();
 		String idMagimon = intent.getStringExtra("magimon");	
@@ -59,20 +73,36 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 			else
 			{
 				isSealed=true;
-				addMagimon();
-				Intent i = new Intent(getApplicationContext(), SealedPage.class);
-				i.putExtra("magimon", battledMonster.getId());  
-                startActivity(i);
-                finish();
+			
+				if(addMagimon(battledMonster.getId()))
+				{
+					try {
+						magician.setPersonalMagimon(pmModel.getPersonalMagimonByMagician(magician.getId()));
+					} catch (InternetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Intent i = new Intent(getApplicationContext(), SealedPage.class);
+					i.putExtra("magimon", battledMonster.getId());  
+	                startActivity(i);
+	                finish();
+				}
+				else
+				{
+					Toast.makeText(getBaseContext(), "Add Magimon Failed", 
+		                    Toast.LENGTH_SHORT).show();
+				}
+				
 			}
 		}
 		
 	}
 	
-	public void addMagimon()
+	public boolean addMagimon(String idMagimon)
 	{
-		Magician magician = (Magician)getApplicationContext();
-		//PersonalMagimon pm = new PersonalMagimon
+		
+		return pmModel.insert(magician.getId(), idMagimon, NONE_MODE);
+		
 		//magician.addMagimon(battledMonster);
 	}
 

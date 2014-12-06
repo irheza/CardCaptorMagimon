@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import animation.ProgressBar;
 import entity.Magician;
 
 public class MainMenu extends Activity {
@@ -149,7 +150,13 @@ public class MainMenu extends Activity {
 		about.setClickable(true);
 		super.onResume();
 	}
-
+	
+	@Override
+    public void onBackPressed() {
+    	super.onBackPressed();
+    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+	
 	public String getIMEI() {
 		TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceIMEI = tManager.getDeviceId();

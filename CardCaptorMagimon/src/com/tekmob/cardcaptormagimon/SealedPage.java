@@ -21,18 +21,17 @@ public class SealedPage extends Activity {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		String magimonSealedId = intent.getStringExtra("magimon");
-		Magimon sealedMagimon;
+		Magimon sealedMagimon=null;
 		try {
 			sealedMagimon = magimonModel.getMagimon(magimonSealedId);
-
-			setContentView(R.layout.activity_sealed_page);
-			successText = (TextView) findViewById(R.id.success);
-			successText.setText("Sealed Magimon : " + sealedMagimon.getName());
-			setMenuListener();
 		} catch (InternetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+		setContentView(R.layout.activity_sealed_page);
+		successText = (TextView) findViewById(R.id.success);
+		successText.setText("Sealed Magimon : "+sealedMagimon.getName());
+		setMenuListener();
 	}
 
 	public void setMenuListener() {
@@ -57,5 +56,6 @@ public class SealedPage extends Activity {
 			}
 		});
 
+		
 	}
 }
