@@ -70,6 +70,12 @@ public class DeckPage extends Activity {
 		setRemoveButtonListener();
 
 	}
+
+	@Override
+    public void onBackPressed() {
+    	super.onBackPressed();
+    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
 	
 	public void setMagimonButtonListener() {
 		magimon1.setOnClickListener(new View.OnClickListener() {

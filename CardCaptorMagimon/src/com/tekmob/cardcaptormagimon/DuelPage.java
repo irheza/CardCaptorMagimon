@@ -48,6 +48,12 @@ public class DuelPage extends Activity {
 		// addListenerOnButton();
 	}
 
+	@Override
+    public void onBackPressed() {
+    	super.onBackPressed();
+    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+	
 	public void setEnemies() throws JSONException {
 		enemies = magicianModel.getAllEnemyMagician(magician.getId());
 		Collections.shuffle(enemies);

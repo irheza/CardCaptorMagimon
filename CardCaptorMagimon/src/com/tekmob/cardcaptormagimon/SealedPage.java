@@ -36,6 +36,12 @@ public class SealedPage extends Activity {
 		setMenuListener();
 	}
 
+	@Override
+    public void onBackPressed() {
+    	super.onBackPressed();
+    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+	
 	public void setMenuListener() {
 		Button peta = (Button) findViewById(R.id.peta);
 		Button menu = (Button) findViewById(R.id.menu);

@@ -81,6 +81,12 @@ public class Peta extends FragmentActivity implements LocationListener {
 	}
 
 	@Override
+    public void onBackPressed() {
+    	super.onBackPressed();
+    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+	
+	@Override
 	public void onLocationChanged(Location location) {
 	    currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
 	    SpawnLocation area = new SpawnLocation();
