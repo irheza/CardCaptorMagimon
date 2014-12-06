@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		magician = (Magician)getApplicationContext();
 		setContentView(R.layout.activity_sealing_page);
 		sealingText = (TextView) findViewById(R.id.currentSealCount);

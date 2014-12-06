@@ -12,6 +12,7 @@ import org.json.JSONException;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.TextView;
 import entity.Magician;
 import entity.MagicianEnemy;
@@ -37,6 +38,7 @@ public class BattlePage extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_battle_page);
 		
 		Bundle b = getIntent().getExtras();
