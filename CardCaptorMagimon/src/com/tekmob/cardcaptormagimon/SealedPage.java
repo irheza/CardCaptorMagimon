@@ -1,6 +1,7 @@
 package com.tekmob.cardcaptormagimon;
 
 import entity.Magimon;
+import magicexception.InternetException;
 import model.MagimonModel;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +20,13 @@ public class SealedPage extends Activity {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		String magimonSealedId = intent.getStringExtra("magimon");
-		Magimon sealedMagimon = magimonModel.getMagimon(magimonSealedId); 
+		Magimon sealedMagimon=null;
+		try {
+			sealedMagimon = magimonModel.getMagimon(magimonSealedId);
+		} catch (InternetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		setContentView(R.layout.activity_sealed_page);
 		successText = (TextView) findViewById(R.id.success);
 		successText.setText("Sealed Magimon : "+sealedMagimon.getName());

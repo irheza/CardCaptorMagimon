@@ -38,11 +38,16 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 		magician = (Magician)getApplicationContext();
 		setContentView(R.layout.activity_sealing_page);
 		sealingText = (TextView) findViewById(R.id.currentSealCount);
-		setMagimon();
+		try {
+			setMagimon();
+		} catch (InternetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
-	public void setMagimon()
+	public void setMagimon() throws InternetException
 	{
 		Intent intent = getIntent();
 		String idMagimon = intent.getStringExtra("magimon");	

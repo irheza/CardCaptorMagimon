@@ -109,6 +109,7 @@ public class Model {
 			throw new InternetException();
 		} catch (ExecutionException e) {
 			throw new InternetException();
+		}
 		return true;
 	}
 
@@ -221,3 +222,5 @@ class StringAsyncDownloader extends AsyncTask<String, String, String> {
         }
     }
 }
+
+
