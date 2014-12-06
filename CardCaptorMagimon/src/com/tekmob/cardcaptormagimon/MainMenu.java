@@ -6,6 +6,7 @@ import magicexception.InternetException;
 import magimon.Magimon;
 import model.InternalStorage;
 import model.MagicianModel;
+import model.MagimonModel;
 import model.PersonalMagimonModel;
 
 import org.json.JSONException;
@@ -30,6 +31,7 @@ public class MainMenu extends Activity {
 	TextView userText;
 	Magician magician;
 	MagicianModel magicianModel = new MagicianModel();
+	MagimonModel magimonModel = new MagimonModel();
 	PersonalMagimonModel pmModel = new PersonalMagimonModel();
 
 	String userID = "";
@@ -55,11 +57,11 @@ public class MainMenu extends Activity {
 		deck.setClickable(true);
 		duel.setClickable(true);
 		about.setClickable(true);
-		
+
 		if (!magician.isSet()) {
 			// cek dulu udah terdaftar apa belom
 			Log.w("", "magician di app context blm ada");
-			try{
+			try {
 				if (!magicianModel.checkMagician(userID)) {
 					Log.w("", "magician belom ada di server");
 					registerMagician();
@@ -68,17 +70,24 @@ public class MainMenu extends Activity {
 					try {
 						magician.setId((String) jo.get("id"));
 						magician.setUsername((String) jo.get("username"));
-						magician.setExp(Integer.parseInt(((String) jo.get("exp"))));
+						magician.setExp(Integer.parseInt(((String) jo
+								.get("exp"))));
+						magician.setPersonalMagimon(pmModel
+								.getPersonalMagimonByMagician(magician.getId()));
+						magician.setMagimonCache(magimonModel
+								.getSeveralMagimon(magician
+										.getPersonalMagimon()));
 						cacheMagician();
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-	
+
 				}
-			}catch(InternetException ie){
+			} catch (InternetException ie) {
 				try {
-					magician = (Magician) InternalStorage.readObject(this, "MAGICIAN_DATA");
+					magician = (Magician) InternalStorage.readObject(this,
+							"MAGICIAN_DATA");
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -89,14 +98,15 @@ public class MainMenu extends Activity {
 			}
 			magician.setSet(true);
 		} else {
-			JSONObject jo = magicianModel.getMagician(userID);
 			try {
-				if(jo==null){
+				JSONObject jo = magicianModel.getMagician(userID);
+				if (jo == null) {
 					throw new InternetException();
-				}else{
+				} else {
 					magician.setUsername((String) jo.get("username"));
 					magician.setExp(Integer.parseInt(((String) jo.get("exp"))));
-					magician.setPersonalMagimon(pmModel.getPersonalMagimonByMagician(magician.getId()));
+					magician.setPersonalMagimon(pmModel
+							.getPersonalMagimonByMagician(magician.getId()));
 					userText = (TextView) findViewById(R.id.username);
 					userText.setText(magician.toString());
 					cacheMagician();
@@ -104,9 +114,10 @@ public class MainMenu extends Activity {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (InternetException ie){
+			} catch (InternetException ie) {
 				try {
-					magician = (Magician) InternalStorage.readObject(this, "MAGICIAN_DATA");
+					magician = (Magician) InternalStorage.readObject(this,
+							"MAGICIAN_DATA");
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -116,8 +127,6 @@ public class MainMenu extends Activity {
 				}
 			}
 		}
-
-		
 
 		// Log.w("", "setelah IF");
 		userText = (TextView) findViewById(R.id.username);
@@ -183,7 +192,7 @@ public class MainMenu extends Activity {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						magician.setUsername(input.getText().toString());
 						magicianModel.registerMagician(magician);
-						
+
 						cacheMagician();
 					}
 				});
@@ -191,8 +200,8 @@ public class MainMenu extends Activity {
 		alert.show();
 
 	}
-	
-	public void cacheMagician(){
+
+	public void cacheMagician() {
 		// Save the list of entries to internal storage
 		try {
 			InternalStorage.writeObject(this, "MAGICIAN_DATA", magician);
@@ -201,7 +210,7 @@ public class MainMenu extends Activity {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void setMagimon() {
 		// tester add Magimon, seharusnya semua parameter lengkap
 		Magimon firstPartner = new Magimon("1");

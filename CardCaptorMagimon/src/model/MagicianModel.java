@@ -60,7 +60,7 @@ public class MagicianModel extends Model{
 
 		return true;
 	}
-	public JSONObject getMagician(String id) {
+	public JSONObject getMagician(String id) throws InternetException {
 		return super.getData("magician/select/" + id);
 	}
 	public int registerMagician(Magician magician){

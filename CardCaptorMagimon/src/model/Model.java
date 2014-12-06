@@ -1,43 +1,43 @@
 package model;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import magicexception.InternetException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class Model {
 	// pake garis miring di akhirnya
 	public final String URL_SERVER = "http://johanes.tigasekawansolution.com/index.php/";
 
-	public JSONObject getData(String subURL) {
+	public JSONObject getData(String subURL) throws InternetException {
 		JSONObject jo = null;
 		try {
 			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
 					.execute(URL_SERVER + subURL);
 			String result = asyncResult.get();
 			if(result!=null){
-			jo = new JSONObject(result);
+				jo = new JSONObject(result);
+			}else{
+				throw new InternetException();
 			}
-			System.out.println("sampe sini");
 		}catch(JSONException je){
 			System.out.println(je.toString());
 		} catch (InterruptedException e) {
@@ -100,22 +100,25 @@ public class Model {
 		return arr;
 	}
 
-	public boolean post(String targetSubURL, String data) throws Exception {
+	public boolean post(String targetSubURL, String data) throws InternetException {
 		String url = URL_SERVER + targetSubURL;
 		AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(url, data);
-		String response = asyncResult.get();
-		// print result
-		if (response.toString().contains("Response Code : 200")) {
-			return true;
-		} else {
-			return false;
+		try {
+			asyncResult.get();
+		} catch (InterruptedException e) {
+			throw new InternetException();
+		} catch (ExecutionException e) {
+			throw new InternetException();
 		}
+		return true;
 	}
 
 }
 
 class StringAsyncUploader extends AsyncTask<String, String, String> {
 	private final String USER_AGENT = "Mozilla/5.0";
+
+    private InternetException exceptionToBeThrown;
 
 	protected String doInBackground(String... args) {
 		if (args[0] == null && args[1] == null) {
@@ -160,15 +163,21 @@ class StringAsyncUploader extends AsyncTask<String, String, String> {
 			in.close();
 			return response.toString();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			exceptionToBeThrown = new InternetException();
 		}
 
 		return null;
 	}
+	protected void onPostExecute() throws InternetException {
+        // Check if exception exists.
+        if (exceptionToBeThrown != null) {
+            throw exceptionToBeThrown;
+        }
+    }
 }
 
 class StringAsyncDownloader extends AsyncTask<String, String, String> {
+    private InternetException exceptionToBeThrown;
 	protected String doInBackground(String... args) {
 		if (args[0] == null) {
 			return null;
@@ -200,7 +209,14 @@ class StringAsyncDownloader extends AsyncTask<String, String, String> {
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			exceptionToBeThrown = new InternetException();
 		}
+		return "";
 	}
+	protected void onPostExecute() throws InternetException {
+        // Check if exception exists.
+        if (exceptionToBeThrown != null) {
+            throw exceptionToBeThrown;
+        }
+    }
 }
