@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import entity.PersonalMagimon;
 
 public class PersonalMagimonModel extends Model {
-	public PersonalMagimon getPersonalMagimon(String id){
+	public PersonalMagimon getPersonalMagimon(String id) throws InternetException{
 		return new PersonalMagimon(super.getData("personal_magimon/select/"+id));
 	}
 	
@@ -34,10 +34,24 @@ public class PersonalMagimonModel extends Model {
 		return result;
 	}
 	
-	public boolean update(PersonalMagimon pm){
+	public boolean update(PersonalMagimon pm) throws InternetException{
 		String postStr = String.format("id=%s&id_magician=%s&id_magimon=%s&mode=%s", pm.getId(), pm.getMagicianID(), pm.getMagimonID(), pm.getMode());
+		return super.post("personal_magimon/update", postStr);
+	}
+	
+	public boolean insert(String id_magician,String id_magimon, String mode){
+		String postStr = String.format("id_magician=%s&id_magimon=%s&mode=%s", id_magician, id_magimon, mode);
 		try{
-			return super.post("personal_magimon/update", postStr);
+			return super.post("personal_magimon/insert", postStr);
+		}catch(Exception e){
+			return false;
+		}
+	}
+	
+	public boolean delete(PersonalMagimon pm){
+		//String postStr = String.format("%s", pm.getId());
+		try{
+			return super.post("personal_magimon/delete/"+pm.getId(), "");
 		}catch(Exception e){
 			return false;
 		}

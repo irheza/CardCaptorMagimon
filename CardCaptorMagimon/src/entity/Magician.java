@@ -12,30 +12,8 @@ public class Magician extends Application implements Serializable {
 	private int exp;
 	private boolean isSet = false;
 	private ArrayList<PersonalMagimon> pms = new ArrayList<PersonalMagimon>();
+	private ArrayList<Magimon> ms = new ArrayList<Magimon>();
 
-	//public Magician() {
-		//super();
-	//}
-
-/*	public Magician(String id, String username, int hp, int exp) {
-		//super();
-		this.id = id;
-		this.username = username;
-		this.hp = hp;
-		this.exp = exp;
-	}*/
-/*
-	public Magician(JSONObject jo) {
-		try {
-			this.id = (String) jo.get("id");
-			this.username = (String) jo.get("username");
-			this.hp = Integer.parseInt((String) jo.get("hp"));
-			this.exp = Integer.parseInt((String) jo.get("exp"));
-		} catch (Exception e) {
-
-		}
-	}*/
-	
 	public String getId() {
 		return id;
 	}
@@ -94,6 +72,19 @@ public class Magician extends Application implements Serializable {
 
 	public void setPersonalMagimon(ArrayList<PersonalMagimon> pms) {
 		this.pms = pms;
+	}
+
+	public ArrayList<Magimon> getMagimonCache() {
+		return ms;
+	}
+
+	public void setMagimonCache(ArrayList<Magimon> ms) {
+		this.ms = ms;
+	}
+	
+	public void addPersonalMagimon(PersonalMagimon pm)
+	{
+		this.pms.add(pm);
 	}
 	
 	

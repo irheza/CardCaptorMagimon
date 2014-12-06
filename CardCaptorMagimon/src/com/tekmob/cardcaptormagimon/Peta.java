@@ -1,6 +1,15 @@
 package com.tekmob.cardcaptormagimon;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONException;
+
 import magimon.SpawnLocation;
+import entity.Magimon;
+import entity.SpawnPoint;
+import model.MagimonModel;
+import model.SpawnPointModel;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +40,10 @@ public class Peta extends FragmentActivity implements LocationListener {
 	//posisi sekarang
 	LatLng currentPosition = new LatLng(0,0);
 	final Context context = this;
+	SpawnPointModel spawnModel = new SpawnPointModel();
+	MagimonModel magimonModel = new MagimonModel();
+	ArrayList<SpawnPoint> listSpawnPoint;
+	HashMap<Marker, Magimon> tagMarkerWithMagimon;
 	
 	
 
@@ -43,7 +56,12 @@ public class Peta extends FragmentActivity implements LocationListener {
 	    
 	    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER        
-	    spawnMagimon();
+	    try {
+			spawnMagimon();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    setSealingMagimon();
 	           
 	}
@@ -52,7 +70,16 @@ public class Peta extends FragmentActivity implements LocationListener {
 	public void onLocationChanged(Location location) {
 	    currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
 	    SpawnLocation area = new SpawnLocation();
-	    if(isNear(currentPosition,area.getSpawn1().getPosition()))
+	    for(SpawnPoint spawnPoint : listSpawnPoint)
+	    {
+	    	LatLng spawnPointInLatLng = new LatLng(spawnPoint.getLatitude(),spawnPoint.getLongitude());
+	    	if(isNear(currentPosition,spawnPointInLatLng))
+	    	{
+	    		 Toast.makeText(getBaseContext(), "Battle Magimon :"+spawnPoint.getMagimonID(), 
+		                    Toast.LENGTH_SHORT).show();
+	    	}
+	    }
+	    /*if(isNear(currentPosition,area.getSpawn1().getPosition()))
 	    {
 	    	 Toast.makeText(getBaseContext(), "Battle Magimon 1", 
 	                    Toast.LENGTH_SHORT).show();
@@ -76,7 +103,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 	    {
 	    	 Toast.makeText(getBaseContext(), "Battle Magimon 5", 
 	                    Toast.LENGTH_SHORT).show();
-	    }
+	    }*/
 	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentPosition, 17);
 	    map.animateCamera(cameraUpdate);
 	    locationManager.removeUpdates(this);
@@ -91,14 +118,15 @@ public class Peta extends FragmentActivity implements LocationListener {
             @Override
             public boolean onMarkerClick(Marker marker) {
             	LatLng posisimagimon =marker.getPosition();
+            	marker.showInfoWindow();
             	
         		Toast.makeText(getBaseContext(), "Klik poisi sekarang "+currentPosition.latitude+" "+currentPosition.longitude+"magimon "+ marker.getTitle() +" :"+posisimagimon.latitude+" "+posisimagimon.longitude, 
                         Toast.LENGTH_SHORT).show();
         		if(isNear(currentPosition,posisimagimon))
         		{
-     
-        		    final String idMagimon = marker.getTitle();
-        			Toast.makeText(getBaseContext(), "Magimon Battle "+marker.getTitle(), 
+        			Magimon battledMagimon = tagMarkerWithMagimon.get(marker);
+        		    final String idMagimon = battledMagimon.getId();
+        			Toast.makeText(getBaseContext(), "Magimon Battle "+battledMagimon.getName(), 
                             Toast.LENGTH_SHORT).show();
         			AlertDialog.Builder builder = new AlertDialog.Builder(context);
         			builder.setTitle("Sealing Magimon");
@@ -139,9 +167,19 @@ public class Peta extends FragmentActivity implements LocationListener {
 	 * Fungsi untuk menempatkan marker magimon pada peta
 	 * 
 	 */
-	public void spawnMagimon()
+	public void spawnMagimon() throws JSONException
 	{
-		SpawnLocation area = new SpawnLocation();
+		listSpawnPoint = spawnModel.getAllSpawnPoint();
+		tagMarkerWithMagimon = new HashMap<Marker,Magimon>();
+		for(SpawnPoint spawnPoint : listSpawnPoint)
+		{
+			LatLng latlng = new LatLng(spawnPoint.getLatitude(),spawnPoint.getLongitude());
+			Magimon magimon= magimonModel.getMagimon(spawnPoint.getMagimonID());
+			System.out.println(magimon.getName());
+			Marker magimonMark = map.addMarker(new MarkerOptions().position(latlng).title(magimon.getName()).snippet("Expired Time "+spawnPoint.getTimeExpired()));
+			tagMarkerWithMagimon.put(magimonMark, magimon);
+		}
+		/*SpawnLocation area = new SpawnLocation();
 		LatLng spawn1 = area.getSpawn1().getPosition();
 		Marker monster1 = map.addMarker(new MarkerOptions().position(spawn1).title(area.getSpawn1().getMagimon().id));
 		LatLng spawn2 = area.getSpawn2().getPosition();
@@ -151,7 +189,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 		LatLng spawn4 = area.getSpawn4().getPosition();
 		Marker monster4 = map.addMarker(new MarkerOptions().position(spawn4).title(area.getSpawn4().getMagimon().id));
 		LatLng spawn5 = area.getSpawn5().getPosition();
-		Marker monster5 = map.addMarker(new MarkerOptions().position(spawn5).title(area.getSpawn5().getMagimon().id));
+		Marker monster5 = map.addMarker(new MarkerOptions().position(spawn5).title(area.getSpawn5().getMagimon().id));*/
 		
 	}
 

@@ -22,10 +22,10 @@ public class SpawnPoint {
 	public SpawnPoint(JSONObject jo){
 		try{
 		this.id = (String) jo.get("id");
-		this.latitude = Double.parseDouble((String) jo.get("latitude"));
+		this.latitude = Double.parseDouble((String) jo.get("langitude"));
 		this.longitude = Double.parseDouble((String) jo.get("longitude"));
 		this.timeExpired = (String) jo.get("time_expired");
-		this.magimonID = (String) jo.get("magimon_id");
+		this.magimonID = (String) jo.get("id_magimon");
 		}catch(Exception e){
 			
 		}

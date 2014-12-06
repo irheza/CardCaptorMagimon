@@ -2,12 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
-import org.json.*;
+import magicexception.InternetException;
+
+import org.json.JSONObject;
 
 import entity.ShakeEvent;
 
 public class ShakeEventModel extends Model{
-	public ShakeEvent getShakeEvent(String id){
+	public ShakeEvent getShakeEvent(String id) throws InternetException{
 		return new ShakeEvent(super.getData("shake_event/select/"+id));
 	}
 	
@@ -20,7 +22,7 @@ public class ShakeEventModel extends Model{
 		return result;
 	}
 	
-	public boolean insertShakeEvent(ShakeEvent se){
+	public boolean insertShakeEvent(ShakeEvent se) throws InternetException{
 		String postStr = String.format("id_magician=%s&exp_gained=%s", se.getMagicianID(), se.getExpGained());
 		try{
 			return super.post("shake_event/insert", postStr);

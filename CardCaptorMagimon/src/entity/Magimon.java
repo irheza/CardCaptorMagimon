@@ -1,8 +1,10 @@
 package entity;
 
+import java.io.Serializable;
+
 import org.json.*;
 
-public class Magimon {
+public class Magimon implements Serializable{
 	private String id;
 	private String name;
 	private int attack;
