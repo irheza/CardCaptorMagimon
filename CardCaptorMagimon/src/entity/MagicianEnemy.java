@@ -13,7 +13,7 @@ public class MagicianEnemy {
 	private String username;
 
 	//private int level;
-	private double experience;
+	private int experience;
 	
 	//For Testing Purpose Only if JSONObject parameter is not working
 	public MagicianEnemy(String userID)
@@ -46,11 +46,11 @@ public class MagicianEnemy {
 		this.username = username;
 	}
 
-	public double getExperience() {
+	public int getExperience() {
 		return experience;
 	}
 
-	public void setExperience(double experience) {
+	public void setExperience(int experience) {
 		this.experience = experience;
 	}
 
@@ -94,4 +94,5 @@ public class MagicianEnemy {
 				getUsername(),
 				getExperience());
 	}
+	
 }
