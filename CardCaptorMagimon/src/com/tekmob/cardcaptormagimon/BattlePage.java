@@ -169,7 +169,7 @@ public class BattlePage extends Activity {
     		if (temp < temp_exp_needed) {
     			notFound = false;
     		} else {
-    			temp = temp - getNextLevelParam(ret[0]);
+    			temp = temp - temp_exp_needed;
     			ret[0]++;
     		}
     	}

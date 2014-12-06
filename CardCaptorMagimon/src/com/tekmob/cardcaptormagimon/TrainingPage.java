@@ -17,6 +17,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import animation.Bar;
 import animation.ProgressBar;
 
@@ -29,7 +30,6 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	private int expInCurrentLevel;
 	private String userIs = "Pffft";
 	// end
-	private final int baseExpMultiplication = 100;
 	private int expNeededToLevelUp;
 	private TextView expDisplay, username, level;
 	private RelativeLayout expContainer, bar_parameter, magic_ball, black_screen;
@@ -207,7 +207,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
      * @return total experience to reach next level
      */
     private int getNextLevelParam(int currentLevel) {
-    	int ret = (int)(baseExpMultiplication*Math.pow(currentLevel, 2));
+    	int ret = (int)(200*(Math.pow(currentLevel, 1.5)));
     	
     	return ret;
     }
@@ -229,7 +229,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     		if (temp < temp_exp_needed) {
     			notFound = false;
     		} else {
-    			temp = temp - getNextLevelParam(ret[0]);
+    			temp = temp - temp_exp_needed;
     			ret[0]++;
     		}
     	}
