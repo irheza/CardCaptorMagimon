@@ -396,9 +396,14 @@ public class DeckPage extends Activity {
 			
 			public void onClick(DialogInterface dialog, int id)
 			{
-				 partners.remove(partnerNumber);
-            	 button.setVisibility(View.GONE);
-            	 magimon.setVisibility(View.GONE);
+				boolean status = pmmodel.delete(partners.get(partnerNumber));
+				System.out.println("Status delete :" +status);
+				if(status)
+				{
+					 partners.remove(partnerNumber);
+	            	 button.setVisibility(View.GONE);
+	            	 magimon.setVisibility(View.GONE);
+				}
 			}
 		});
 		builder.setNegativeButton("Nope", new DialogInterface.OnClickListener()

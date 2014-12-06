@@ -42,4 +42,13 @@ public class PersonalMagimonModel extends Model {
 			return false;
 		}
 	}
+	
+	public boolean delete(PersonalMagimon pm){
+		//String postStr = String.format("%s", pm.getId());
+		try{
+			return super.post("personal_magimon/delete/"+pm.getId(), "");
+		}catch(Exception e){
+			return false;
+		}
+	}
 }

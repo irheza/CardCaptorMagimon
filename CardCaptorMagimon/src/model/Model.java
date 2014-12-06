@@ -105,12 +105,21 @@ public class Model {
 		AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(url, data);
 		String response = asyncResult.get();
 		// print result
-		if (response.toString().contains("Response Code : 200")) {
+		/*if (response.toString().contains("Response Code : 200")) {
 			return true;
 		} else {
 			return false;
+		}*/
+		if(response.equalsIgnoreCase("200"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
+
 
 }
 
@@ -158,7 +167,8 @@ class StringAsyncUploader extends AsyncTask<String, String, String> {
 				response.append(inputLine);
 			}
 			in.close();
-			return response.toString();
+			//return response.toString();
+			return String.valueOf(responseCode);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
