@@ -1,5 +1,7 @@
 package com.tekmob.cardcaptormagimon;
 
+import entity.Magimon;
+import model.MagimonModel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +13,16 @@ import android.widget.TextView;
 
 public class SealedPage extends Activity {
 	TextView successText;
+	MagimonModel magimonModel = new MagimonModel();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
-		String magimonSealed = intent.getStringExtra("magimon");
+		String magimonSealedId = intent.getStringExtra("magimon");
+		Magimon sealedMagimon = magimonModel.getMagimon(magimonSealedId); 
 		setContentView(R.layout.activity_sealed_page);
 		successText = (TextView) findViewById(R.id.success);
-		successText.setText("Sealed Magimon : "+magimonSealed);
+		successText.setText("Sealed Magimon : "+sealedMagimon.getName());
 		setMenuListener();
 	}
 	
