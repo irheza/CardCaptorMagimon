@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import magicexception.InternetException;
-import model.InternalStorage;
-import model.MagimonModel;
-import model.PersonalMagimonModel;
-import android.R;
+import model.*;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,8 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import entity.Magician;
-import entity.PersonalMagimon;
+import entity.*;
 
 public class DeckPage extends Activity {
 	Magician magician;
@@ -337,20 +333,19 @@ public class DeckPage extends Activity {
 		});
 
 	}
-	
-	public void showNoInternetAlert(){
+
+	public void showNoInternetAlert() {
 		new AlertDialog.Builder(this)
-	    .setTitle("No Internet Connection")
-	    .setMessage("Items cannot be submitted because there is no internet connection right now.")
-	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-	            // continue with delete
-	        }
-	     })
-	    .setIcon(android.R.drawable.ic_dialog_alert)
-	     .show();
+				.setTitle("No Internet Connection")
+				.setMessage(
+						"Items cannot be submitted because there is no internet connection right now.")
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// continue with delete
+					}
+				}).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
-	
+
 	public void alertRemoveShow(Button buttonRemove, Button magimonButton,
 			int numberRemoved) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -358,34 +353,17 @@ public class DeckPage extends Activity {
 		final Button button = buttonRemove;
 		final Button magimon = magimonButton;
 		final int partnerNumber = numberRemoved;
+
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int id) {
-				partners.remove(partnerNumber);
-				button.setVisibility(View.GONE);
-				magimon.setVisibility(View.GONE);
-		
-		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-		{
-			
-			public void onClick(DialogInterface dialog, int id)
-			{
 				boolean status = pmmodel.delete(partners.get(partnerNumber));
-				System.out.println("Status delete :" +status);
-				if(status)
-				{
-					 partners.remove(partnerNumber);
-	            	 button.setVisibility(View.GONE);
-	            	 magimon.setVisibility(View.GONE);
+				System.out.println("Status delete :" + status);
+				if (status) {
+					partners.remove(partnerNumber);
+					button.setVisibility(View.GONE);
+					magimon.setVisibility(View.GONE);
 				}
-			}
-		});
-		builder.setNegativeButton("Nope", new DialogInterface.OnClickListener()
-		{
-			public void onClick(DialogInterface dialog, int id)
-			{
-				dialog.cancel();
-				
 			}
 		});
 		builder.setNegativeButton("Nope",
