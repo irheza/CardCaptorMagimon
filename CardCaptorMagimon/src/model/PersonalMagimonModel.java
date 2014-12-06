@@ -26,7 +26,7 @@ public class PersonalMagimonModel extends Model {
 		ArrayList<JSONObject> jorr = super.getArrayData("personal_magimon/select_by_magician/"+magicianID);
 		ArrayList<PersonalMagimon> result = new ArrayList<PersonalMagimon>();
 		if(jorr==null){
-			throw new InternetException();
+			return result;
 		}
 		for(JSONObject jo:jorr){
 			result.add(new PersonalMagimon(jo));

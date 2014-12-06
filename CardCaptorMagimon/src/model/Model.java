@@ -33,12 +33,12 @@ public class Model {
 			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
 					.execute(URL_SERVER + subURL);
 			String result = asyncResult.get();
-			if(result!=null){
+			if (result != null) {
 				jo = new JSONObject(result);
-			}else{
+			} else {
 				throw new InternetException();
 			}
-		}catch(JSONException je){
+		} catch (JSONException je) {
 			System.out.println(je.toString());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -52,12 +52,12 @@ public class Model {
 
 		return jo;
 	}
-	
-	public ArrayList<JSONObject> getArrayDataNew(String subURL) throws JSONException
-	{
+
+	public ArrayList<JSONObject> getArrayDataNew(String subURL)
+			throws JSONException {
 		AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
-		.execute(URL_SERVER + subURL);
-		String result="";
+				.execute(URL_SERVER + subURL);
+		String result = "";
 		try {
 			result = asyncResult.get();
 		} catch (InterruptedException e) {
@@ -74,7 +74,7 @@ public class Model {
 	public ArrayList<JSONObject> getArrayData(String subURL) {
 		try {
 			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
-			.execute(URL_SERVER + subURL);
+					.execute(URL_SERVER + subURL);
 			String result = asyncResult.get();
 			JSONArray ja = new JSONArray(result);
 
@@ -100,9 +100,11 @@ public class Model {
 		return arr;
 	}
 
-	public boolean post(String targetSubURL, String data) throws InternetException {
+	public boolean post(String targetSubURL, String data)
+			throws InternetException {
 		String url = URL_SERVER + targetSubURL;
-		AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(url, data);
+		AsyncTask<String, String, String> asyncResult = new StringAsyncUploader()
+				.execute(url, data);
 		try {
 			asyncResult.get();
 		} catch (InterruptedException e) {
@@ -111,15 +113,14 @@ public class Model {
 			throw new InternetException();
 		}
 		return true;
+
 	}
-
-
 }
 
 class StringAsyncUploader extends AsyncTask<String, String, String> {
 	private final String USER_AGENT = "Mozilla/5.0";
 
-    private InternetException exceptionToBeThrown;
+	private InternetException exceptionToBeThrown;
 
 	protected String doInBackground(String... args) {
 		if (args[0] == null && args[1] == null) {
@@ -162,7 +163,7 @@ class StringAsyncUploader extends AsyncTask<String, String, String> {
 				response.append(inputLine);
 			}
 			in.close();
-			//return response.toString();
+			// return response.toString();
 			return String.valueOf(responseCode);
 		} catch (Exception e) {
 			exceptionToBeThrown = new InternetException();
@@ -170,16 +171,18 @@ class StringAsyncUploader extends AsyncTask<String, String, String> {
 
 		return null;
 	}
+
 	protected void onPostExecute() throws InternetException {
-        // Check if exception exists.
-        if (exceptionToBeThrown != null) {
-            throw exceptionToBeThrown;
-        }
-    }
+		// Check if exception exists.
+		if (exceptionToBeThrown != null) {
+			throw exceptionToBeThrown;
+		}
+	}
 }
 
 class StringAsyncDownloader extends AsyncTask<String, String, String> {
-    private InternetException exceptionToBeThrown;
+	private InternetException exceptionToBeThrown;
+
 	protected String doInBackground(String... args) {
 		if (args[0] == null) {
 			return null;
@@ -215,12 +218,13 @@ class StringAsyncDownloader extends AsyncTask<String, String, String> {
 		}
 		return "";
 	}
+
 	protected void onPostExecute() throws InternetException {
-        // Check if exception exists.
-        if (exceptionToBeThrown != null) {
-            throw exceptionToBeThrown;
-        }
-    }
+		// Check if exception exists.
+		if (exceptionToBeThrown != null) {
+			throw exceptionToBeThrown;
+		}
+	}
 }
 
 

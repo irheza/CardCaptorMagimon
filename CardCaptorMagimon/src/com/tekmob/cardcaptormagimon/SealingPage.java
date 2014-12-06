@@ -51,7 +51,12 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 	{
 		Intent intent = getIntent();
 		String idMagimon = intent.getStringExtra("magimon");	
-		battledMonster = magimonModel.getMagimon(idMagimon);	
+		try {
+			battledMonster = magimonModel.getMagimon(idMagimon);
+		} catch (InternetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 	@Override

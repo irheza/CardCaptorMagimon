@@ -15,6 +15,7 @@ import android.widget.TextView;
 public class SealedPage extends Activity {
 	TextView successText;
 	MagimonModel magimonModel = new MagimonModel();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,29 +33,29 @@ public class SealedPage extends Activity {
 		successText.setText("Sealed Magimon : "+sealedMagimon.getName());
 		setMenuListener();
 	}
-	
-	public void setMenuListener()
-    {
-    	Button peta = (Button) findViewById(R.id.peta);
-    	Button menu = (Button) findViewById(R.id.menu);
-    	peta.setOnClickListener(new View.OnClickListener() {
-       	 
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Peta.class);
-                startActivity(i);
-                finish();
-             }
-        });
-    	menu.setOnClickListener(new View.OnClickListener() {
-          	 
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(i);
-                finish();
-             }
-        });
-    	
-    }
+
+	public void setMenuListener() {
+		Button peta = (Button) findViewById(R.id.peta);
+		Button menu = (Button) findViewById(R.id.menu);
+		peta.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getApplicationContext(), Peta.class);
+				startActivity(i);
+				finish();
+			}
+		});
+		menu.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(getApplicationContext(), MainMenu.class);
+				startActivity(i);
+				finish();
+			}
+		});
+
+		
+	}
 }

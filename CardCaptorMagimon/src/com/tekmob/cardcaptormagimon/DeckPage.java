@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import magicexception.InternetException;
-import model.InternalStorage;
-import model.MagimonModel;
-import model.PersonalMagimonModel;
+import model.*;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,9 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import entity.Magician;
-import entity.Magimon;
-import entity.PersonalMagimon;
+import entity.*;
 
 public class DeckPage extends Activity {
 	Magician magician;
@@ -72,90 +68,6 @@ public class DeckPage extends Activity {
 		setRemoveButtonListener();
 
 	}
-	
-	public void setSubmitButtonListener() {
-		submitDeck.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setTitle("Submit Deck");
-
-				builder.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface dialog, int id) {
-								try {
-									magician.setPersonalMagimon(partners);
-									for (PersonalMagimon pm : partners) {
-										pmmodel.update(pm);
-									}
-								} catch (InternetException ie) {
-									showNoInternetAlert();
-								}
-							}
-						});
-				builder.setNegativeButton("Nope",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-
-							}
-						});
-				AlertDialog alertdialog = builder.create();
-				alertdialog.show();
-
-			}
-		});
-
-	}
-	public void setRemoveButtonListener() {
-		remove1.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				alertRemoveShow(remove1, magimon1, 0);
-			}
-		});
-		remove2.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				alertRemoveShow(remove2, magimon2, 1);
-			}
-		});
-		remove3.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				alertRemoveShow(remove3, magimon3, 2);
-			}
-		});
-		remove4.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				alertRemoveShow(remove4, magimon4, 3);
-			}
-		});
-		remove5.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				alertRemoveShow(remove5, magimon5, 4);
-			}
-		});
-		remove6.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				alertRemoveShow(remove6, magimon6, 5);
-			}
-		});
-
-	}
-
 	
 	public void setMagimonButtonListener() {
 		magimon1.setOnClickListener(new View.OnClickListener() {
@@ -338,20 +250,102 @@ public class DeckPage extends Activity {
 			}
 		}
 	}
-	
-	public void showNoInternetAlert(){
-		new AlertDialog.Builder(this)
-	    .setTitle("No Internet Connection")
-	    .setMessage("Items cannot be submitted because there is no internet connection right now.")
-	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int which) { 
-	            // continue with delete
-	        }
-	     })
-	    .setIcon(android.R.drawable.ic_dialog_alert)
-	     .show();
+	public void setRemoveButtonListener() {
+		remove1.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				alertRemoveShow(remove1, magimon1, 0);
+			}
+		});
+		remove2.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				alertRemoveShow(remove2, magimon2, 1);
+			}
+		});
+		remove3.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				alertRemoveShow(remove3, magimon3, 2);
+			}
+		});
+		remove4.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				alertRemoveShow(remove4, magimon4, 3);
+			}
+		});
+		remove5.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				alertRemoveShow(remove5, magimon5, 4);
+			}
+		});
+		remove6.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				alertRemoveShow(remove6, magimon6, 5);
+			}
+		});
+
 	}
-	
+
+	public void setSubmitButtonListener() {
+		submitDeck.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setTitle("Submit Deck");
+
+				builder.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface dialog, int id) {
+								try {
+									magician.setPersonalMagimon(partners);
+									for (PersonalMagimon pm : partners) {
+										pmmodel.update(pm);
+									}
+								} catch (InternetException ie) {
+									showNoInternetAlert();
+								}
+							}
+						});
+				builder.setNegativeButton("Nope",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+
+							}
+						});
+				AlertDialog alertdialog = builder.create();
+				alertdialog.show();
+
+			}
+		});
+
+	}
+
+	public void showNoInternetAlert() {
+		new AlertDialog.Builder(this)
+				.setTitle("No Internet Connection")
+				.setMessage(
+						"Items cannot be submitted because there is no internet connection right now.")
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// continue with delete
+					}
+				}).setIcon(android.R.drawable.ic_dialog_alert).show();
+	}
+
 	public void alertRemoveShow(Button buttonRemove, Button magimonButton,
 			int numberRemoved) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -359,6 +353,7 @@ public class DeckPage extends Activity {
 		final Button button = buttonRemove;
 		final Button magimon = magimonButton;
 		final int partnerNumber = numberRemoved;
+
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int id) {
@@ -374,21 +369,12 @@ public class DeckPage extends Activity {
 			public void onClick(DialogInterface dialog, int id)
 			{
 				boolean status = pmmodel.delete(partners.get(partnerNumber));
-				System.out.println("Status delete :" +status);
-				if(status)
-				{
-					 partners.remove(partnerNumber);
-	            	 button.setVisibility(View.GONE);
-	            	 magimon.setVisibility(View.GONE);
+				System.out.println("Status delete :" + status);
+				if (status) {
+					partners.remove(partnerNumber);
+					button.setVisibility(View.GONE);
+					magimon.setVisibility(View.GONE);
 				}
-			}
-		});
-		builder.setNegativeButton("Nope", new DialogInterface.OnClickListener()
-		{
-			public void onClick(DialogInterface dialog, int id)
-			{
-				dialog.cancel();
-				
 			}
 		});
 		builder.setNegativeButton("Nope",
