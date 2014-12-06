@@ -82,6 +82,11 @@ public class Magician extends Application implements Serializable {
 		this.ms = ms;
 	}
 	
+	public void addPersonalMagimon(PersonalMagimon pm)
+	{
+		this.pms.add(pm);
+	}
+	
 	
 
 }

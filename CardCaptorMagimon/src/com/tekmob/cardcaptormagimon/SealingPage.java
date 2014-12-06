@@ -3,7 +3,8 @@ package com.tekmob.cardcaptormagimon;
 import trainingsensor.TrainingSensorListener;
 import trainingsensor.TrainingSensorManager;
 import entity.Magician;
-import magimon.Magimon;
+import entity.Magimon;
+import model.MagimonModel;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,8 +18,10 @@ import android.widget.Toast;
 public class SealingPage extends Activity implements TrainingSensorListener {
 	Magimon battledMonster;
 	int sealingCount=0;
+	final int MAGIMON_SEALING_COUNT = 100;
 	boolean isSealed = false;
 	private TextView sealingText;
+	MagimonModel magimonModel = new MagimonModel();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,8 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 	public void setMagimon()
 	{
 		Intent intent = getIntent();
-		battledMonster = new Magimon(intent.getStringExtra("magimon"),"Rare Leana",20,25,100,"leana.jpg");
-		
+		String idMagimon = intent.getStringExtra("magimon");	
+		battledMonster = magimonModel.getMagimon(idMagimon);	
 	}
 
 	@Override
@@ -42,7 +45,7 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 		if(battledMonster!=null && isSealed==false)
 		{
 			 
-			if(sealingCount<battledMonster.sealingCount)
+			if(sealingCount<MAGIMON_SEALING_COUNT)
 			{
 				sealingCount++;
 				sealingText.setText("Sealing Count : "+sealingCount);
@@ -52,7 +55,7 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 				isSealed=true;
 				addMagimon();
 				Intent i = new Intent(getApplicationContext(), SealedPage.class);
-				i.putExtra("magimon", battledMonster.id);  
+				i.putExtra("magimon", battledMonster.getId());  
                 startActivity(i);
                 finish();
 			}
@@ -63,6 +66,7 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 	public void addMagimon()
 	{
 		Magician magician = (Magician)getApplicationContext();
+		//PersonalMagimon pm = new PersonalMagimon
 		//magician.addMagimon(battledMonster);
 	}
 

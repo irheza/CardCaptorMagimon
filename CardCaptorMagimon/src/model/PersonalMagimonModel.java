@@ -38,4 +38,13 @@ public class PersonalMagimonModel extends Model {
 		String postStr = String.format("id=%s&id_magician=%s&id_magimon=%s&mode=%s", pm.getId(), pm.getMagicianID(), pm.getMagimonID(), pm.getMode());
 		return super.post("personal_magimon/update", postStr);
 	}
+	
+	public boolean delete(PersonalMagimon pm){
+		//String postStr = String.format("%s", pm.getId());
+		try{
+			return super.post("personal_magimon/delete/"+pm.getId(), "");
+		}catch(Exception e){
+			return false;
+		}
+	}
 }

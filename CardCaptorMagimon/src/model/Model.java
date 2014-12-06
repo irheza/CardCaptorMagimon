@@ -109,9 +109,9 @@ public class Model {
 			throw new InternetException();
 		} catch (ExecutionException e) {
 			throw new InternetException();
-		}
 		return true;
 	}
+
 
 }
 
@@ -161,7 +161,8 @@ class StringAsyncUploader extends AsyncTask<String, String, String> {
 				response.append(inputLine);
 			}
 			in.close();
-			return response.toString();
+			//return response.toString();
+			return String.valueOf(responseCode);
 		} catch (Exception e) {
 			exceptionToBeThrown = new InternetException();
 		}

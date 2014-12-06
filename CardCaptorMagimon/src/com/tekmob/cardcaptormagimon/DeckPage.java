@@ -7,17 +7,16 @@ import magicexception.InternetException;
 import model.InternalStorage;
 import model.MagimonModel;
 import model.PersonalMagimonModel;
+import android.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import entity.Magician;
-import entity.Magimon;
 import entity.PersonalMagimon;
 
 public class DeckPage extends Activity {
@@ -359,13 +358,34 @@ public class DeckPage extends Activity {
 		final Button button = buttonRemove;
 		final Button magimon = magimonButton;
 		final int partnerNumber = numberRemoved;
-
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int id) {
 				partners.remove(partnerNumber);
 				button.setVisibility(View.GONE);
 				magimon.setVisibility(View.GONE);
+		
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+		{
+			
+			public void onClick(DialogInterface dialog, int id)
+			{
+				boolean status = pmmodel.delete(partners.get(partnerNumber));
+				System.out.println("Status delete :" +status);
+				if(status)
+				{
+					 partners.remove(partnerNumber);
+	            	 button.setVisibility(View.GONE);
+	            	 magimon.setVisibility(View.GONE);
+				}
+			}
+		});
+		builder.setNegativeButton("Nope", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
+			{
+				dialog.cancel();
+				
 			}
 		});
 		builder.setNegativeButton("Nope",
