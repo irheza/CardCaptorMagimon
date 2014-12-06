@@ -91,5 +91,14 @@ public class MagicianModel extends Model{
 		}
 	}
 	
+	public boolean update(MagicianEnemy m){
+		String postStr = String.format("id=%s&username=%s&hp=%s&exp=%s", m.getUserID(), m.getUsername(), 0, m.getExperience());
+		try{
+			return super.post("magician/update", postStr);
+		}catch(Exception e){
+			return false;
+		}
+	}
+	
 	
 }
