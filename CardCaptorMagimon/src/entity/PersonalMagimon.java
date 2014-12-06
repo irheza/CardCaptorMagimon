@@ -1,8 +1,10 @@
 package entity;
 
+import java.io.Serializable;
+
 import org.json.*;
 
-public class PersonalMagimon{
+public class PersonalMagimon implements Serializable{
 	private String id;
 	private String magicianID;
 	private String magimonID;
