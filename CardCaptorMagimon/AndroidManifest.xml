@@ -68,30 +68,35 @@
             android:name=".SealingPage"
             android:keepScreenOn="true"
             android:label="@string/title_activity_sealing_page"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
             android:name=".SealedPage"
             android:keepScreenOn="true"
             android:label="@string/title_activity_sealed_page"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
             android:name=".DeckPage"
             android:keepScreenOn="true"
             android:label="@string/title_activity_deck_page"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
             android:name=".AboutPage"
             android:keepScreenOn="true"
             android:label="@string/title_activity_about_page"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
             android:name=".DuelPage"
             android:keepScreenOn="true"
             android:label="@string/title_activity_duel_page"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>
