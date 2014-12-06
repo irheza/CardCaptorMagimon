@@ -1,11 +1,10 @@
 package com.tekmob.cardcaptormagimon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import entity.Magician;
-import entity.PersonalMagimon;
-import entity.Magimon;
-import model.MagicianModel;
+import magicexception.InternetException;
+import model.InternalStorage;
 import model.MagimonModel;
 import model.PersonalMagimonModel;
 import android.app.Activity;
@@ -14,11 +13,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import entity.Magician;
+import entity.Magimon;
+import entity.PersonalMagimon;
 
 public class DeckPage extends Activity {
 	Magician magician;
@@ -50,6 +50,19 @@ public class DeckPage extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deck_page);
 		magician = (Magician)getApplicationContext();
+		try {
+			magician.setPersonalMagimon(pmmodel.getPersonalMagimonByMagician(magician.getId()));
+		} catch (InternetException e) {
+			try {
+				magician = (Magician) InternalStorage.readObject(this, "MAGICIAN_DATA");
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		setButton();
 		setAllMagimon();
 		setMagimonButtonListener();

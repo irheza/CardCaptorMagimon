@@ -1,9 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import org.json.*;
 
-import entity.Magician;
+import magicexception.InternetException;
+
+import org.json.JSONObject;
+
 import entity.PersonalMagimon;
 
 public class PersonalMagimonModel extends Model {
@@ -20,9 +22,12 @@ public class PersonalMagimonModel extends Model {
 		return result;
 	}
 	
-	public ArrayList<PersonalMagimon> getPersonalMagimonByMagician(String magicianID){
+	public ArrayList<PersonalMagimon> getPersonalMagimonByMagician(String magicianID) throws InternetException{
 		ArrayList<JSONObject> jorr = super.getArrayData("personal_magimon/select_by_magician/"+magicianID);
 		ArrayList<PersonalMagimon> result = new ArrayList<PersonalMagimon>();
+		if(jorr==null){
+			throw new InternetException();
+		}
 		for(JSONObject jo:jorr){
 			result.add(new PersonalMagimon(jo));
 		}

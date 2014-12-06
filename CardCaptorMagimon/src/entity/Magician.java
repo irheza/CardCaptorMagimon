@@ -1,13 +1,11 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import org.json.JSONObject;
-
-import model.Model;
 import android.app.Application;
 
-public class Magician extends Application {
+public class Magician extends Application implements Serializable {
 	private String id;
 	private String username = "";
 	private int hp;

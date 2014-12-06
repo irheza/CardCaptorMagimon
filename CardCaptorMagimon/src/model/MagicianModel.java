@@ -1,23 +1,17 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import magicexception.InternetException;
 
-import org.json.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
 import entity.Magician;
 import entity.MagicianEnemy;
-import entity.SpawnPoint;
 
 
 public class MagicianModel extends Model{
@@ -50,10 +44,10 @@ public class MagicianModel extends Model{
 		}
 		return result;
 	}
-	public boolean checkMagician(String id) {
+	public boolean checkMagician(String id) throws InternetException {
 		JSONObject jo = super.getData("magician/select/" + id);
 		if (jo == null) {
-			return false;
+			throw new InternetException();
 		}
 		try {
 			String idku = (String) jo.get("id");
