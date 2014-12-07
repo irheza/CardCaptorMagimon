@@ -28,7 +28,6 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -65,18 +64,19 @@ public class MainMenu extends Activity {
 		ImageButton deck = (ImageButton) findViewById(R.id.deck);
 		ImageButton duel = (ImageButton) findViewById(R.id.duel);
 		ImageButton about = (ImageButton) findViewById(R.id.about);
-		progress_bar_container = (RelativeLayout) findViewById(R.id.progress_bar_container);
-		content = (RelativeLayout) findViewById(R.id.content);
-		ProgressBar.initBarVariables(MainMenu.this);
-		ProgressBar.initProgressBar(progress_bar_container);
-		ProgressBar.showProgressBar(progress_bar_container, content);
-
+		ImageButton report = (ImageButton) findViewById(R.id.report);
+        progress_bar_container = (RelativeLayout) findViewById(R.id.progress_bar_container);
+        content = (RelativeLayout) findViewById(R.id.content);
+        ProgressBar.initBarVariables(MainMenu.this);
+        ProgressBar.initProgressBar(progress_bar_container);
+        ProgressBar.showProgressBar(progress_bar_container, content);
 		train.setClickable(true);
 		peta.setClickable(true);
 		deck.setClickable(true);
 		duel.setClickable(true);
 		about.setClickable(true);
-
+		report.setClickable(true);
+		
 		magician = (Magician) getApplicationContext();
 		userID = getIMEI();
 
@@ -167,13 +167,15 @@ public class MainMenu extends Activity {
 		ImageButton deck = (ImageButton) findViewById(R.id.deck);
 		ImageButton duel = (ImageButton) findViewById(R.id.duel);
 		ImageButton about = (ImageButton) findViewById(R.id.about);
-
+		ImageButton report = (ImageButton) findViewById(R.id.report);
+		
 		train.setClickable(true);
 		peta.setClickable(true);
 		deck.setClickable(true);
 		duel.setClickable(true);
 		about.setClickable(true);
-		ProgressBar.hideProgressBar(progress_bar_container, content);
+		report.setClickable(true);
+        ProgressBar.hideProgressBar(progress_bar_container, content);
 		super.onResume();
 		mBackgroundSound = new BackgroundSound(this);
 		mBackgroundSound.execute();
@@ -268,6 +270,7 @@ public class MainMenu extends Activity {
 		final ImageButton deck = (ImageButton) findViewById(R.id.deck);
 		final ImageButton duel = (ImageButton) findViewById(R.id.duel);
 		final ImageButton about = (ImageButton) findViewById(R.id.about);
+		final ImageButton report = (ImageButton) findViewById(R.id.report);
 
 		train.setOnClickListener(new View.OnClickListener() {
 
@@ -278,6 +281,7 @@ public class MainMenu extends Activity {
 				deck.setClickable(false);
 				duel.setClickable(false);
 				about.setClickable(false);
+				report.setClickable(false);
 				Intent i = new Intent(getApplicationContext(),
 						TrainingPage.class);
 				mBackgroundSound.stop();
@@ -296,6 +300,7 @@ public class MainMenu extends Activity {
 				deck.setClickable(false);
 				duel.setClickable(false);
 				about.setClickable(false);
+				report.setClickable(false);
 				Intent i = new Intent(getApplicationContext(), Peta.class);
 				mBackgroundSound.stop();
 				mBackgroundSound.cancel(true);
@@ -313,6 +318,7 @@ public class MainMenu extends Activity {
 				deck.setClickable(false);
 				duel.setClickable(false);
 				about.setClickable(false);
+				report.setClickable(false);
 				Intent i = new Intent(getApplicationContext(), DeckPage.class);
 				mBackgroundSound.stop();
 				mBackgroundSound.cancel(true);
@@ -330,6 +336,7 @@ public class MainMenu extends Activity {
 				deck.setClickable(false);
 				duel.setClickable(false);
 				about.setClickable(false);
+				report.setClickable(false);
 				Intent i = new Intent(getApplicationContext(), DuelPage.class);
 				mBackgroundSound.stop();
 				mBackgroundSound.cancel(true);
@@ -347,10 +354,24 @@ public class MainMenu extends Activity {
 				deck.setClickable(false);
 				duel.setClickable(false);
 				about.setClickable(false);
-				Intent i = new Intent(getApplicationContext(),
-						NotificationPage.class);
-				mBackgroundSound.stop();
-				mBackgroundSound.cancel(true);
+				report.setClickable(false);
+				Intent i = new Intent(getApplicationContext(), AboutPage.class);
+				startActivity(i);
+				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				// finish();
+			}
+		});
+		report.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				train.setClickable(false);
+				peta.setClickable(false);
+				deck.setClickable(false);
+				duel.setClickable(false);
+				about.setClickable(false);
+				report.setClickable(false);
+				Intent i = new Intent(getApplicationContext(), NotificationPage.class);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				// finish();

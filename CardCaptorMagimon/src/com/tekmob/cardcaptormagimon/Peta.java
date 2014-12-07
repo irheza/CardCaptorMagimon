@@ -258,15 +258,15 @@ currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitud
 	{
 		if(magimon.getId().equals(NYAAMON))
 		{
-			return R.drawable.neko;
+			return R.drawable.markers_neko;
 		}
 		else if(magimon.getId().equals(TAMAMON))
 		{
-			return R.drawable.egg;
+			return R.drawable.markers_egg;
 		}
 		else
 		{
-			return R.drawable.dragon;
+			return R.drawable.markers_dragon;
 		}
 	}
 	

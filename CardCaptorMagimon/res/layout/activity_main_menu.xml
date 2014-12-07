@@ -198,30 +198,15 @@
 					        android:layout_height="match_parent"
 		    				android:layout_weight="1" />
 				    	
-				    	<ImageView
-					        android:layout_width="match_parent"
-					        android:layout_height="match_parent"
-		    				android:layout_weight="1" />
-			        </LinearLayout>
-			        
-		        	<LinearLayout 
-				   	    android:id="@+id/notif_button"
-				   	    android:orientation="horizontal"
-				    	android:layout_width="fill_parent"
-				    	android:layout_height="wrap_content"
-		    			android:layout_weight="1"
-				    	android:layout_marginTop="20dp"
-				    	android:layout_marginBottom="5dp" >
-				        
-				    	<ImageView
-					        android:layout_width="match_parent"
-					        android:layout_height="match_parent"
-		    				android:layout_weight="1" />
-				    	
-				    	<ImageView
-					        android:layout_width="match_parent"
-					        android:layout_height="match_parent"
-		    				android:layout_weight="1" />
+				    	<ImageButton
+					 	    android:id="@+id/report"
+					 	    android:layout_width="match_parent"
+					 	    android:layout_height="match_parent"
+					 	    android:scaleType="fitCenter"
+					 	    android:clickable="true"
+					 	    android:background="@null"
+		    				android:layout_weight="1"
+					 	    android:src="@drawable/button_report" />
 			        </LinearLayout>
 			        
 		        </LinearLayout>
