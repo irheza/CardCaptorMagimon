@@ -5,12 +5,13 @@
     android:background="@drawable/card"
     tools:context="com.tekmob.cardcaptormagimon.SealedPage" >
 
-    <LinearLayout 
+    <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
         
 	    <TextView
+	        android:id="@+id/success2"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textColor="@color/light_white"
@@ -21,16 +22,16 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textColor="@color/light_white"
+			android:layout_below="@id/success2"
 	        android:textSize="35sp"
 	        android:layout_centerHorizontal="true"
 	        android:id="@+id/success"
-	        android:layout_centerVertical="true"
 	        android:text="@string/success" />
      
 		<Button
 			android:id="@+id/menu"
 			android:layout_width="fill_parent"
-			android:layout_height="100dp"
+			android:layout_height="30dp"
 			android:layout_below="@id/success"
 			android:layout_marginLeft="36dp"
 			android:drawablePadding="5dip"
@@ -40,14 +41,14 @@
 		<Button
 			android:id="@+id/peta"
 			android:layout_width="fill_parent"
-			android:layout_height="100dp"
+			android:layout_height="30dp"
 			android:layout_below="@id/menu"
 			android:layout_marginLeft="36dp"
 			android:drawablePadding="5dip"
 			android:text="@string/judul_peta"
 			android:textSize="12sp" />
 	
-	</LinearLayout>
+	</RelativeLayout>
 
    	<LinearLayout 
    	    android:id="@+id/sign"
