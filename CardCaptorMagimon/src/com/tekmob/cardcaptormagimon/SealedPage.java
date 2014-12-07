@@ -1,7 +1,10 @@
 package com.tekmob.cardcaptormagimon;
 
+import java.io.IOException;
+
 import entity.Magimon;
 import magicexception.InternetException;
+import model.InternalStorage;
 import model.MagimonModel;
 import android.app.Activity;
 import android.content.Intent;
@@ -35,6 +38,7 @@ public class SealedPage extends Activity {
 		Magimon sealedMagimon=null;
 		try {
 			sealedMagimon = magimonModel.getMagimon(magimonSealedId);
+			
 		} catch (InternetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,6 +52,16 @@ public class SealedPage extends Activity {
 		walkInOut.startMoving();
 	}
 
+	public void cacheLastSeal(String time) {
+		// Save the list of entries to internal storage
+		try {
+			InternalStorage.writeObject(this, "LAST_SEAL", time);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
     public void onBackPressed() {
     	super.onBackPressed();

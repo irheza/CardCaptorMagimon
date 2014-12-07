@@ -56,7 +56,7 @@ public class MainMenu extends Activity {
 		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 		
 		boolean loaded;
-		soundID = soundPool.load(this, R.raw.bgm, 1);
+		//soundID = soundPool.load(this, R.raw.bgm, 1);
 		
 		
 
@@ -158,7 +158,7 @@ public class MainMenu extends Activity {
 		userText.setText(magician.toString());
 
 		setMenuListener();
-		soundPool.play(soundID, 1f, 1f, 1, -1, 1f);
+		//soundPool.play(soundID, 1f, 1f, 1, -1, 1f);
         ProgressBar.hideProgressBar(progress_bar_container, content);
 	}
 

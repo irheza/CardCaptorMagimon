@@ -1,21 +1,20 @@
 package com.tekmob.cardcaptormagimon;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.json.JSONException;
-
 import magicexception.InternetException;
 import magimon.SpawnLocation;
-import entity.Magician;
-import entity.Magimon;
-import entity.SpawnPoint;
+import model.InternalStorage;
 import model.MagimonModel;
 import model.SpawnPointModel;
+
+import org.json.JSONException;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +24,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -36,6 +36,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import entity.Magician;
+import entity.Magimon;
+import entity.SpawnPoint;
 public class Peta extends FragmentActivity implements LocationListener {
 	private GoogleMap map;
 	private LocationManager locationManager;
@@ -105,6 +109,29 @@ public class Peta extends FragmentActivity implements LocationListener {
 	    
 	}
 	
+	public boolean checkLastSeal(){
+		String strLastSeal;
+		try {
+			strLastSeal = (String) InternalStorage.readObject(this,"LAST_SEAL");
+			long lastSeal = Long.parseLong(strLastSeal);
+			long now = System.currentTimeMillis();
+			
+			if(now-lastSeal > 3600000){
+				showMarukAlert(strLastSeal);
+				return false;
+			}else{
+				return true;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 	public void setSealingMagimon()
 	{
 		map.setOnMarkerClickListener(new OnMarkerClickListener()
@@ -112,18 +139,23 @@ public class Peta extends FragmentActivity implements LocationListener {
 
             @Override
             public boolean onMarkerClick(Marker marker) {
+            	Log.w("","masuk on marker click");
             	LatLng posisimagimon =marker.getPosition();
             	marker.showInfoWindow();
             	
-        		Toast.makeText(getBaseContext(), "Klik poisi sekarang "+currentPosition.latitude+" "+currentPosition.longitude+"magimon "+ marker.getTitle() +" :"+posisimagimon.latitude+" "+posisimagimon.longitude, 
-                        Toast.LENGTH_SHORT).show();
         		if(isNear(currentPosition,posisimagimon))
         		{
         			if(!isPartyMaxed())
         			{
+        				Log.w("", "party is not maxed");
         				if(!checkExpiredMarker(marker))
             			{
-            				showSealingAlert(marker);
+        					if(checkLastSeal()){
+        						Log.w("LAST SEAL", "TRUE");
+        						showSealingAlert(marker);
+        					}else{
+        						Log.w("LAST SEAL", "FALSE");
+        					}
             			}
             			else
             			{
@@ -140,13 +172,35 @@ public class Peta extends FragmentActivity implements LocationListener {
         			}
         			
         			
+        		}else{
+        			Log.w("", "is not near");
         		}
         		return true;
             }
 
+			
+
         });
 	}
-	
+	private void showMarukAlert(String lastSeal) {
+		Date date = new Date(lastSeal);
+		String lastBTL = date.toLocaleString();
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Cool down!");
+		alert.setMessage("Dear magician, your last sealing is at "
+				+ lastBTL
+				+ " and it is not too long ago. Chill, you can train your Magimon first and train yourself first. Please come back later!");
+
+		alert.setPositiveButton("Okay",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+					}
+				});
+
+		alert.show();
+	}
 	/*
 	 * Fungsi untuk menempatkan marker magimon pada peta
 	 * 
@@ -243,6 +297,8 @@ public class Peta extends FragmentActivity implements LocationListener {
 		alertdialog.show();
 		//Magimon battleMonster = new Magimon(marker.getId());
 	}
+	
+	
 	
 	public boolean isPartyMaxed()
 	{

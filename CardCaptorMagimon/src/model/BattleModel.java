@@ -79,7 +79,7 @@ public class BattleModel extends Model {
 				"id_def_2=%s&" +
 				"id_def_3=%s&" +
 				"seen=%s&" +
-				"", battle.getId(),
+				"status=%s", battle.getId(),
 				battle.getAttackerID(),
 				battle.getDefenderID(),
 				battle.getExp(),
@@ -91,7 +91,8 @@ public class BattleModel extends Model {
 				battle.getFirstDefenderID(),
 				battle.getSecondDefenderID(),
 				battle.getThirdDefenderID(),
-				((battle.isSeen()) ? "1" : "0"));
+				((battle.isSeen()) ? "1" : "0"),
+				battle.getStatus());
 		try {
 			AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(super.URL_SERVER+"battle/insert", data);
 			
