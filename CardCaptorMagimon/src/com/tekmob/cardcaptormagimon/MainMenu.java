@@ -18,7 +18,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
@@ -42,23 +45,18 @@ public class MainMenu extends Activity {
 	private RelativeLayout progress_bar_container, content;
 
 	String userID = "";
-	int soundID;
-	SoundPool soundPool;
-	// String user = magician.getUserID();
 
 	String user;
+	BackgroundSound mBackgroundSound;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_main_menu);
 
-		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-		
-		boolean loaded;
-		//soundID = soundPool.load(this, R.raw.bgm, 1);
-		
+		mBackgroundSound = new BackgroundSound(this);
+
 		magician = (Magician) getApplicationContext();
 		userID = getIMEI();
 
@@ -67,18 +65,18 @@ public class MainMenu extends Activity {
 		ImageButton deck = (ImageButton) findViewById(R.id.deck);
 		ImageButton duel = (ImageButton) findViewById(R.id.duel);
 		ImageButton about = (ImageButton) findViewById(R.id.about);
-        progress_bar_container = (RelativeLayout) findViewById(R.id.progress_bar_container);
-        content = (RelativeLayout) findViewById(R.id.content);
-        ProgressBar.initBarVariables(MainMenu.this);
-        ProgressBar.initProgressBar(progress_bar_container);
-        ProgressBar.showProgressBar(progress_bar_container, content);
+		progress_bar_container = (RelativeLayout) findViewById(R.id.progress_bar_container);
+		content = (RelativeLayout) findViewById(R.id.content);
+		ProgressBar.initBarVariables(MainMenu.this);
+		ProgressBar.initProgressBar(progress_bar_container);
+		ProgressBar.showProgressBar(progress_bar_container, content);
 
 		train.setClickable(true);
 		peta.setClickable(true);
 		deck.setClickable(true);
 		duel.setClickable(true);
 		about.setClickable(true);
-		
+
 		magician = (Magician) getApplicationContext();
 		userID = getIMEI();
 
@@ -157,26 +155,29 @@ public class MainMenu extends Activity {
 		userText.setText(magician.toString());
 
 		setMenuListener();
-		//soundPool.play(soundID, 1f, 1f, 1, -1, 1f);
-        ProgressBar.hideProgressBar(progress_bar_container, content);
+		ProgressBar.hideProgressBar(progress_bar_container, content);
+		
 	}
 
 	@Override
 	public void onResume() {
-        ProgressBar.showProgressBar(progress_bar_container, content);
+		ProgressBar.showProgressBar(progress_bar_container, content);
 		ImageButton train = (ImageButton) findViewById(R.id.train);
 		ImageButton peta = (ImageButton) findViewById(R.id.peta);
 		ImageButton deck = (ImageButton) findViewById(R.id.deck);
 		ImageButton duel = (ImageButton) findViewById(R.id.duel);
 		ImageButton about = (ImageButton) findViewById(R.id.about);
-		
+
 		train.setClickable(true);
 		peta.setClickable(true);
 		deck.setClickable(true);
 		duel.setClickable(true);
 		about.setClickable(true);
-        ProgressBar.hideProgressBar(progress_bar_container, content);
+		ProgressBar.hideProgressBar(progress_bar_container, content);
 		super.onResume();
+		mBackgroundSound = new BackgroundSound(this);
+		mBackgroundSound.execute();
+
 	}
 
 	@Override
@@ -279,6 +280,8 @@ public class MainMenu extends Activity {
 				about.setClickable(false);
 				Intent i = new Intent(getApplicationContext(),
 						TrainingPage.class);
+				mBackgroundSound.stop();
+				mBackgroundSound.cancel(true);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				// finish();
@@ -294,6 +297,8 @@ public class MainMenu extends Activity {
 				duel.setClickable(false);
 				about.setClickable(false);
 				Intent i = new Intent(getApplicationContext(), Peta.class);
+				mBackgroundSound.stop();
+				mBackgroundSound.cancel(true);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				// finish();
@@ -309,6 +314,8 @@ public class MainMenu extends Activity {
 				duel.setClickable(false);
 				about.setClickable(false);
 				Intent i = new Intent(getApplicationContext(), DeckPage.class);
+				mBackgroundSound.stop();
+				mBackgroundSound.cancel(true);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				// finish();
@@ -324,6 +331,8 @@ public class MainMenu extends Activity {
 				duel.setClickable(false);
 				about.setClickable(false);
 				Intent i = new Intent(getApplicationContext(), DuelPage.class);
+				mBackgroundSound.stop();
+				mBackgroundSound.cancel(true);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				// finish();
@@ -338,18 +347,59 @@ public class MainMenu extends Activity {
 				deck.setClickable(false);
 				duel.setClickable(false);
 				about.setClickable(false);
-				Intent i = new Intent(getApplicationContext(), NotificationPage.class);
+				Intent i = new Intent(getApplicationContext(),
+						NotificationPage.class);
+				mBackgroundSound.stop();
+				mBackgroundSound.cancel(true);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				// finish();
 			}
 		});
 	}
-	
+
 	@Override
-	public void onStop(){
+	public void onStop() {
 		super.onStop();
-		soundPool.stop(soundID);
+		mBackgroundSound.stop();
+		mBackgroundSound.cancel(true);
 	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+	
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		mBackgroundSound.stop();
+		mBackgroundSound.cancel(true);
+	}
+
+}
+
+class BackgroundSound extends AsyncTask<Void, Void, Void> {
+	Context context;
+	MediaPlayer player;
+	public BackgroundSound(Context context) {
+		this.context = context;
+	}
+
+	@Override
+	protected Void doInBackground(Void... params) {
+		player = MediaPlayer.create(context, R.raw.bgm);
+		player.setLooping(true); // Set looping
+		player.setVolume(100, 100);
+		player.start();
+		return null;
+	}
+	
+	
+	public Void stop(){
+		player.stop();
+		return null;
+	}
+	
 }
