@@ -168,8 +168,7 @@ public class SealingPage extends Activity implements TrainingSensorListener {
                 //Start Accelerometer Listening
                 TrainingSensorManager.stopListening();
                  
-                Toast.makeText(getBaseContext(), "onStop Accelerometer Stoped", 
-                         Toast.LENGTH_SHORT).show();
+
             }
             
     }
@@ -185,8 +184,6 @@ public class SealingPage extends Activity implements TrainingSensorListener {
             //Start Accelerometer Listening
         	TrainingSensorManager.stopListening();
              
-            Toast.makeText(getBaseContext(), "onDestroy Accelerometer Stoped", 
-                   Toast.LENGTH_SHORT).show();
         }
              
     }
