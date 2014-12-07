@@ -143,6 +143,16 @@
 		    
 	    </RelativeLayout>
 	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_alignParentBottom="true"
+	        android:textColor="@color/light_white"
+	        android:layout_marginBottom="20dp"
+	       	android:textSize="15sp"
+	        android:text="@string/shake_gain_exp" />
+	    
 	    <RelativeLayout 
 	        android:id="@+id/black_screen"
 	        android:layout_height="match_parent"
@@ -151,15 +161,5 @@
 	    </RelativeLayout>
 	    
     </RelativeLayout>
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:textColor="@color/light_white"
-        android:layout_marginBottom="20dp"
-       	android:textSize="15sp"
-        android:text="@string/shake_gain_exp" />
     
 </RelativeLayout>
