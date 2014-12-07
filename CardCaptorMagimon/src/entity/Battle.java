@@ -17,6 +17,7 @@ public class Battle {
 	private String thirdDefenderID;
 	private String seen;
 	private String status;
+	private String createdAt;
 
 	public Battle(){}
 	
@@ -59,6 +60,7 @@ public class Battle {
 			
 			this.seen = (String) jo.get("seen");
 			this.status = (String) jo.get("status");
+			this.createdAt = (String) jo.get("created_at");
 		} catch (Exception e) {
 
 		}
@@ -184,6 +186,14 @@ public class Battle {
 		}
 	}
 	
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	public String toString(){
 		return String.format(
 						"id=%s\n" +

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+    <!-- ListRow Left side Thumbnail image -->
+    <LinearLayout
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="4dip"
+        android:padding="3dip" >
+        <ImageView
+            android:id="@+id/list_image"
+            android:contentDescription="@string/app_name"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:src="@drawable/img_win" />
+    </LinearLayout>
+    <!-- City-->
+    <TextView
+        android:id="@+id/tvPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="65dip"
+        android:paddingTop="1dip"
+        android:paddingBottom ="1dip"
+        android:text="aloha"
+        android:textColor="#FFFFFF"
+        android:textSize="18dip"
+        android:textStyle="bold"
+        android:typeface="sans" />
+    <!-- Weather Information-->
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPlayer"
+        android:layout_alignLeft="@+id/tvPlayer"
+        android:paddingTop="2dip"
+        android:layout_centerHorizontal="true"
+        android:text="cuy"
+        android:textColor="#FAFAFA"
+        android:textSize="11dip" />
+</RelativeLayout>  
