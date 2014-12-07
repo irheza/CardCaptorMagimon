@@ -45,7 +45,7 @@ public class SealedPage extends Activity {
 		Magimon sealedMagimon=null;
 		try {
 			sealedMagimon = magimonModel.getMagimon(magimonSealedId);
-			
+			cacheLastSeal(""+System.currentTimeMillis());
 		} catch (InternetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

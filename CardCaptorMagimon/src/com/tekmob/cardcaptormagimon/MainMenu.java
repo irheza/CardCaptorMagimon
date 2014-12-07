@@ -25,6 +25,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -56,10 +57,8 @@ public class MainMenu extends Activity {
 		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 		
 		boolean loaded;
-		soundID = soundPool.load(this, R.raw.bgm, 1);
+		//soundID = soundPool.load(this, R.raw.bgm, 1);
 		
-		
-
 		magician = (Magician) getApplicationContext();
 		userID = getIMEI();
 
@@ -158,7 +157,7 @@ public class MainMenu extends Activity {
 		userText.setText(magician.toString());
 
 		setMenuListener();
-		soundPool.play(soundID, 1f, 1f, 1, -1, 1f);
+		//soundPool.play(soundID, 1f, 1f, 1, -1, 1f);
         ProgressBar.hideProgressBar(progress_bar_container, content);
 	}
 
@@ -170,6 +169,7 @@ public class MainMenu extends Activity {
 		ImageButton deck = (ImageButton) findViewById(R.id.deck);
 		ImageButton duel = (ImageButton) findViewById(R.id.duel);
 		ImageButton about = (ImageButton) findViewById(R.id.about);
+		
 		train.setClickable(true);
 		peta.setClickable(true);
 		deck.setClickable(true);
@@ -338,7 +338,7 @@ public class MainMenu extends Activity {
 				deck.setClickable(false);
 				duel.setClickable(false);
 				about.setClickable(false);
-				Intent i = new Intent(getApplicationContext(), AboutPage.class);
+				Intent i = new Intent(getApplicationContext(), NotificationPage.class);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				// finish();

@@ -1,10 +1,16 @@
 package com.tekmob.cardcaptormagimon;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import magicexception.InternetException;
 import model.BattleModel;
+import model.InternalStorage;
 import model.MagicianModel;
 import model.MagimonModel;
 import model.PersonalMagimonModel;
@@ -12,8 +18,11 @@ import model.PersonalMagimonModel;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import entity.Battle;
 import entity.Magician;
@@ -47,7 +56,9 @@ public class BattlePage extends Activity {
 
 		Bundle b = getIntent().getExtras();
 		String id = b.get("id").toString();
-
+		
+		
+		
 		self = (Magician) getApplicationContext();
 		try {
 			enemy = new MagicianEnemy(magicianModel.getMagician(id));
@@ -100,19 +111,24 @@ public class BattlePage extends Activity {
 			int gainSelf = 0;
 			int gainEnemy = 0;
 
+			
+			String status = "";
 			if (totalAtk > totalDef) {
 				// menang
 				self.setExp(self.getExp() + damageTotal);
 				enemy.setExperience(enemy.getExperience() - damageTotal);
+				status = "WIN";
 			} else if (totalAtk < totalDef) {
 				// kalah
 				self.setExp(self.getExp() - damageTotal);
 				enemy.setExperience(enemy.getExperience() + damageTotal);
+				status = "LOSE";
 			} else {
 				// seri
 				self.setExp(self.getExp() + (int) (damageTotal * 0.3));
 				enemy.setExperience(enemy.getExperience()
 						+ (int) (damageTotal * 0.3));
+				status = "DRAW";
 			}
 
 			if (self.getExp() < 0)
@@ -124,10 +140,30 @@ public class BattlePage extends Activity {
 			battle.setAttackerID(self.getId());
 			battle.setDefenderID(enemy.getUserID());
 			
+			for(int i=0;i<pmSelf.size();i++){
+				if (i==0) battle.setFirstAttackerID(pmSelf.get(i).getMagimonID());
+				if (i==1) battle.setSecondAttackerID(pmSelf.get(i).getMagimonID());
+				if (i==2) battle.setThirdAttackerID(pmSelf.get(i).getMagimonID());
+			}
+			for(int i=0;i<pmEnemy.size();i++){
+				if (i==0) battle.setFirstDefenderID(pmEnemy.get(i).getMagimonID());
+				if (i==1) battle.setSecondDefenderID(pmEnemy.get(i).getMagimonID());
+				if (i==2) battle.setThirdDefenderID(pmEnemy.get(i).getMagimonID());
+			}
+			
+			battle.setExp(damageTotal);
+			battle.setStatus(status);
+			battle.setTotalAttack(totalAtk);
+			battle.setTotalDefense(totalDef);
+			battle.setSeen(false);
+			
+			battleModel.insert(battle);
 			
 			magicianModel.update(self);
 			magicianModel.update(enemy);
-
+			
+			cacheLastBattle(""+System.currentTimeMillis());
+			
 			TextView userText = (TextView) findViewById(R.id.textView);
 			userText.setText("atk: " + totalAtk + "\ndef: " + totalDef
 					+ "\ndamageTotal: " + damageTotal);
@@ -141,6 +177,20 @@ public class BattlePage extends Activity {
 
 	}
 
+	public void finishItNow(){
+		finish();
+	}
+	
+	public void cacheLastBattle(String time) {
+		// Save the list of entries to internal storage
+		try {
+			InternalStorage.writeObject(this, "LAST_BATTLE", time);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
     public void onBackPressed() {
     	super.onBackPressed();

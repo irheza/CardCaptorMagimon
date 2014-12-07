@@ -104,15 +104,19 @@
         <activity
             android:name=".BattlePage"
             android:keepScreenOn="true"
+            android:label="@string/title_activity_battle_page"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:label="@string/title_activity_battle_page" >
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".NotificationPage"
+            android:label="@string/title_activity_notification_page" >
         </activity>
     </application>
 
     <!--
          The following two permissions are not required to use
-	     Google Maps Android API v2, but are recommended.
+	     Google Maps Android API v2, but are recommended.
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />

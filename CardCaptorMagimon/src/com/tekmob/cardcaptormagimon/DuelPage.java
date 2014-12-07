@@ -1,14 +1,20 @@
 package com.tekmob.cardcaptormagimon;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
+import model.InternalStorage;
 import model.MagicianModel;
 
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +24,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 import entity.Magician;
 import entity.MagicianEnemy;
 
@@ -34,7 +39,7 @@ public class DuelPage extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_duel_page);
 		magician = (Magician) getApplicationContext();
 		try {
@@ -49,11 +54,11 @@ public class DuelPage extends Activity {
 	}
 
 	@Override
-    public void onBackPressed() {
-    	super.onBackPressed();
-    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-    }
-	
+	public void onBackPressed() {
+		super.onBackPressed();
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+
 	public void setEnemies() throws JSONException {
 		enemies = magicianModel.getAllEnemyMagician(magician.getId());
 		Collections.shuffle(enemies);
@@ -82,21 +87,54 @@ public class DuelPage extends Activity {
 				// ListView Clicked item value
 				String itemValue = (String) listEnemies
 						.getItemAtPosition(position);
-				
+
 				MagicianEnemy em = enemies.get(itemPosition);
-				
-				navigateToBattlePage(em.getUserID());
+				checkLastBattle(em);
 			}
 
 		});
 	}
 
-	public void navigateToBattlePage(String id){
+	public void checkLastBattle(MagicianEnemy em) {
+		try {
+			String strLastBattle = (String) InternalStorage.readObject(this,
+					"LAST_BATTLE");
+			long lastBattle = Long.parseLong(strLastBattle);
+			long now = System.currentTimeMillis();
+
+			if ((now - lastBattle) < 3600000) {
+				Date date = new Date(lastBattle);
+				String lastBTL = date.toLocaleString();
+				AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+				alert.setTitle("Cool down!");
+				alert.setMessage("Dear magician, your last battle is at "
+						+ lastBTL
+						+ " and it is not too long ago. Chill, you can train yourself and get a life first. Please come back later!");
+
+				alert.setPositiveButton("Okay",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+							}
+						});
+
+				alert.show();
+			} else {
+				navigateToBattlePage(em.getUserID());
+			}
+
+		} catch (Exception e){
+			navigateToBattlePage(em.getUserID());
+		}
+	}
+
+	public void navigateToBattlePage(String id) {
 		Intent i = new Intent(this, BattlePage.class);
 		i.putExtra("id", id);
 		startActivity(i);
 	}
-	
+
 	/*
 	 * public void addItemsOnSpinner() {
 	 * 

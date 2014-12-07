@@ -16,6 +16,8 @@ public class Battle {
 	private String secondDefenderID;
 	private String thirdDefenderID;
 	private String seen;
+	private String status;
+	private String createdAt;
 
 	public Battle(){}
 	
@@ -23,7 +25,7 @@ public class Battle {
 			int totalAttack, int totalDefense, String firstAttackerID,
 			String secondAttackerID, String thirdAttackerID,
 			String firstDefenderID, String secondDefenderID,
-			String thirdDefenderID) {
+			String thirdDefenderID, String status) {
 		this.id = id;
 		this.attackerID = attackerID;
 		this.defenderID = defenderID;
@@ -37,6 +39,7 @@ public class Battle {
 		this.secondDefenderID = secondDefenderID;
 		this.thirdDefenderID = thirdDefenderID;
 		this.seen = "0";  
+		this.status = status;
 	}
 
 	public Battle(JSONObject jo) {
@@ -56,11 +59,21 @@ public class Battle {
 			this.thirdDefenderID = (String) jo.get("id_def_3");
 			
 			this.seen = (String) jo.get("seen");
+			this.status = (String) jo.get("status");
+			this.createdAt = (String) jo.get("created_at");
 		} catch (Exception e) {
 
 		}
 	}
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -163,6 +176,22 @@ public class Battle {
 		}else{
 			return false;
 		}
+	}
+	
+	public void setSeen(boolean seen){
+		if(seen){
+			this.seen = "1";
+		}else{
+			this.seen = "0";
+		}
+	}
+	
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
 
 	public String toString(){
