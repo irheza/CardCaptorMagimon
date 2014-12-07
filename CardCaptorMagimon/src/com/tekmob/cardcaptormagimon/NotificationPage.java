@@ -8,6 +8,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import entity.Battle;
 import entity.Magician;
@@ -24,6 +28,7 @@ public class NotificationPage extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.w("","sebelum content view");
 		super.onCreate(savedInstanceState);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_notification_page);
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
