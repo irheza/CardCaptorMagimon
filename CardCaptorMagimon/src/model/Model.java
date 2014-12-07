@@ -224,6 +224,7 @@ class StringAsyncDownloader extends AsyncTask<String, String, String> {
 		if (exceptionToBeThrown != null) {
 			throw exceptionToBeThrown;
 		}
+		BattleModel.populated = true;
 	}
 }
 

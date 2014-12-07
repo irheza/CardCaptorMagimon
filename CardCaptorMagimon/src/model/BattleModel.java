@@ -12,6 +12,8 @@ import entity.Battle;
 
 public class BattleModel extends Model {
 	
+	public static boolean populated = false;
+	
 	public Battle getBattle(String id) throws InternetException{
 		return new Battle(super.getData("battle/select/"+id));
 	}
@@ -61,6 +63,7 @@ public class BattleModel extends Model {
 		for(JSONObject jo:jorr){
 			result.add(new Battle(jo));
 		}
+		BattleModel.populated = true;
 		return result;
 	}
 	

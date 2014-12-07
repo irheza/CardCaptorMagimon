@@ -9,6 +9,7 @@ import model.MagicianModel;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,19 +87,27 @@ public class BinderData extends BaseAdapter {
 					magicianModel.getMagician(battleDataCollection
 							.get(position).getDefenderID()));
 
-			holder.tvPlayer.setText(""+mgcAtk.getUsername()+" attacks "+mgcDef.getUsername());
-			holder.tvInfo.setText("EXP GAINED: "+ battleDataCollection.get(position).getExp()+ 
-					"\nTIME: "+battleDataCollection.get(position).getCreatedAt());
+			holder.tvPlayer.setText("" + mgcAtk.getUsername() + " attacks "
+					+ mgcDef.getUsername());
+			holder.tvInfo.setText("EXP GAINED: "
+					+ battleDataCollection.get(position).getExp() + "\nTIME: "
+					+ battleDataCollection.get(position).getCreatedAt());
 
 			String status = "" + battleDataCollection.get(position).getStatus();
-			int iconName = 0;
-			if (status.equals("WIN")) {
+			int iconName = -1;
+			Log.w("STATUS", status);
+			Log.w("POSITION", "" + position);
+
+			if (status == null || status.equals("null")) {
+				iconName = R.drawable.img_draw;
+			} else if (status.equals("WIN")) {
 				iconName = R.drawable.img_win;
 			} else if (status.equals("LOSE")) {
 				iconName = R.drawable.img_lose;
 			} else if (status.equals("DRAW")) {
 				iconName = R.drawable.img_draw;
 			}
+			Log.w("ICON NAME", "" + iconName);
 			Drawable image = vi.getContext().getResources()
 					.getDrawable(iconName);
 			holder.tvImage.setImageDrawable(image);
