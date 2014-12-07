@@ -50,7 +50,7 @@ public class WalkInOut {
 		left_mid = new TranslateAnimation((0-imageWidth), (screenWidth-imageWidth)/2, 0, 0);
 		left_mid.setDuration(3000);
 		left_mid.setFillAfter(true);
-		left_mid.setInterpolator(new DecelerateInterpolator((float) 0.8));
+		left_mid.setInterpolator(new DecelerateInterpolator((float) 1));
 		left_mid.setAnimationListener(new AnimationListener(){
 			@Override
 			public void onAnimationEnd(Animation arg0) {
@@ -72,7 +72,7 @@ public class WalkInOut {
 		right_mid = new TranslateAnimation(screenWidth, (screenWidth-imageWidth)/2, 0, 0);
 		right_mid.setDuration(3000);
 		right_mid.setFillAfter(true);
-		right_mid.setInterpolator(new DecelerateInterpolator((float) 0.8));
+		right_mid.setInterpolator(new DecelerateInterpolator((float) 1));
 		right_mid.setAnimationListener(new AnimationListener(){
 			@Override
 			public void onAnimationEnd(Animation arg0) {

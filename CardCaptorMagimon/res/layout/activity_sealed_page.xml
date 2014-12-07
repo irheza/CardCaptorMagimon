@@ -49,7 +49,7 @@
 			android:textSize="12sp" />
 	
 	</RelativeLayout>
-
+	
    	<LinearLayout 
    	    android:id="@+id/sign"
         android:layout_width="match_parent"

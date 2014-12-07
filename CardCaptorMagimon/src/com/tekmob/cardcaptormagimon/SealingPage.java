@@ -24,7 +24,7 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 	Magimon battledMonster;
 	int sealingCount=0;
 	int percentage = 0;
-	final int MAGIMON_SEALING_COUNT = 100;
+	final int MAGIMON_SEALING_COUNT = 10;
 	final String NONE_MODE = "0";
 	boolean isSealed = false;
 	private TextView sealingText, currentMagimonName;
@@ -107,9 +107,6 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 			else
 			{
 				isSealed=true;
-				sealingText.setText("Complete : 100%");
-				percentage = 100;
-				sealingCircle.updateCircle(percentage);
 			
 				if(addMagimon(battledMonster.getId()))
 				{
