@@ -31,16 +31,16 @@ public class ProgressBar {
 		progress_bar_container.setVisibility(View.VISIBLE);
 		
 		AlphaAnimation hide = new AlphaAnimation(1.0f, 0.0f);
-		hide.setDuration(1000);
+		hide.setDuration(500);
 		hide.setFillAfter(true);
 		
 		AlphaAnimation show = new AlphaAnimation(0.0f, 1.0f);
-		show.setDuration(1000);
-		show.setStartOffset(1000);
+		show.setDuration(500);
+		show.setStartOffset(500);
 		show.setFillAfter(true);
 
-		progress_bar_container.startAnimation(show);
 		content.startAnimation(hide);
+		progress_bar_container.startAnimation(show);
 		
 		content.setVisibility(View.GONE);
 	}
@@ -58,12 +58,12 @@ public class ProgressBar {
 		content.setVisibility(View.VISIBLE);
 		
 		AlphaAnimation hide = new AlphaAnimation(1.0f, 0.0f);
-		hide.setDuration(1000);
+		hide.setDuration(500);
 		hide.setFillAfter(true);
 		
 		AlphaAnimation show = new AlphaAnimation(0.0f, 1.0f);
-		show.setDuration(1000);
-		show.setStartOffset(1000);
+		show.setDuration(500);
+		show.setStartOffset(500);
 		show.setFillAfter(true);
 
 		progress_bar_container.startAnimation(hide);

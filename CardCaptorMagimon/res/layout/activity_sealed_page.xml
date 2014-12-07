@@ -2,64 +2,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/training_bg_basic"
+    android:background="@drawable/card"
     tools:context="com.tekmob.cardcaptormagimon.SealedPage" >
 
-    <ImageView
-        android:id="@+id/bg_magician"
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/bg_mage" />
-    
-    <ImageView
-        android:id="@+id/training_bg_stars_cover"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/training_bg_stars_cover" />
-    
-    <ImageView
-        android:id="@+id/training_bg_stars_magician"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/training_bg_stars_magician" />
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_sealed_page" />
-    
-     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/success"
-        android:layout_centerVertical="true"
-        android:text="@string/success" />
+        android:orientation="vertical" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/light_white"
+	        android:textSize="35sp"
+	        android:text="@string/title_activity_sealed_page" />
+	    
+	     <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/light_white"
+	        android:textSize="35sp"
+	        android:layout_centerHorizontal="true"
+	        android:id="@+id/success"
+	        android:layout_centerVertical="true"
+	        android:text="@string/success" />
      
-      <Button
-                android:id="@+id/menu"
-                android:layout_width="fill_parent"
-                android:layout_height="100dp"
-                android:layout_below="@id/success"
-                android:layout_marginLeft="36dp"
+		<Button
+			android:id="@+id/menu"
+			android:layout_width="fill_parent"
+			android:layout_height="100dp"
+			android:layout_below="@id/success"
+			android:layout_marginLeft="36dp"
+			android:drawablePadding="5dip"
+			android:text="@string/main_menu"
+			android:textSize="12sp" />
+		
+		<Button
+			android:id="@+id/peta"
+			android:layout_width="fill_parent"
+			android:layout_height="100dp"
+			android:layout_below="@id/menu"
+			android:layout_marginLeft="36dp"
+			android:drawablePadding="5dip"
+			android:text="@string/judul_peta"
+			android:textSize="12sp" />
+	
+	</LinearLayout>
 
-                android:drawablePadding="5dip"
-                android:text="@string/main_menu"
-                android:textSize="12sp" />
-        <Button
-                android:id="@+id/peta"
-                android:layout_width="fill_parent"
-                android:layout_height="100dp"
-                android:layout_below="@id/menu"
-                android:layout_marginLeft="36dp"
-
-                android:drawablePadding="5dip"
-                android:text="@string/judul_peta"
-                android:textSize="12sp" />
-
+   	<LinearLayout 
+   	    android:id="@+id/sign"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+   	    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1" />
+   	    
+   	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	    	android:layout_weight="1"
+        	android:orientation="vertical" >
+        
+	   	    <ImageView
+		        android:id="@+id/sign_top"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:layout_marginTop="20dp"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/get" />
+	   	    
+	   	    <ImageView
+		        android:id="@+id/sign_bottom"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:layout_marginBottom="20dp"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/magimon" />
+   	    </LinearLayout>
+   	    
+   	    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1" />
+   	    
+ 	</LinearLayout>
+ 
 </RelativeLayout>
