@@ -34,6 +34,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -45,6 +46,9 @@ import entity.SpawnPoint;
 public class Peta extends FragmentActivity implements LocationListener {
 	private GoogleMap map;
 	private LocationManager locationManager;
+	public final String NYAAMON = "1";
+	public final String TAMAMON = "2";
+	public final String DORAMON = "3";
 	private static final long MIN_TIME = 400;
 	private static final float MIN_DISTANCE = 1;
 	// variabel battle_range untuk mengatur seberapa dekat magimon dengan player
@@ -93,8 +97,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 	public void onResume(){
 		super.onResume();
 		Location lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-	    
-		currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude());
+currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude());
 	    
 	    CameraPosition cameraPosition = new CameraPosition.Builder()
 	    .target(GEDUNG_C_FASILKOM) 
@@ -106,30 +109,28 @@ public class Peta extends FragmentActivity implements LocationListener {
 	}
 	
 	@Override
+	public void onLocationChanged(Location location) {
+	    currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+	    SpawnLocation area = new SpawnLocation();
+	    for(SpawnPoint spawnPoint : listSpawnPoint)
+	    {
+	    	LatLng spawnPointInLatLng = new LatLng(spawnPoint.getLatitude(),spawnPoint.getLongitude());
+	    	/*if(isNear(currentPosition,spawnPointInLatLng))
+	    	{
+	    		 Toast.makeText(getBaseContext(), "Battle Magimon :"+spawnPoint.getMagimonID(), 
+		                    Toast.LENGTH_SHORT).show();
+	    	}*/
+	    }
+	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentPosition, 17);
+	    map.animateCamera(cameraUpdate);
+	    locationManager.removeUpdates(this);
+	}
+		
+	
+	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-	}
-
-	@Override
-	public void onLocationChanged(Location location) {
-		currentPosition = new LatLng(location.getLatitude(),
-				location.getLongitude());
-		SpawnLocation area = new SpawnLocation();
-		for (SpawnPoint spawnPoint : listSpawnPoint) {
-			LatLng spawnPointInLatLng = new LatLng(spawnPoint.getLatitude(),
-					spawnPoint.getLongitude());
-			if (isNear(currentPosition, spawnPointInLatLng)) {
-				Toast.makeText(getBaseContext(),
-						"Battle Magimon :" + spawnPoint.getMagimonID(),
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-				currentPosition, 17);
-		map.animateCamera(cameraUpdate);
-		locationManager.removeUpdates(this);
-
 	}
 
 	public boolean checkLastSeal() {
@@ -150,46 +151,58 @@ public class Peta extends FragmentActivity implements LocationListener {
 			return true;
 		}
 	}
+	
+	public void setSealingMagimon()
+	{
+		map.setOnMarkerClickListener(new OnMarkerClickListener()
+        {
 
-	public void setSealingMagimon() {
-		map.setOnMarkerClickListener(new OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+            	Log.w("","masuk on marker click");
+            	LatLng posisimagimon =marker.getPosition();
+            	marker.showInfoWindow();
+            	
+        		if(isNear(currentPosition,posisimagimon))
+        		{
+        			if(!isPartyMaxed())
+        			{
+        				Log.w("", "party is not maxed");
+        				if(!checkExpiredMarker(marker))
+            			{
+        					if(checkLastSeal()){
+        						Log.w("LAST SEAL", "TRUE");
+        						showSealingAlert(marker);
+        					}else{
+        						Log.w("LAST SEAL", "FALSE");
+        					}
+            			}
+            			else
+            			{
+            				Toast.makeText(getBaseContext(), "Magimon already expired", 
+                                    Toast.LENGTH_SHORT).show();
+            				marker.remove();
+            			}
+        			}
+        			else
+        			{
+        				Toast.makeText(getBaseContext(), "Deck Full, please remove a Magimon", 
+                                Toast.LENGTH_SHORT).show();
+        				
+        			}
+        			
+        			
+        		}else{
+        			Toast.makeText(getBaseContext(), "Magimon is too far, get close", 
+                            Toast.LENGTH_SHORT).show();
+        			Log.w("", "is not near");
+        		}
+        		return true;
+            }
 
-			@Override
-			public boolean onMarkerClick(Marker marker) {
-				Log.w("", "masuk on marker click");
-				LatLng posisimagimon = marker.getPosition();
-				marker.showInfoWindow();
+			
 
-				if (isNear(currentPosition, posisimagimon)) {
-					if (!isPartyMaxed()) {
-						Log.w("", "party is not maxed");
-						if (!checkExpiredMarker(marker)) {
-							if (checkLastSeal()) {
-								Log.w("LAST SEAL", "TRUE");
-								showSealingAlert(marker);
-							} else {
-								Log.w("LAST SEAL", "FALSE");
-							}
-						} else {
-							Toast.makeText(getBaseContext(),
-									"Magimon already expired",
-									Toast.LENGTH_SHORT).show();
-							marker.remove();
-						}
-					} else {
-						Toast.makeText(getBaseContext(),
-								"Deck Full, please remove a Magimon",
-								Toast.LENGTH_SHORT).show();
-
-					}
-
-				} else {
-					Log.w("", "is not near");
-				}
-				return true;
-			}
-
-		});
+        });
 	}
 
 	private void showMarukAlert(String lastSeal) {
@@ -224,15 +237,35 @@ public class Peta extends FragmentActivity implements LocationListener {
 			Magimon magimon = magimonModel
 					.getMagimon(spawnPoint.getMagimonID());
 			System.out.println(magimon.getName());
+			int iconID = getResourceIdForMagimon(magimon);
 			Marker magimonMark = map.addMarker(new MarkerOptions()
-					.position(latlng).title(magimon.getName())
-					.snippet("Expired Time " + spawnPoint.getTimeExpired()));
+					.position(latlng)
+					.title(magimon.getName())
+					.snippet("Expired Time "+spawnPoint.getTimeExpired())
+					.icon(BitmapDescriptorFactory.fromResource(iconID)));
+			
 			tagMarkerWithMagimon.put(magimonMark, magimon);
 			tagMarkerWithSpawnPoint.put(magimonMark, spawnPoint);
 		}
 
 	}
-
+	
+	public int getResourceIdForMagimon(Magimon magimon)
+	{
+		if(magimon.getId().equals(NYAAMON))
+		{
+			return R.drawable.neko;
+		}
+		else if(magimon.getId().equals(TAMAMON))
+		{
+			return R.drawable.egg;
+		}
+		else
+		{
+			return R.drawable.dragon;
+		}
+	}
+	
 	/*
 	 * Fungsi untuk membandingkan kedekatan antara 2 posisi
 	 */
@@ -274,10 +307,8 @@ public class Peta extends FragmentActivity implements LocationListener {
 
 	public void showSealingAlert(Marker marker) {
 		Magimon battledMagimon = tagMarkerWithMagimon.get(marker);
-		final String idMagimon = battledMagimon.getId();
-		Toast.makeText(getBaseContext(),
-				"Magimon Battle " + battledMagimon.getName(),
-				Toast.LENGTH_SHORT).show();
+	    final String idMagimon = battledMagimon.getId();
+	    
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle("Sealing Magimon");
 		builder.setMessage(marker.getTitle()).setCancelable(true);
