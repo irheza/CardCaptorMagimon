@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -33,6 +34,7 @@ public class DuelPage extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_duel_page);
 		magician = (Magician) getApplicationContext();
 		try {
@@ -46,6 +48,12 @@ public class DuelPage extends Activity {
 		// addListenerOnButton();
 	}
 
+	@Override
+    public void onBackPressed() {
+    	super.onBackPressed();
+    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+	
 	public void setEnemies() throws JSONException {
 		enemies = magicianModel.getAllEnemyMagician(magician.getId());
 		Collections.shuffle(enemies);

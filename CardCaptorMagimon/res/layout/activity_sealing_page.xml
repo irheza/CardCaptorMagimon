@@ -2,23 +2,171 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/training_bg_basic"
     tools:context="com.tekmob.cardcaptormagimon.SealingPage" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_sealing_page" />
+    <ImageView
+        android:id="@+id/bg_magician"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bg_mage" />
     
+    <ImageView
+        android:id="@+id/training_bg_stars_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/training_bg_stars_cover" />
+    
+    <ImageView
+        android:id="@+id/training_bg_stars_magician"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/training_bg_stars_magician" />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+    	<RelativeLayout
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="match_parent"
+	    	android:layout_weight="5" >
+
+		   	<TextView
+		        android:id="@+id/magimonName"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerHorizontal="true"
+		        android:layout_alignParentBottom="true"
+		        android:textColor="@color/light_white"
+		        android:textSize="35sp"
+		        android:text="@string/title_activity_sealing_page" />
+
+	   	</RelativeLayout>
+	   	
+    	
+	    <RelativeLayout
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="5"
+				android:gravity="center" >
+		   	
+			     <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_centerInParent="true"
+			        android:textColor="@color/light_white"
+			        android:id="@+id/currentSealCount"
+		        	android:textSize="25sp"
+			        android:text="@string/sealing_count_start" />
+		     
+	   	</RelativeLayout>
+	   	
+	    <RelativeLayout
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="match_parent"
+		    	android:layout_weight="2"
+				android:gravity="center" >
+	    
+	        <RelativeLayout
+		    	android:layout_width="match_parent"
+		    	android:layout_height="match_parent"
+		    	android:layout_marginBottom="50dp"
+		    	android:layout_marginRight="30dp"
+		    	android:layout_marginLeft="30dp" >
+				
+		        <ImageView
+			        android:id="@+id/process_circ_outer"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_outer" />
+		        
+		        <ImageView
+			        android:id="@+id/process_circ_mid_connect"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_mid_connect" />
+		        
+		        <ImageView
+			        android:id="@+id/process_circ_mid_clean"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_mid_clean" />
+		        
+		        <ImageView
+			        android:id="@+id/process_circ_right_up"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_right_up" />
+		        
+		        <ImageView
+			        android:id="@+id/process_circ_right_down"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_right_down" />
+		        
+		        <ImageView
+			        android:id="@+id/process_circ_left_up"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_left_up" />
+		        
+		        <ImageView
+			        android:id="@+id/process_circ_left_down"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_left_down" />
+		        
+		        <ImageView
+			        android:id="@+id/process_circ_core"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_core" />
+		        
+		        <ImageView
+			        android:id="@+id/process_circ_glow"
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:scaleType="fitCenter"
+        			android:alpha="0.0"
+			        android:src="@drawable/process_circ_glow" />
+		        
+	     	</RelativeLayout>
+		     
+	     </RelativeLayout>
+     
+     </LinearLayout>
+     
      <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:id="@+id/currentSealCount"
-        android:layout_centerVertical="true"
-        android:text="@string/sealing_count_start" />
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/light_white"
+        android:layout_marginBottom="20dp"
+       	android:textSize="15sp"
+        android:text="@string/shake_seal" />
 
 </RelativeLayout>

@@ -30,7 +30,6 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 	private int expInCurrentLevel;
 	private String userIs = "Pffft";
 	// end
-	private final int baseExpMultiplication = 200;
 	private int expNeededToLevelUp;
 	private TextView expDisplay, username, level;
 	private RelativeLayout expContainer, bar_parameter, magic_ball, black_screen;
@@ -43,6 +42,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mm = new MagicianModel();
         setContentView(R.layout.activity_training_page);
         
@@ -65,10 +65,11 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         screen_off = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.turn_off_screen);
         black_screen.setVisibility(View.GONE);
     	
-        currentLevel = getCurrentLevel(currentExp);
+        int[] levelAndExp = getCurrentLevel(currentExp);
+        currentLevel = levelAndExp[0];
     	expNeededToLevelUp = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
-		expInCurrentLevel = currentExp-getNextLevelParam(currentLevel-1);
-
+		expInCurrentLevel = levelAndExp[1];
+		
 		// Init bar views
         Bar.initBarVariables(TrainingPage.this);
         Bar.setCurrentExpInThisLevel(expInCurrentLevel);
@@ -93,9 +94,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     @Override
     public void onResume() {
             super.onResume();
-            Toast.makeText(getBaseContext(), "onResume Accelerometer Started", 
-                    Toast.LENGTH_SHORT).show();
-             
+            
             //Check device supported Accelerometer senssor or not
             if (TrainingSensorManager.isSupported(this)) {
                 //Start Accelerometer Listening
@@ -115,9 +114,6 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
             if (TrainingSensorManager.isListening()) {
                 //Start Accelerometer Listening
                 TrainingSensorManager.stopListening();
-                 
-                Toast.makeText(getBaseContext(), "onStop Accelerometer Stoped", 
-                         Toast.LENGTH_SHORT).show();
             }
             magician.setExp(currentExp);
             mm.update(magician);
@@ -146,11 +142,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         if (TrainingSensorManager.isListening()) {
             //Start Accelerometer Listening
         	TrainingSensorManager.stopListening();
-             
-            Toast.makeText(getBaseContext(), "onDestroy Accelerometer Stoped", 
-                   Toast.LENGTH_SHORT).show();
         }
-             
     }
 
 	@Override
@@ -184,9 +176,6 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
 
 	@Override
 	public void changeProximity(float nilaiProximity) {
-		Toast.makeText(getApplicationContext(), ""+nilaiProximity+" cm", 
-				   Toast.LENGTH_LONG).show();
-		
 		if (nilaiProximity == 0) {
 			WindowManager.LayoutParams lp = getWindow().getAttributes();
 			lp.screenBrightness = 0.0f;
@@ -218,7 +207,7 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
      * @return total experience to reach next level
      */
     private int getNextLevelParam(int currentLevel) {
-    	int ret = (int)(baseExpMultiplication*Math.pow(currentLevel, 1.5));
+    	int ret = (int)(200*(Math.pow(currentLevel, 1.5)));
     	
     	return ret;
     }
@@ -229,20 +218,22 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
      * @param currentExp
      * @return
      */
-    private int getCurrentLevel(int currentExp) {
-    	int ret = 1;
+    private int[] getCurrentLevel(int currentExp) {
+    	int[] ret = new int[2];
+    	ret[0] = 1;
     	int temp = currentExp;
     	boolean notFound = true;
     	
     	while (notFound) {
-    		if (temp < getNextLevelParam(ret)) {
+    		int temp_exp_needed = (getNextLevelParam(ret[0])-getNextLevelParam(ret[0]-1));
+    		if (temp < temp_exp_needed) {
     			notFound = false;
     		} else {
-    			temp = temp - getNextLevelParam(ret);
-    			ret++;
+    			temp = temp - temp_exp_needed;
+    			ret[0]++;
     		}
     	}
-    	
+    	ret[1] = temp;
     	return ret;
     }
  

@@ -2,40 +2,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
+    android:background="@drawable/card"
+    tools:context="com.tekmob.cardcaptormagimon.SealedPage" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_sealed_page" />
-    
-     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/success"
-        android:layout_centerVertical="true"
-        android:text="@string/success" />
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+	    <TextView
+	        android:id="@+id/success2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/light_white"
+	        android:textSize="35sp"
+	        android:text="@string/title_activity_sealed_page" />
+	    
+	     <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/light_white"
+			android:layout_below="@id/success2"
+	        android:textSize="35sp"
+	        android:layout_centerHorizontal="true"
+	        android:id="@+id/success"
+	        android:text="@string/success" />
      
-      <Button
-                android:id="@+id/menu"
-                android:layout_width="fill_parent"
-                android:layout_height="100dp"
-                android:layout_below="@id/success"
-                android:layout_marginLeft="36dp"
+		<Button
+			android:id="@+id/menu"
+			android:layout_width="fill_parent"
+			android:layout_height="30dp"
+			android:layout_below="@id/success"
+			android:layout_marginLeft="36dp"
+			android:drawablePadding="5dip"
+			android:text="@string/main_menu"
+			android:textSize="12sp" />
+		
+		<Button
+			android:id="@+id/peta"
+			android:layout_width="fill_parent"
+			android:layout_height="30dp"
+			android:layout_below="@id/menu"
+			android:layout_marginLeft="36dp"
+			android:drawablePadding="5dip"
+			android:text="@string/judul_peta"
+			android:textSize="12sp" />
+	
+	</RelativeLayout>
 
-                android:drawablePadding="5dip"
-                android:text="@string/main_menu"
-                android:textSize="12sp" />
-        <Button
-                android:id="@+id/peta"
-                android:layout_width="fill_parent"
-                android:layout_height="100dp"
-                android:layout_below="@id/menu"
-                android:layout_marginLeft="36dp"
-
-                android:drawablePadding="5dip"
-                android:text="@string/judul_peta"
-                android:textSize="12sp" />
-
+   	<LinearLayout 
+   	    android:id="@+id/sign"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+   	    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1" />
+   	    
+   	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	    	android:layout_weight="1"
+        	android:orientation="vertical" >
+        
+	   	    <ImageView
+		        android:id="@+id/sign_top"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:layout_marginTop="20dp"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/get" />
+	   	    
+	   	    <ImageView
+		        android:id="@+id/sign_bottom"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:layout_marginBottom="20dp"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/magimon" />
+   	    </LinearLayout>
+   	    
+   	    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1" />
+   	    
+ 	</LinearLayout>
+ 
 </RelativeLayout>

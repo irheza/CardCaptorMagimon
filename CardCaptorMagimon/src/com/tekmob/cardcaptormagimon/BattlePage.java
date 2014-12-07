@@ -1,6 +1,7 @@
 package com.tekmob.cardcaptormagimon;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import magicexception.InternetException;
 import model.BattleModel;
@@ -39,8 +40,6 @@ public class BattlePage extends Activity {
 	int levelAtk = 0;
 	int levelDef = 0;
 
-	private final int baseExpMultiplication = 200;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -71,25 +70,26 @@ public class BattlePage extends Activity {
 							.add(magimonModel.getMagimon(pm.getMagimonID()));
 				}
 			}
-
-			for (Magimon m : magimonSelf) {
-				totalAtk += m.getAttack();
-			}
-
-			for (Magimon m : magimonEnemy) {
-				totalDef += m.getDefense();
-			}
+			totalAtk+= countTotalAtkFromParty(magimonSelf);
+			totalDef+= countTotalDefFromParty(magimonEnemy);
+			totalAtk = totalAtk + experienceBonus(self.getExp());
+			totalAtk = plusProbability(totalAtk);
+			totalDef = totalDef + experienceBonus(enemy.getExperience());
+			totalDef = plusProbability(totalDef);
 			double damageRatio = 0;
 			
 			Log.w("self exp", ""+self.getExp());
 			Log.w("enemy exp", ""+enemy.getExperience());
 			
+			int[] selfy = getCurrentLevel(self.getExp());
+			int[] enemye = getCurrentLevel(enemy.getExperience());
+			
 			if (self.getExp() < enemy.getExperience()) {
-				damageRatio = (getCurrentLevel(self.getExp()) + 1)*1.0
-						/ (getCurrentLevel(enemy.getExperience()) + 1);
+				damageRatio = (selfy[0] + 1)*1.0
+						/ (enemye[0] + 1);
 			} else {
-				damageRatio = (getCurrentLevel(enemy.getExperience()) + 1)*1.0
-						/ (getCurrentLevel(self.getExp()) + 1);
+				damageRatio = (enemye[0] + 1)*1.0
+						/ (selfy[0] + 1);
 			}
 			
 			Log.w("damageRatio", ""+damageRatio);
@@ -141,6 +141,12 @@ public class BattlePage extends Activity {
 
 	}
 
+	@Override
+    public void onBackPressed() {
+    	super.onBackPressed();
+    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
+	
 	/**
 	 * Do some awesome calculation here.
 	 * 
@@ -148,7 +154,7 @@ public class BattlePage extends Activity {
 	 * @return total experience to reach next level
 	 */
 	private int getNextLevelParam(int currentLevel) {
-		int ret = (int) (baseExpMultiplication * Math.pow(currentLevel, 1.5));
+		int ret = (int)(200*(Math.pow(currentLevel, 1.5)));
 
 		return ret;
 	}
@@ -159,20 +165,52 @@ public class BattlePage extends Activity {
 	 * @param currentExp
 	 * @return
 	 */
-	private int getCurrentLevel(int currentExp) {
-		int ret = 1;
-		int temp = currentExp;
-		boolean notFound = true;
+	private int[] getCurrentLevel(int currentExp) {
+    	int[] ret = new int[2];
+    	ret[0] = 1;
+    	int temp = currentExp;
+    	boolean notFound = true;
+    	
+    	while (notFound) {
+    		int temp_exp_needed = (getNextLevelParam(ret[0])-getNextLevelParam(ret[0]-1));
+    		if (temp < temp_exp_needed) {
+    			notFound = false;
+    		} else {
+    			temp = temp - temp_exp_needed;
+    			ret[0]++;
+    		}
+    	}
+    	ret[1] = temp;
+    	return ret;
+    }
 
-		while (notFound) {
-			if (temp < getNextLevelParam(ret)) {
-				notFound = false;
-			} else {
-				temp = temp - getNextLevelParam(ret);
-				ret++;
-			}
+	public int experienceBonus(int exp)
+	{
+		return (int)Math.round(exp/10);
+	}
+	
+	public int plusProbability(int totalAtkOrDef)
+	{
+		Random r = new Random();
+		double randomValue = 0.5 + (1.5 - 0.5) * r.nextDouble();
+		return (int)Math.round(totalAtkOrDef*randomValue);
+	}
+	
+	public int countTotalAtkFromParty(ArrayList<Magimon> party)
+	{
+		int totalAtk=0;
+		for (Magimon m : party) {
+			totalAtk += m.getAttack();
 		}
-
-		return ret;
+		return totalAtk;
+	}
+	
+	public int countTotalDefFromParty(ArrayList<Magimon> party)
+	{
+		int totalDef=0;
+		for (Magimon m : party) {
+			totalDef += m.getDefense();
+		}
+		return totalDef;
 	}
 }

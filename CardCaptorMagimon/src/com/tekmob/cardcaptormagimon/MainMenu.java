@@ -24,9 +24,12 @@ import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import animation.ProgressBar;
 import entity.Magician;
 
 public class MainMenu extends Activity {
@@ -35,6 +38,7 @@ public class MainMenu extends Activity {
 	MagicianModel magicianModel = new MagicianModel();
 	MagimonModel magimonModel = new MagimonModel();
 	PersonalMagimonModel pmModel = new PersonalMagimonModel();
+	private RelativeLayout progress_bar_container, content;
 
 	String userID = "";
 	int soundID;
@@ -46,6 +50,7 @@ public class MainMenu extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_main_menu);
 
 		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
@@ -63,12 +68,20 @@ public class MainMenu extends Activity {
 		ImageButton deck = (ImageButton) findViewById(R.id.deck);
 		ImageButton duel = (ImageButton) findViewById(R.id.duel);
 		ImageButton about = (ImageButton) findViewById(R.id.about);
+        progress_bar_container = (RelativeLayout) findViewById(R.id.progress_bar_container);
+        content = (RelativeLayout) findViewById(R.id.content);
+        ProgressBar.initBarVariables(MainMenu.this);
+        ProgressBar.initProgressBar(progress_bar_container);
+        ProgressBar.showProgressBar(progress_bar_container, content);
 
 		train.setClickable(true);
 		peta.setClickable(true);
 		deck.setClickable(true);
 		duel.setClickable(true);
 		about.setClickable(true);
+		
+		magician = (Magician) getApplicationContext();
+		userID = getIMEI();
 
 		if (!magician.isSet()) {
 			// cek dulu udah terdaftar apa belom
@@ -146,10 +159,12 @@ public class MainMenu extends Activity {
 
 		setMenuListener();
 		soundPool.play(soundID, 1f, 1f, 1, -1, 1f);
+        ProgressBar.hideProgressBar(progress_bar_container, content);
 	}
 
 	@Override
 	public void onResume() {
+        ProgressBar.showProgressBar(progress_bar_container, content);
 		ImageButton train = (ImageButton) findViewById(R.id.train);
 		ImageButton peta = (ImageButton) findViewById(R.id.peta);
 		ImageButton deck = (ImageButton) findViewById(R.id.deck);
@@ -160,6 +175,7 @@ public class MainMenu extends Activity {
 		deck.setClickable(true);
 		duel.setClickable(true);
 		about.setClickable(true);
+        ProgressBar.hideProgressBar(progress_bar_container, content);
 		super.onResume();
 	}
 
