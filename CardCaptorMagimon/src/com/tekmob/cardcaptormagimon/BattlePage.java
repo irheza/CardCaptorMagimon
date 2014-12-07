@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import entity.Battle;
 import entity.Magician;
 import entity.MagicianEnemy;
 import entity.Magimon;
@@ -118,7 +119,12 @@ public class BattlePage extends Activity {
 				self.setExp(0);
 			if (enemy.getExperience() < 0)
 				enemy.setExperience(0);
-
+			
+			Battle battle = new Battle();
+			battle.setAttackerID(self.getId());
+			battle.setDefenderID(enemy.getUserID());
+			
+			
 			magicianModel.update(self);
 			magicianModel.update(enemy);
 
