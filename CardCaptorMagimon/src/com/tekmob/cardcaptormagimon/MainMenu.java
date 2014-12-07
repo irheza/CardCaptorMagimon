@@ -152,7 +152,7 @@ public class MainMenu extends Activity {
 
 		// Log.w("", "setelah IF");
 		userText = (TextView) findViewById(R.id.username);
-		userText.setText(magician.toString());
+		userText.setText("Welcome, "+magician.getUsername());
 
 		setMenuListener();
 		ProgressBar.hideProgressBar(progress_bar_container, content);
