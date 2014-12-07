@@ -17,6 +17,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
@@ -39,6 +41,8 @@ public class MainMenu extends Activity {
 	private RelativeLayout progress_bar_container, content;
 
 	String userID = "";
+	int soundID;
+	SoundPool soundPool;
 	// String user = magician.getUserID();
 
 	String user;
@@ -48,6 +52,16 @@ public class MainMenu extends Activity {
 		super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.activity_main_menu);
+
+		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		
+		boolean loaded;
+		soundID = soundPool.load(this, R.raw.bgm, 1);
+		
+		
+
+		magician = (Magician) getApplicationContext();
+		userID = getIMEI();
 
 		ImageButton train = (ImageButton) findViewById(R.id.train);
 		ImageButton peta = (ImageButton) findViewById(R.id.peta);
@@ -144,6 +158,7 @@ public class MainMenu extends Activity {
 		userText.setText(magician.toString());
 
 		setMenuListener();
+		soundPool.play(soundID, 1f, 1f, 1, -1, 1f);
         ProgressBar.hideProgressBar(progress_bar_container, content);
 	}
 
@@ -163,13 +178,13 @@ public class MainMenu extends Activity {
         ProgressBar.hideProgressBar(progress_bar_container, content);
 		super.onResume();
 	}
-	
+
 	@Override
-    public void onBackPressed() {
-    	super.onBackPressed();
-    	overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-    }
-	
+	public void onBackPressed() {
+		super.onBackPressed();
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+	}
+
 	public String getIMEI() {
 		TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceIMEI = tManager.getDeviceId();
@@ -329,6 +344,12 @@ public class MainMenu extends Activity {
 				// finish();
 			}
 		});
+	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+		soundPool.stop(soundID);
 	}
 
 }

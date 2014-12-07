@@ -17,12 +17,13 @@ public class Battle {
 	private String thirdDefenderID;
 	private String seen;
 
+	public Battle(){}
+	
 	public Battle(String id, String attackerID, String defenderID, int exp,
 			int totalAttack, int totalDefense, String firstAttackerID,
 			String secondAttackerID, String thirdAttackerID,
 			String firstDefenderID, String secondDefenderID,
 			String thirdDefenderID) {
-		super();
 		this.id = id;
 		this.attackerID = attackerID;
 		this.defenderID = defenderID;
