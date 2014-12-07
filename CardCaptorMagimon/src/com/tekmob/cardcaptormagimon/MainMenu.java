@@ -155,7 +155,7 @@ public class MainMenu extends Activity {
 
 		// Log.w("", "setelah IF");
 		userText = (TextView) findViewById(R.id.username);
-		userText.setText(magician.toString());
+		userText.setText("Welcome, "+magician.getUsername());
 
 		setMenuListener();
 		//soundPool.play(soundID, 1f, 1f, 1, -1, 1f);
