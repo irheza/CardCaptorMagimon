@@ -11,23 +11,25 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import animation.WalkInOut;
 
 public class SealedPage extends Activity {
 	TextView successText;
 	MagimonModel magimonModel = new MagimonModel();
 	private ImageView sign_top, sign_bottom;
-	private WalkInOut walkInOut;
-
+    private WalkInOut walkInOut;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_sealed_page);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         
-		sign_top = (ImageView) findViewById(R.id.sign_top);
-		sign_bottom = (ImageView) findViewById(R.id.sign_bottom);
-		
-		walkInOut = new WalkInOut();
+        sign_top = (ImageView) findViewById(R.id.sign_top);
+        sign_bottom = (ImageView) findViewById(R.id.sign_bottom);
+        
+        walkInOut = new WalkInOut();
 		walkInOut.initSign(SealedPage.this, sign_top, sign_bottom);
         
 		Intent intent = getIntent();
@@ -40,7 +42,6 @@ public class SealedPage extends Activity {
 			e.printStackTrace();
 		} 
 		
-		setContentView(R.layout.activity_sealed_page);
 		successText = (TextView) findViewById(R.id.success);
 		successText.setText("Sealed Magimon : "+sealedMagimon.getName());
 		
@@ -70,8 +71,7 @@ public class SealedPage extends Activity {
 
 			@Override
 			public void onClick(View view) {
-				Intent i = new Intent(getApplicationContext(), MainMenu.class);
-				startActivity(i);
+				SealedPage.super.onBackPressed();
 				finish();
 			}
 		});

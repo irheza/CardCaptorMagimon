@@ -1,5 +1,6 @@
 package animation;
 
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
@@ -9,7 +10,6 @@ public class SealingCircle {
 	private ImageView process_circ_core, process_circ_glow;
 	private boolean process1, process2, process3, process4, process5, process6, process7, process8, process9;
 	private int currentPrecentage = 0;
-	private AlphaAnimation fadeIn;
 	
 	public SealingCircle(ImageView process_circ_outer, ImageView process_circ_mid_connect, 
 			ImageView process_circ_mid_clean, ImageView process_circ_right_up, 
@@ -33,10 +33,19 @@ public class SealingCircle {
 		process7 = false;
 		process8 = false;
 		process9 = false;
-		
-		fadeIn = new AlphaAnimation(0.0f, 1.0f);
-		fadeIn.setDuration(2000);
-		fadeIn.setFillAfter(true);
+		setGone();
+	}
+	
+	private void setGone() {
+		process_circ_outer.setVisibility(View.GONE);
+		process_circ_mid_connect.setVisibility(View.GONE);
+		process_circ_mid_clean.setVisibility(View.GONE);
+		process_circ_right_up.setVisibility(View.GONE);
+		process_circ_right_down.setVisibility(View.GONE);
+		process_circ_left_up.setVisibility(View.GONE);
+		process_circ_left_down.setVisibility(View.GONE);
+		process_circ_core.setVisibility(View.GONE);
+		process_circ_glow.setVisibility(View.GONE);
 	}
 	
 	public void updateCircle(int percentage) {
@@ -44,47 +53,47 @@ public class SealingCircle {
 		
 		if (currentPrecentage >= 10 && process1 == false) {
 			process1 = true;
-			process_circ_mid_clean.startAnimation(fadeIn);
+			process_circ_mid_clean.setVisibility(View.VISIBLE);
 		}
 
 		if (currentPrecentage >= 20 && process2 == false) {
 			process2 = true;
-			process_circ_left_up.startAnimation(fadeIn);
+			process_circ_left_up.setVisibility(View.VISIBLE);
 		}
 
 		if (currentPrecentage >= 30 && process3 == false) {
 			process3 = true;
-			process_circ_right_up.startAnimation(fadeIn);
+			process_circ_right_up.setVisibility(View.VISIBLE);
 		}
 
 		if (currentPrecentage >= 40 && process4 == false) {
 			process4 = true;
-			process_circ_right_down.startAnimation(fadeIn);
+			process_circ_right_down.setVisibility(View.VISIBLE);
 		}
 
 		if (currentPrecentage >= 50 && process5 == false) {
 			process5 = true;
-			process_circ_left_down.startAnimation(fadeIn);
+			process_circ_left_down.setVisibility(View.VISIBLE);
 		}
 
 		if (currentPrecentage >= 65 && process6 == false) {
 			process6 = true;
-			process_circ_outer.startAnimation(fadeIn);
+			process_circ_outer.setVisibility(View.VISIBLE);
 		}
 
 		if (currentPrecentage >= 75 && process7 == false) {
 			process7 = true;
-			process_circ_core.startAnimation(fadeIn);
+			process_circ_core.setVisibility(View.VISIBLE);
 		}
 
 		if (currentPrecentage >= 85 && process8 == false) {
 			process8 = true;
-			process_circ_mid_connect.startAnimation(fadeIn);
+			process_circ_mid_connect.setVisibility(View.VISIBLE);
 		}
 
 		if (currentPrecentage >= 95 && process9 == false) {
 			process9 = true;
-			process_circ_glow.startAnimation(fadeIn);
+			process_circ_glow.setVisibility(View.VISIBLE);
 		}
 		
 	}

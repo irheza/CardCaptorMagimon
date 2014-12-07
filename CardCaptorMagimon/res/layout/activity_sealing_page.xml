@@ -86,7 +86,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_outer" />
 		        
 		        <ImageView
@@ -94,7 +93,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_mid_connect" />
 		        
 		        <ImageView
@@ -102,7 +100,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_mid_clean" />
 		        
 		        <ImageView
@@ -110,7 +107,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_right_up" />
 		        
 		        <ImageView
@@ -118,7 +114,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_right_down" />
 		        
 		        <ImageView
@@ -126,7 +121,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_left_up" />
 		        
 		        <ImageView
@@ -134,7 +128,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_left_down" />
 		        
 		        <ImageView
@@ -142,7 +135,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_core" />
 		        
 		        <ImageView
@@ -150,7 +142,6 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="match_parent"
 			        android:scaleType="fitCenter"
-        			android:alpha="0.0"
 			        android:src="@drawable/process_circ_glow" />
 		        
 	     	</RelativeLayout>
