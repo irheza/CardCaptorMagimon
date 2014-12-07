@@ -10,28 +10,33 @@ import entity.Magimon;
 import magicexception.InternetException;
 import model.MagimonModel;
 import model.PersonalMagimonModel;
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import animation.SealingCircle;
 
 public class SealingPage extends Activity implements TrainingSensorListener {
 	Magimon battledMonster;
 	int sealingCount=0;
+	int percentage = 0;
 	final int MAGIMON_SEALING_COUNT = 100;
 	final String NONE_MODE = "0";
 	boolean isSealed = false;
-	private TextView sealingText;
+	private TextView sealingText, currentMagimonName;
+	private ImageView process_circ_outer, process_circ_mid_connect, process_circ_mid_clean;
+	private ImageView process_circ_right_up, process_circ_right_down, process_circ_left_up, process_circ_left_down;
+	private ImageView process_circ_core, process_circ_glow;
+	private SealingCircle sealingCircle;
 	MagimonModel magimonModel = new MagimonModel();
 	PersonalMagimonModel pmModel= new PersonalMagimonModel();
 	ArrayList<PersonalMagimon> newParty;
-	Magician magician; 
+	Magician magician;
+	private String magimonName = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +45,26 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 		magician = (Magician)getApplicationContext();
 		setContentView(R.layout.activity_sealing_page);
 		sealingText = (TextView) findViewById(R.id.currentSealCount);
+		currentMagimonName = (TextView) findViewById(R.id.magimonName);
+		
+		// init imageview to animate
+		process_circ_outer = (ImageView) findViewById(R.id.process_circ_outer);
+		process_circ_mid_connect = (ImageView) findViewById(R.id.process_circ_mid_connect);
+		process_circ_mid_clean = (ImageView) findViewById(R.id.process_circ_mid_clean);
+		process_circ_right_up = (ImageView) findViewById(R.id.process_circ_right_up);
+		process_circ_right_down = (ImageView) findViewById(R.id.process_circ_right_down);
+		process_circ_left_up = (ImageView) findViewById(R.id.process_circ_left_up);
+		process_circ_left_down = (ImageView) findViewById(R.id.process_circ_left_down);
+		process_circ_core = (ImageView) findViewById(R.id.process_circ_core);
+		process_circ_glow = (ImageView) findViewById(R.id.process_circ_glow);
+		sealingCircle = new SealingCircle(process_circ_outer, process_circ_mid_connect, 
+				process_circ_mid_clean, process_circ_right_up, process_circ_right_down, process_circ_left_up, 
+				process_circ_left_down, process_circ_core, process_circ_glow);
+		// end of initiation
+		
 		try {
 			setMagimon();
+			currentMagimonName.setText(magimonName);
 		} catch (InternetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,6 +84,7 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 		String idMagimon = intent.getStringExtra("magimon");	
 		try {
 			battledMonster = magimonModel.getMagimon(idMagimon);
+			magimonName = battledMonster.getName();
 		} catch (InternetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,11 +100,16 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 			if(sealingCount<MAGIMON_SEALING_COUNT)
 			{
 				sealingCount++;
-				sealingText.setText("Sealing Count : "+sealingCount);
+				percentage = (int) (sealingCount*100)/MAGIMON_SEALING_COUNT;
+				sealingCircle.updateCircle(percentage);
+				sealingText.setText("Complete : "+percentage+"%");
 			}
 			else
 			{
 				isSealed=true;
+				sealingText.setText("Complete : 100%");
+				percentage = 100;
+				sealingCircle.updateCircle(percentage);
 			
 				if(addMagimon(battledMonster.getId()))
 				{

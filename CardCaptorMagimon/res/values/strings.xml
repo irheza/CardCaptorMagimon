@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_training_page">TrainingPage</string>
     <string name="experience_gained_start">Experience Gained : 0</string>
-    <string name="sealing_count_start">Sealing Count : 0</string>
+    <string name="sealing_count_start">Complete : 0%</string>
     <string name="training">Train</string>
     <string name="title_activity_peta">Peta</string>
     <string name="judul_peta">Peta</string>
@@ -21,6 +21,8 @@
     <string name="success">Sealed Magimon : </string>
     <string name="title_activity_about_page">AboutPage</string>
     <string name="title_activity_duel_page">DuelPage</string>
+    <string name="shake_gain_exp">Shake device to gain experience</string>
+    <string name="shake_seal">Shake device to seal Magimon</string>
     <string name="about1">About Us</string>
     <string name="about2">Magimon is a majestic location based game, inspired by some non-location based RPG Game. We believe that by adding location aspects in RPG Game, it can enrich your experience in playing the game, doesn\'t it?</string>
     <string name="about3">Please help us creating more innovative apps by give a 5 star rating in Play Store. If you have any suggestions and comments, feel free to contact us via e-mail: hexengram@gmail.com. Your suggestions and comments are very valuable for us. \n\n.::Cardcaptor Magimon v0.1beta::.</string>
