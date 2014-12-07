@@ -97,11 +97,11 @@ public class Peta extends FragmentActivity implements LocationListener {
 	    for(SpawnPoint spawnPoint : listSpawnPoint)
 	    {
 	    	LatLng spawnPointInLatLng = new LatLng(spawnPoint.getLatitude(),spawnPoint.getLongitude());
-	    	if(isNear(currentPosition,spawnPointInLatLng))
+	    	/*if(isNear(currentPosition,spawnPointInLatLng))
 	    	{
 	    		 Toast.makeText(getBaseContext(), "Battle Magimon :"+spawnPoint.getMagimonID(), 
 		                    Toast.LENGTH_SHORT).show();
-	    	}
+	    	}*/
 	    }
 	    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentPosition, 17);
 	    map.animateCamera(cameraUpdate);
@@ -173,6 +173,8 @@ public class Peta extends FragmentActivity implements LocationListener {
         			
         			
         		}else{
+        			Toast.makeText(getBaseContext(), "Magimon is too far, get close", 
+                            Toast.LENGTH_SHORT).show();
         			Log.w("", "is not near");
         		}
         		return true;
@@ -267,8 +269,8 @@ public class Peta extends FragmentActivity implements LocationListener {
 	{
 		Magimon battledMagimon = tagMarkerWithMagimon.get(marker);
 	    final String idMagimon = battledMagimon.getId();
-		Toast.makeText(getBaseContext(), "Magimon Battle "+battledMagimon.getName(), 
-                Toast.LENGTH_SHORT).show();
+		/*Toast.makeText(getBaseContext(), "Magimon Battle "+battledMagimon.getName(), 
+                Toast.LENGTH_SHORT).show();*/
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle("Sealing Magimon");
 		builder.setMessage(marker.getTitle()).setCancelable(true);
