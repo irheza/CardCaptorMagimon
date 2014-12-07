@@ -28,9 +28,32 @@
         android:scaleType="fitCenter"
         android:src="@drawable/training_bg_stars_magician" />
     
-    <ListView
-        android:id="@+id/list_enemy"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent" />
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp" >
+        
+        <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" >
+		    <TextView
+		        android:id="@+id/playerList"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="30dp"
+		        android:layout_centerInParent="true"
+		        android:textColor="@color/light_white"
+		       	android:textSize="30sp"
+		        android:text="@string/duelists" />
+	    </RelativeLayout>
+	    
+	    <ListView
+	        android:id="@+id/list_enemy"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent" />
+    </LinearLayout>
        
 </RelativeLayout>

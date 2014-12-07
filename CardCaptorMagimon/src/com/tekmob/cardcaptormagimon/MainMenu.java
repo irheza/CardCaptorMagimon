@@ -362,6 +362,7 @@ public class MainMenu extends Activity {
 				deck.setClickable(false);
 				duel.setClickable(false);
 				about.setClickable(false);
+				report.setClickable(false);
 				Intent i = new Intent(getApplicationContext(), NotificationPage.class);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
