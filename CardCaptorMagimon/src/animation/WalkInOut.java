@@ -11,6 +11,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class WalkInOut {
 	private int screenWidth = 0;
@@ -108,5 +109,21 @@ public class WalkInOut {
 		rightImage.startAnimation(hide);
 		leftImage.setVisibility(View.VISIBLE);
 		rightImage.setVisibility(View.VISIBLE);
+	}
+	
+	public void setStatusPosition(TextView attack, TextView defend, ImageView attack_pic, ImageView defend_pic) {
+		int attack_width = attack.getWidth();
+		int defend_width = defend.getWidth();
+		int used = 0;
+		
+		if (attack_width >= defend_width) {
+			used = attack_width;
+		} else {
+			used = defend_width;
+		}
+		int setX = 0 - (used/2) - (int)(screenWidth/5);
+
+		attack_pic.setX(setX);
+		defend_pic.setX(setX);
 	}
 }
