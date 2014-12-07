@@ -140,6 +140,9 @@ currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitud
 					.readObject(this, "LAST_SEAL");
 			long lastSeal = Long.parseLong(strLastSeal);
 			long now = System.currentTimeMillis();
+			
+			Log.w("LAST SEAL",""+lastSeal);
+			Log.w("NOW", ""+now);
 
 			if (now - lastSeal < 3600000) {
 				showMarukAlert(strLastSeal);
@@ -148,6 +151,7 @@ currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitud
 				return true;
 			}
 		} catch (Exception e) {
+			Log.w("EXCEPTION", e.toString());
 			return true;
 		}
 	}
@@ -171,10 +175,8 @@ currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitud
         				if(!checkExpiredMarker(marker))
             			{
         					if(checkLastSeal()){
-        						Log.w("LAST SEAL", "TRUE");
         						showSealingAlert(marker);
         					}else{
-        						Log.w("LAST SEAL", "FALSE");
         					}
             			}
             			else
@@ -204,12 +206,14 @@ currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitud
 
         });
 	}
-
+	
 	private void showMarukAlert(String lastSeal) {
-		Date date = new Date(lastSeal);
+		Log.w("str last seal", lastSeal);
+		Date date = new Date(Long.parseLong(lastSeal));
 		String lastBTL = date.toLocaleString();
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
+		
+		Log.w("hitung last battle", "ok");
 		alert.setTitle("Cool down!");
 		alert.setMessage("Dear magician, your last sealing is at "
 				+ lastBTL
