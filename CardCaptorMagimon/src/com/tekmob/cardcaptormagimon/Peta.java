@@ -33,6 +33,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -43,6 +44,9 @@ import entity.SpawnPoint;
 public class Peta extends FragmentActivity implements LocationListener {
 	private GoogleMap map;
 	private LocationManager locationManager;
+	public final String NYAAMON = "1";
+	public final String TAMAMON = "2";
+	public final String DORAMON = "3";
 	private static final long MIN_TIME = 400;
 	private static final float MIN_DISTANCE = 1000;
 	//variabel battle_range untuk mengatur seberapa dekat magimon dengan player
@@ -218,13 +222,33 @@ public class Peta extends FragmentActivity implements LocationListener {
 			LatLng latlng = new LatLng(spawnPoint.getLatitude(),spawnPoint.getLongitude());
 			Magimon magimon= magimonModel.getMagimon(spawnPoint.getMagimonID());
 			System.out.println(magimon.getName());
-			Marker magimonMark = map.addMarker(new MarkerOptions().position(latlng).title(magimon.getName()).snippet("Expired Time "+spawnPoint.getTimeExpired()));
+			int iconID = getResourceIdForMagimon(magimon);
+			Marker magimonMark = map.addMarker(new MarkerOptions()
+					.position(latlng)
+					.title(magimon.getName())
+					.snippet("Expired Time "+spawnPoint.getTimeExpired())
+					.icon(BitmapDescriptorFactory.fromResource(iconID)));
+			
 			tagMarkerWithMagimon.put(magimonMark, magimon);
 			tagMarkerWithSpawnPoint.put(magimonMark, spawnPoint);
 		}
 
 	}
-
+	public int getResourceIdForMagimon(Magimon magimon)
+	{
+		if(magimon.getId().equals(NYAAMON))
+		{
+			return R.drawable.neko;
+		}
+		else if(magimon.getId().equals(TAMAMON))
+		{
+			return R.drawable.egg;
+		}
+		else
+		{
+			return R.drawable.dragon;
+		}
+	}
 	
 	/*
 	 * Fungsi untuk membandingkan kedekatan antara 2 posisi
