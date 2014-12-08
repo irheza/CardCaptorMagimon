@@ -2,12 +2,214 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/training_bg_basic"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <ImageView
+        android:id="@+id/bg_magician"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bg_mage" />
+    
+    <ImageView
+        android:id="@+id/training_bg_stars_cover"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/training_bg_stars_cover" />
+    
+    <ImageView
+        android:id="@+id/training_bg_stars_magician"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/training_bg_stars_magician" />
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+        <RelativeLayout
+            android:id="@+id/enemyWrapper"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:layout_alignParentTop="true" >
+	        
+            <ImageView
+		        android:id="@+id/defendIcon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="50dp"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/defend" />
+            
+            <TextView
+		        android:id="@+id/enemyUsername"
+		        android:layout_toRightOf="@id/defendIcon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerVertical="true"
+		        android:textColor="@color/light_white"
+		        android:textSize="20sp"
+		        android:text="Enemy" />
+        </RelativeLayout>
 
+  		<TextView
+	        android:id="@+id/enemyDefend"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_below="@id/enemyWrapper"
+	        android:textColor="@color/light_white"
+	        android:textSize="30sp"
+	        android:text="DEFEND" />
+  		
+		<LinearLayout
+			android:id="@+id/enemyParty"
+			android:layout_below="@id/enemyDefend"
+	        android:layout_centerHorizontal="true"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_width="match_parent"
+			android:layout_height="100dp" >
+		  
+			<ImageView
+				android:id="@+id/enemy1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+		    
+			<ImageView
+				android:id="@+id/enemy2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+			   
+			<ImageView
+				android:id="@+id/enemy3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+		</LinearLayout>
+		
+  		<TextView
+	        android:id="@+id/damage"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:textColor="@color/light_white"
+	        android:textSize="25sp"
+	        android:text="DAMAGE" />
+		
+        <RelativeLayout
+            android:id="@+id/selfWrapper"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:layout_alignParentBottom="true" >
+            
+            <ImageView
+                android:id="@+id/attackIcon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="50dp"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/attack" />
+            
+            <TextView
+		        android:id="@+id/selfUsername"
+		        android:layout_toRightOf="@id/attackIcon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerVertical="true"
+		        android:textColor="@color/light_white"
+		        android:textSize="20sp"
+		        android:text="Magician" />
+        </RelativeLayout>
+    
+  		<TextView
+	        android:id="@+id/selfAttack"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_above="@id/selfWrapper"
+	        android:textColor="@color/light_white"
+	        android:textSize="30sp"
+	        android:text="ATTACK" />
+  		
+		<LinearLayout
+			android:id="@+id/selfParty"
+			android:layout_above="@id/selfAttack"
+			android:layout_width="match_parent"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+	        android:layout_centerHorizontal="true"
+			android:layout_height="100dp" >
+		  
+			<ImageView
+				android:id="@+id/self1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+			
+			<ImageView
+				android:id="@+id/self2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+		    
+			<ImageView
+				android:id="@+id/self3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+		</LinearLayout>
+		
+    </RelativeLayout>
+    
+   	<LinearLayout 
+   	    android:id="@+id/sign"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        
+   	    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1" />
+   	    
+   	    <LinearLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	    	android:layout_weight="1"
+        	android:orientation="vertical" >
+        
+	   	    <ImageView
+		        android:id="@+id/sign_top"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:layout_marginTop="20dp"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/you" />
+	   	    
+	   	    <ImageView
+		        android:id="@+id/sign_bottom"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1"
+		    	android:layout_marginBottom="20dp"
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/win" />
+   	    </LinearLayout>
+   	    
+   	    <ImageView
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		    	android:layout_weight="1" />
+   	    
+ 	</LinearLayout>
+ 
 </RelativeLayout>

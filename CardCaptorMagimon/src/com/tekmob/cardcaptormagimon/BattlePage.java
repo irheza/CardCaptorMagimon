@@ -24,7 +24,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import animation.WalkInOut;
 import entity.Battle;
 import entity.Magician;
 import entity.MagicianEnemy;
@@ -39,13 +42,27 @@ public class BattlePage extends Activity {
 
 	MagicianEnemy enemy;
 	Magician self;
+	private TextView enemyTextview, selfTextview, enemyDefend, selfAttack, damage;
+	private ImageView enemy1, enemy2, enemy3, self1, self2, self3;
+	private ImageView sign_top, sign_bottom;
+	private LinearLayout enemyParty, selfParty;
+
+    private WalkInOut walkInOut;
 
 	public final String ATK = "1";
 	public final String DEF = "2";
 	public final String NOPE = "0";
+	
+	private String selfUsername;
+	private String enemyUsername;
 
 	int totalAtk = 0;
+	private int attackFromParty = 0;
+	private int attackBonuses = 0;
+	
 	int totalDef = 0;
+	private int defendFromParty = 0;
+	private int defendBonuses = 0;
 
 	int levelAtk = 0;
 	int levelDef = 0;
@@ -56,10 +73,26 @@ public class BattlePage extends Activity {
 		setContentView(R.layout.activity_battle_page);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+		enemyTextview = (TextView) findViewById(R.id.enemyUsername);
+		selfTextview = (TextView) findViewById(R.id.selfUsername);
+		enemyDefend = (TextView) findViewById(R.id.enemyDefend);
+		selfAttack = (TextView) findViewById(R.id.selfAttack);
+		damage = (TextView) findViewById(R.id.damage);
+		
+		enemy1 = (ImageView) findViewById(R.id.enemy1);
+		enemy2 = (ImageView) findViewById(R.id.enemy2);
+		enemy3 = (ImageView) findViewById(R.id.enemy3);
+		self1 = (ImageView) findViewById(R.id.self1);
+		self2 = (ImageView) findViewById(R.id.self2);
+		self3 = (ImageView) findViewById(R.id.self3);
+		sign_top = (ImageView) findViewById(R.id.sign_top);
+        sign_bottom = (ImageView) findViewById(R.id.sign_bottom);
+		
+		enemyParty = (LinearLayout) findViewById(R.id.enemyParty);
+		selfParty = (LinearLayout) findViewById(R.id.selfParty);
+		
 		Bundle b = getIntent().getExtras();
 		String id = b.get("id").toString();
-		
-		
 		
 		self = (Magician) getApplicationContext();
 		try {
@@ -68,6 +101,9 @@ public class BattlePage extends Activity {
 					.getPersonalMagimonByMagician(self.getId());
 			ArrayList<PersonalMagimon> pmEnemy = personalMagModel
 					.getPersonalMagimonByMagician(enemy.getUserID());
+			
+			selfUsername = self.getUsername();
+			enemyUsername = enemy.getUsername();
 
 			ArrayList<Magimon> magimonSelf = new ArrayList<Magimon>(); // attack
 			ArrayList<Magimon> magimonEnemy = new ArrayList<Magimon>(); // defense
@@ -83,12 +119,23 @@ public class BattlePage extends Activity {
 							.add(magimonModel.getMagimon(pm.getMagimonID()));
 				}
 			}
-			totalAtk+= countTotalAtkFromParty(magimonSelf);
-			totalDef+= countTotalDefFromParty(magimonEnemy);
+			
+			attackFromParty = countTotalAtkFromParty(magimonSelf);
+			totalAtk+= attackFromParty;
+			
+			defendFromParty = countTotalDefFromParty(magimonEnemy);;
+			totalDef+= defendFromParty;
+			
+			attackBonuses = totalAtk;
 			totalAtk = totalAtk + experienceBonus(self.getExp());
 			totalAtk = plusProbability(totalAtk);
+			attackBonuses = totalAtk - attackBonuses;
+			
+			defendBonuses = totalDef;
 			totalDef = totalDef + experienceBonus(enemy.getExperience());
 			totalDef = plusProbability(totalDef);
+			defendBonuses = totalDef - defendBonuses;
+			
 			double damageRatio = 0;
 			
 			Log.w("self exp", ""+self.getExp());
@@ -119,11 +166,13 @@ public class BattlePage extends Activity {
 				// menang
 				self.setExp(self.getExp() + damageTotal);
 				enemy.setExperience(enemy.getExperience() - damageTotal);
+				sign_bottom.setImageResource(R.drawable.win);
 				status = "WIN";
 			} else if (totalAtk < totalDef) {
 				// kalah
 				self.setExp(self.getExp() - damageTotal);
 				enemy.setExperience(enemy.getExperience() + damageTotal);
+				sign_bottom.setImageResource(R.drawable.lose);
 				status = "LOSE";
 			} else {
 				// seri
@@ -142,15 +191,15 @@ public class BattlePage extends Activity {
 			battle.setAttackerID(self.getId());
 			battle.setDefenderID(enemy.getUserID());
 			
-			for(int i=0;i<pmSelf.size();i++){
-				if (i==0) battle.setFirstAttackerID(pmSelf.get(i).getMagimonID());
-				if (i==1) battle.setSecondAttackerID(pmSelf.get(i).getMagimonID());
-				if (i==2) battle.setThirdAttackerID(pmSelf.get(i).getMagimonID());
+			for(int i=0;i<magimonSelf.size();i++){
+				if (i==0) battle.setFirstAttackerID(magimonSelf.get(i).getId());
+				if (i==1) battle.setSecondAttackerID(magimonSelf.get(i).getId());
+				if (i==2) battle.setThirdAttackerID(magimonSelf.get(i).getId());
 			}
-			for(int i=0;i<pmEnemy.size();i++){
-				if (i==0) battle.setFirstDefenderID(pmEnemy.get(i).getMagimonID());
-				if (i==1) battle.setSecondDefenderID(pmEnemy.get(i).getMagimonID());
-				if (i==2) battle.setThirdDefenderID(pmEnemy.get(i).getMagimonID());
+			for(int i=0;i<magimonEnemy.size();i++){
+				if (i==0) battle.setFirstDefenderID(magimonEnemy.get(i).getId());
+				if (i==1) battle.setSecondDefenderID(magimonEnemy.get(i).getId());
+				if (i==2) battle.setThirdDefenderID(magimonEnemy.get(i).getId());
 			}
 			
 			battle.setExp(damageTotal);
@@ -165,10 +214,53 @@ public class BattlePage extends Activity {
 			magicianModel.update(enemy);
 			
 			cacheLastBattle(""+System.currentTimeMillis());
+
+	        walkInOut = new WalkInOut();
+			walkInOut.initSign(BattlePage.this, sign_top, sign_bottom);
+
+			enemyTextview.setText(enemyUsername);
+			selfTextview.setText(selfUsername);
+			enemyDefend.setText("" + defendFromParty + " + " + defendBonuses);
+			selfAttack.setText("" + attackFromParty + " + " + attackBonuses);
+			damage.setText("Damage: "+damageTotal);
 			
-			TextView userText = (TextView) findViewById(R.id.textView);
-			userText.setText("atk: " + totalAtk + "\ndef: " + totalDef
-					+ "\ndamageTotal: " + damageTotal);
+			for(int i=0;i<magimonSelf.size();i++){
+				if (magimonSelf.get(i).getId().equals(String.valueOf(1))) {
+					if (i==0) self1.setImageResource(R.drawable.neko);
+					if (i==1) self2.setImageResource(R.drawable.neko);
+					if (i==2) self3.setImageResource(R.drawable.neko);
+				}
+				else if (magimonSelf.get(i).getId().equals(String.valueOf(2))) {
+					if (i==0) self1.setImageResource(R.drawable.egg);
+					if (i==1) self2.setImageResource(R.drawable.egg);
+					if (i==2) self3.setImageResource(R.drawable.egg);
+				}
+				else if (magimonSelf.get(i).getId().equals(String.valueOf(3))) {
+					if (i==0) self1.setImageResource(R.drawable.dragon);
+					if (i==1) self2.setImageResource(R.drawable.dragon);
+					if (i==2) self3.setImageResource(R.drawable.dragon);
+				}
+			}
+			for(int i=0;i<magimonEnemy.size();i++){
+				if (magimonEnemy.get(i).getId().equals(String.valueOf(1))) {
+					if (i==0) enemy1.setImageResource(R.drawable.neko);
+					if (i==1) enemy2.setImageResource(R.drawable.neko);
+					if (i==2) enemy3.setImageResource(R.drawable.neko);
+				}
+				else if (magimonEnemy.get(i).getId().equals(String.valueOf(2))) {
+					if (i==0) enemy1.setImageResource(R.drawable.egg);
+					if (i==1) enemy2.setImageResource(R.drawable.egg);
+					if (i==2) enemy3.setImageResource(R.drawable.egg);
+				}
+				else if (magimonEnemy.get(i).getId().equals(String.valueOf(3))) {
+					if (i==0) enemy1.setImageResource(R.drawable.dragon);
+					if (i==1) enemy2.setImageResource(R.drawable.dragon);
+					if (i==2) enemy3.setImageResource(R.drawable.dragon);
+				}
+			}
+			
+			walkInOut.startMoving();
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
