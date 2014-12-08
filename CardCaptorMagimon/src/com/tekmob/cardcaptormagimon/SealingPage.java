@@ -97,10 +97,10 @@ public class SealingPage extends Activity implements TrainingSensorListener {
 		if(battledMonster!=null && isSealed==false)
 		{
 			 
-			if(sealingCount<MAGIMON_SEALING_COUNT)
+			if(sealingCount<battledMonster.getDefense())
 			{
 				sealingCount++;
-				percentage = (int) (sealingCount*100)/MAGIMON_SEALING_COUNT;
+				percentage = (int) (sealingCount*100)/battledMonster.getDefense();
 				sealingCircle.updateCircle(percentage);
 				sealingText.setText("Complete : "+percentage+"%");
 			}
