@@ -319,11 +319,13 @@ public class MainMenu extends Activity {
 				duel.setClickable(false);
 				about.setClickable(false);
 				report.setClickable(false);
+				
 				Intent i = new Intent(getApplicationContext(), DeckPage.class);
 				mBackgroundSound.stop();
 				mBackgroundSound.cancel(true);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				
 				// finish();
 			}
 		});
@@ -349,6 +351,7 @@ public class MainMenu extends Activity {
 
 			@Override
 			public void onClick(View view) {
+				
 				train.setClickable(false);
 				peta.setClickable(false);
 				deck.setClickable(false);
@@ -358,6 +361,8 @@ public class MainMenu extends Activity {
 				Intent i = new Intent(getApplicationContext(), AboutPage.class);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+		
+				
 				// finish();
 			}
 		});
@@ -382,8 +387,11 @@ public class MainMenu extends Activity {
 	@Override
 	public void onStop() {
 		super.onStop();
+	
 		mBackgroundSound.stop();
 		mBackgroundSound.cancel(true);
+		
+		
 	}
 
 	@Override
@@ -395,8 +403,11 @@ public class MainMenu extends Activity {
 	@Override
 	public void onPause() {
 		super.onPause();
+		
 		mBackgroundSound.stop();
 		mBackgroundSound.cancel(true);
+		
+		
 	}
 
 }

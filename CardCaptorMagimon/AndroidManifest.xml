@@ -114,7 +114,7 @@
             android:keepScreenOn="true"
             android:label="@string/title_activity_notification_page"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+             >
         </activity>
     </application>
 

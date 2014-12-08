@@ -81,7 +81,7 @@ public class SealedPage extends Activity {
 			Toast.makeText(getBaseContext(), "Failed",
 	                Toast.LENGTH_SHORT).show();
 		}
-		
+		setMenuListener();
 		
 		walkInOut.setStatusPosition(attack, defend, attack_pic, defend_pic);
 		walkInOut.startMoving();
@@ -177,7 +177,7 @@ class BackgroundSoundSealed extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		player = MediaPlayer.create(context, R.raw.sealed);
-		player.setLooping(true); // Set looping
+		player.setLooping(false); // Set looping
 		player.setVolume(100, 100);
 		player.start();
 		return null;
