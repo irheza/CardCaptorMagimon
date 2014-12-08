@@ -67,8 +67,6 @@ public class SealedPage extends Activity {
 		
 		
 		if (sealedMagimon.getId().equals(String.valueOf(1))) {
-			Toast.makeText(getBaseContext(), "Battle Magimon :"+magimonSealedId,
-                Toast.LENGTH_SHORT).show();
 			magimon_pic.setImageResource(R.drawable.neko);
 			magimon_pic.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		}

@@ -28,96 +28,446 @@
         android:scaleType="fitCenter"
         android:src="@drawable/training_bg_stars_magician" />
     
-	<Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit" />
-
-    <Button
-        android:id="@+id/magimon1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnSubmit"
-        android:text="Partner 1" />
-     <Button
-        android:id="@+id/remove1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/magimon1"
-        android:text="Remove 1" />
-    
-    
-    <Button
-        android:id="@+id/magimon2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/remove1"
-        android:text="Partner 2" />
-    
-    <Button
-        android:id="@+id/remove2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/magimon2"
-        android:text="Remove 2" />
-    
-    <Button
-        android:id="@+id/magimon3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/remove2"
-        android:text="Partner 3" />
-    
-    <Button
-        android:id="@+id/remove3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/magimon3"
-        android:text="Remove 3" />
-    
-    <Button
-        android:id="@+id/magimon4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/remove3"
-        android:text="Partner 4" />
-    
-    <Button
-        android:id="@+id/remove4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/magimon4"
-        android:text="Remove 4" />
-    
-    <Button
-        android:id="@+id/magimon5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/remove4"
-        android:text="Partner 5" />
-    
-    <Button
-        android:id="@+id/remove5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/magimon5"
-        android:text="Remove 5" />
-    
-    <Button
-        android:id="@+id/magimon6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/remove5"
-        android:text="Partner 6" />
-    
-    <Button
-        android:id="@+id/remove6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/magimon6"
-        android:text="Remove 6" />
-    
-
+    <RelativeLayout 
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="vertical" >
+        
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="1"
+		        android:orientation="vertical" >
+		   	    
+		        <LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:layout_weight="1"
+			        android:orientation="horizontal" >
+		   	    
+		            <RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+				        android:layout_marginLeft="20dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_marginTop="10dp"
+				        android:layout_marginBottom="5dp"
+				        android:layout_weight="1" >
+			        
+		                <RelativeLayout
+					        android:layout_width="match_parent"
+					        android:layout_height="match_parent" >
+		                    
+					        <ImageView
+						        android:id="@+id/mode1"
+						        android:layout_width="30dp"
+						        android:layout_height="30dp"
+						        android:src="@drawable/none" />
+					        <TextView
+						        android:id="@+id/value1"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_toRightOf="@id/mode1"
+						        android:textColor="@color/light_white"
+						        android:textSize="20sp"
+						        android:text="@string/neutral" />
+		                    
+		                </RelativeLayout>
+		                
+					    <ImageButton
+					        android:id="@+id/magimon1"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginBottom="30dp"
+					        android:scaleType="fitCenter"
+					 	    android:clickable="true"
+					 	    android:background="@null" />
+					    
+					    <ImageButton
+					        android:id="@+id/remove1"
+					        android:layout_width="wrap_content"
+					        android:layout_height="25dp"
+					        android:scaleType="fitCenter"
+					        android:layout_centerHorizontal="true"
+					        android:layout_alignParentBottom="true"
+					 	    android:clickable="true"
+					 	    android:background="@null"
+					        android:src="@drawable/button_remove" />
+				    
+					    <TextView
+						        android:id="@+id/nama1"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_above="@id/remove1"
+					        	android:layout_centerHorizontal="true"
+						        android:textColor="@color/light_white"
+						        android:textSize="15sp"
+						        android:text="@string/magimon" />
+					    
+				    </RelativeLayout>
+				     
+		            <RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="20dp"
+				        android:layout_marginTop="10dp"
+				        android:layout_marginBottom="5dp"
+				        android:layout_weight="1" >
+					    
+		                <RelativeLayout
+					        android:layout_width="match_parent"
+					        android:layout_height="match_parent" >
+		                    
+					        <ImageView
+						        android:id="@+id/mode2"
+						        android:layout_width="30dp"
+						        android:layout_height="30dp"
+						        android:src="@drawable/none" />
+					        <TextView
+						        android:id="@+id/value2"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_toRightOf="@id/mode2"
+						        android:textColor="@color/light_white"
+						        android:textSize="20sp"
+						        android:text="@string/neutral" />
+		                    
+		                </RelativeLayout>
+		                
+				        <ImageButton
+					        android:id="@+id/magimon2"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginBottom="30dp"
+					        android:scaleType="fitCenter"
+					 	    android:clickable="true"
+					 	    android:background="@null" />
+					    
+					    <ImageButton
+					        android:id="@+id/remove2"
+					        android:layout_width="wrap_content"
+					        android:layout_height="25dp"
+					        android:scaleType="fitCenter"
+					        android:layout_centerHorizontal="true"
+					        android:layout_alignParentBottom="true"
+					 	    android:clickable="true"
+					 	    android:background="@null"
+					        android:src="@drawable/button_remove" />
+				    
+					    <TextView
+						        android:id="@+id/nama2"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_above="@id/remove2"
+					        	android:layout_centerHorizontal="true"
+						        android:textColor="@color/light_white"
+						        android:textSize="15sp"
+						        android:text="@string/magimon" />
+					    
+				    </RelativeLayout>
+				    
+			    </LinearLayout>
+			    
+		        <LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:layout_weight="1"
+			        android:orientation="horizontal" >
+			   	    
+		            <RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+				        android:layout_marginLeft="20dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_marginTop="5dp"
+				        android:layout_marginBottom="5dp"
+				        android:layout_weight="1" >
+					    
+		                <RelativeLayout
+					        android:layout_width="match_parent"
+					        android:layout_height="match_parent" >
+		                    
+					        <ImageView
+						        android:id="@+id/mode3"
+						        android:layout_width="30dp"
+						        android:layout_height="30dp"
+						        android:src="@drawable/none" />
+					        <TextView
+						        android:id="@+id/value3"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_toRightOf="@id/mode3"
+						        android:textColor="@color/light_white"
+						        android:textSize="20sp"
+						        android:text="@string/neutral" />
+		                    
+		                </RelativeLayout>
+		                
+				        <ImageButton
+					        android:id="@+id/magimon3"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginBottom="30dp"
+					        android:scaleType="fitCenter"
+					 	    android:clickable="true"
+					 	    android:background="@null" />
+				        
+					    <ImageButton
+					        android:id="@+id/remove3"
+					        android:layout_width="wrap_content"
+					        android:layout_height="25dp"
+					        android:scaleType="fitCenter"
+					        android:layout_centerHorizontal="true"
+					        android:layout_alignParentBottom="true"
+					 	    android:clickable="true"
+					 	    android:background="@null"
+					        android:src="@drawable/button_remove" />
+				    
+					    <TextView
+						        android:id="@+id/nama3"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_above="@id/remove3"
+					        	android:layout_centerHorizontal="true"
+						        android:textColor="@color/light_white"
+						        android:textSize="15sp"
+						        android:text="@string/magimon" />
+					    
+				    </RelativeLayout>
+				    
+		            <RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="20dp"
+				        android:layout_marginTop="5dp"
+				        android:layout_marginBottom="5dp"
+				        android:layout_weight="1" >
+					    
+		                <RelativeLayout
+					        android:layout_width="match_parent"
+					        android:layout_height="match_parent" >
+		                    
+					        <ImageView
+						        android:id="@+id/mode4"
+						        android:layout_width="30dp"
+						        android:layout_height="30dp"
+						        android:src="@drawable/none" />
+					        <TextView
+						        android:id="@+id/value4"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_toRightOf="@id/mode4"
+						        android:textColor="@color/light_white"
+						        android:textSize="20sp"
+						        android:text="@string/neutral" />
+		                    
+		                </RelativeLayout>
+		                
+				        <ImageButton
+					        android:id="@+id/magimon4"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginBottom="30dp"
+					        android:scaleType="fitCenter"
+					 	    android:clickable="true"
+					 	    android:background="@null" />
+				        
+					    <ImageButton
+					        android:id="@+id/remove4"
+					        android:layout_width="wrap_content"
+					        android:layout_height="25dp"
+					        android:scaleType="fitCenter"
+					        android:layout_centerHorizontal="true"
+					        android:layout_alignParentBottom="true"
+					 	    android:clickable="true"
+					 	    android:background="@null"
+					        android:src="@drawable/button_remove" />
+				    
+					    <TextView
+						        android:id="@+id/nama4"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_above="@id/remove4"
+					        	android:layout_centerHorizontal="true"
+						        android:textColor="@color/light_white"
+						        android:textSize="15sp"
+						        android:text="@string/magimon" />
+					    
+				    </RelativeLayout>
+				    
+			    </LinearLayout>
+			    
+		        <LinearLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:layout_weight="1"
+			        android:orientation="horizontal" >
+		   	    
+		            <RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+				        android:layout_marginLeft="20dp"
+				        android:layout_marginRight="10dp"
+				        android:layout_marginTop="5dp"
+				        android:layout_marginBottom="5dp"
+				        android:layout_weight="1" >
+				        
+		                <RelativeLayout
+					        android:layout_width="match_parent"
+					        android:layout_height="match_parent" >
+		                    
+					        <ImageView
+						        android:id="@+id/mode5"
+						        android:layout_width="30dp"
+						        android:layout_height="30dp"
+						        android:src="@drawable/none" />
+					        <TextView
+						        android:id="@+id/value5"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_toRightOf="@id/mode5"
+						        android:textColor="@color/light_white"
+						        android:textSize="20sp"
+						        android:text="@string/neutral" />
+		                    
+		                </RelativeLayout>
+		                
+				        <ImageButton
+					        android:id="@+id/magimon5"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginBottom="30dp"
+					        android:scaleType="fitCenter"
+					 	    android:clickable="true"
+					 	    android:background="@null" />
+				        
+					    <ImageButton
+					        android:id="@+id/remove5"
+					        android:layout_width="wrap_content"
+					        android:layout_height="25dp"
+					        android:scaleType="fitCenter"
+					        android:layout_centerHorizontal="true"
+					        android:layout_alignParentBottom="true"
+					 	    android:clickable="true"
+					 	    android:background="@null"
+					        android:src="@drawable/button_remove" />
+				    
+					    <TextView
+						        android:id="@+id/nama5"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_above="@id/remove5"
+					        	android:layout_centerHorizontal="true"
+						        android:textColor="@color/light_white"
+						        android:textSize="15sp"
+						        android:text="@string/magimon" />
+					    
+				    </RelativeLayout>
+				    
+		            <RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="match_parent"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="20dp"
+				        android:layout_marginTop="5dp"
+				        android:layout_marginBottom="5dp"
+				        android:layout_weight="1" >
+				        
+		                <RelativeLayout
+					        android:layout_width="match_parent"
+					        android:layout_height="match_parent" >
+		                    
+					        <ImageView
+						        android:id="@+id/mode6"
+						        android:layout_width="30dp"
+						        android:layout_height="30dp"
+						        android:src="@drawable/none" />
+					        <TextView
+						        android:id="@+id/value6"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_toRightOf="@id/mode6"
+						        android:textColor="@color/light_white"
+						        android:textSize="20sp"
+						        android:text="@string/neutral" />
+		                    
+		                </RelativeLayout>
+		                
+				        <ImageButton
+					        android:id="@+id/magimon6"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginBottom="30dp"
+					        android:scaleType="fitCenter"
+					 	    android:clickable="true"
+					 	    android:background="@null" />
+				        
+					    <ImageButton
+					        android:id="@+id/remove6"
+					        android:layout_width="wrap_content"
+					        android:layout_height="25dp"
+					        android:scaleType="fitCenter"
+					        android:layout_centerHorizontal="true"
+					        android:layout_alignParentBottom="true"
+					 	    android:clickable="true"
+					 	    android:background="@null"
+					        android:src="@drawable/button_remove" />
+				    
+					    <TextView
+						        android:id="@+id/nama6"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"
+						        android:layout_above="@id/remove6"
+					        	android:layout_centerHorizontal="true"
+						        android:textColor="@color/light_white"
+						        android:textSize="15sp"
+						        android:text="@string/magimon" />
+					    
+				    </RelativeLayout>
+				    
+			    </LinearLayout>
+			    
+		    </LinearLayout>
+		    
+		    <RelativeLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_weight="5" >
+		        
+			    <TextView
+			        android:id="@+id/information"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_centerHorizontal="true"
+			        android:layout_alignParentBottom="true"
+			        android:textColor="@color/light_white"
+			        android:layout_marginBottom="20dp"
+			       	android:textSize="15sp"
+			        android:text="@string/tap_to_change_mode" />
+			
+				<ImageButton
+			        android:id="@+id/btnSubmit"
+			        android:layout_width="wrap_content"
+			        android:layout_height="30dp"
+			        android:layout_marginBottom="5dp"
+			        android:scaleType="fitCenter"
+			 	    android:clickable="true"
+			 	    android:background="@null"
+			        android:layout_centerHorizontal="true"
+			        android:layout_above="@id/information"
+			        android:src="@drawable/button_submit" />
+				
+			</RelativeLayout>
+			
+		</LinearLayout>
+		
+	</RelativeLayout>
 
 </RelativeLayout>
