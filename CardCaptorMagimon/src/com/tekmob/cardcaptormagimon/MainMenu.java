@@ -319,11 +319,13 @@ public class MainMenu extends Activity {
 				duel.setClickable(false);
 				about.setClickable(false);
 				report.setClickable(false);
+				
 				Intent i = new Intent(getApplicationContext(), DeckPage.class);
 				mBackgroundSound.stop();
 				mBackgroundSound.cancel(true);
 				startActivity(i);
 				overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+				
 				// finish();
 			}
 		});

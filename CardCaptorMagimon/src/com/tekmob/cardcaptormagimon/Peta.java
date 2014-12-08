@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -82,7 +84,15 @@ public class Peta extends FragmentActivity implements LocationListener {
 		
 		
 		try {
-			spawnMagimon();
+			if(isNetworkAvailable())
+			{
+				spawnMagimon();
+			}
+			else
+			{
+				 Toast.makeText(getBaseContext(), "Please check your Internet Connection", 
+		                    Toast.LENGTH_SHORT).show();
+			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,9 +106,15 @@ public class Peta extends FragmentActivity implements LocationListener {
 	@Override
 	public void onResume(){
 		super.onResume();
-		Location lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude());
-	    
+		Location lastLocation=null;
+		if(LocationManager.NETWORK_PROVIDER!=null)
+		{
+			lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		}
+		if(lastLocation!=null)
+		{
+			currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude());
+		}
 	    CameraPosition cameraPosition = new CameraPosition.Builder()
 	    .target(GEDUNG_C_FASILKOM) 
 	    .zoom(17)                   
@@ -359,6 +375,13 @@ currentPosition = new LatLng(lastLocation.getLatitude(),lastLocation.getLongitud
 
 	@Override
 	public void onProviderDisabled(String provider) {
+	}
+	
+	private boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
 
 }
