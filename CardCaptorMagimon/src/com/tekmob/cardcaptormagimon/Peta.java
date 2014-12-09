@@ -55,7 +55,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 	private static final float MIN_DISTANCE = 1;
 	// variabel battle_range untuk mengatur seberapa dekat magimon dengan player
 	// sehingga dapat ditanggkap
-	private static final double BATTLE_RANGE = 0.005;
+	private static final double BATTLE_RANGE = 0.0005;
 	final int SPAWN_LIMIT_NUMBER = 9;
 	// posisi sekarang
 	LatLng currentPosition = new LatLng(-6.364537, 106.828668);
