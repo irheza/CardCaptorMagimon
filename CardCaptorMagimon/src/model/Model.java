@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class Model {
 	// pake garis miring di akhirnya
@@ -34,18 +35,52 @@ public class Model {
 					.execute(URL_SERVER + subURL);
 			String result = asyncResult.get();
 			if (result != null) {
+				Log.w("", "haha1");
 				jo = new JSONObject(result);
 			} else {
+				//return null;
 				throw new InternetException();
 			}
 		} catch (JSONException je) {
-			System.out.println(je.toString());
+			//System.out.println(je.toString());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
+			Log.w("", "hahaha4");
 			e.printStackTrace();
 			System.out.println(e.toString());
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
+			Log.w("", "hahaha5");
+			e.printStackTrace();
+			System.out.println(e.toString());
+		}
+
+		return jo;
+	}
+	
+	public JSONObject getDataKhususRegister(String subURL) throws InternetException {
+		JSONObject jo = null;
+		try {
+			AsyncTask<String, String, String> asyncResult = new StringAsyncDownloader()
+					.execute(URL_SERVER + subURL);
+			String result = asyncResult.get();
+			if (result != null) {
+				Log.w("", "haha1");
+				jo = new JSONObject(result);
+			} else {
+				return null;
+				//throw new InternetException();
+			}
+		} catch (JSONException je) {
+			//System.out.println(je.toString());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			Log.w("", "hahaha4");
+			e.printStackTrace();
+			System.out.println(e.toString());
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			Log.w("", "hahaha5");
 			e.printStackTrace();
 			System.out.println(e.toString());
 		}
