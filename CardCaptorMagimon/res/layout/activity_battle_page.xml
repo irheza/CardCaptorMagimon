@@ -78,21 +78,24 @@
 		  
 			<ImageView
 				android:id="@+id/enemy1"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+				android:layout_weight="1"
+				android:scaleType="fitCenter" />
 		    
 			<ImageView
 				android:id="@+id/enemy2"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+				android:layout_weight="1"
+				android:scaleType="fitCenter" />
 			   
 			<ImageView
 				android:id="@+id/enemy3"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+				android:layout_weight="1"
+				android:scaleType="fitCenter" />
 		</LinearLayout>
 		
   		<TextView
@@ -150,21 +153,24 @@
 		  
 			<ImageView
 				android:id="@+id/self1"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+				android:layout_weight="1"
+				android:scaleType="fitCenter" />
 			
 			<ImageView
 				android:id="@+id/self2"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+				android:layout_weight="1"
+				android:scaleType="fitCenter" />
 		    
 			<ImageView
 				android:id="@+id/self3"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+				android:layout_weight="1"
+				android:scaleType="fitCenter" />
 		</LinearLayout>
 		
     </RelativeLayout>

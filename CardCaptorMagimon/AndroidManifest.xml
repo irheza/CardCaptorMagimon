@@ -59,6 +59,8 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCIVXKTF3bTlyjsC9S6u9Bzud5QWHenbNs" />
+            <!--deBug ~~~ android:value="AIzaSyCKcBGU2z9pp0AK_T_oUlK802dEZPnLntM" /> -->
+            <!--onStore ~~~ android:value="AIzaSyCIVXKTF3bTlyjsC9S6u9Bzud5QWHenbNs" /> -->
 
         <activity
             android:name=".Peta"

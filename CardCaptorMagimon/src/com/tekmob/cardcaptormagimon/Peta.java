@@ -342,6 +342,7 @@ public class Peta extends FragmentActivity implements LocationListener {
 								SealingPage.class);
 						intent.putExtra("magimon", idMagimon);
 						startActivity(intent);
+						overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 						finish();
 					}
 				});

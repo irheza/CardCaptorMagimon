@@ -2,9 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/card"
     tools:context="com.tekmob.cardcaptormagimon.SealedPage" >
 
+    <RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+    	android:background="@drawable/card" >
+    </RelativeLayout>
+    
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="match_parent"

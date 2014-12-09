@@ -365,6 +365,7 @@ public class DeckPage extends Activity {
 
 			@Override
 			public void onClick(View view) {
+				setButtonsClickable(false);
 				alertRemoveShow(remove1, magimon1, mode1, value1, nama1, 0);
 			}
 		});
@@ -372,6 +373,7 @@ public class DeckPage extends Activity {
 
 			@Override
 			public void onClick(View view) {
+				setButtonsClickable(false);
 				alertRemoveShow(remove2, magimon2, mode2, value2, nama2, 1);
 			}
 		});
@@ -379,6 +381,7 @@ public class DeckPage extends Activity {
 
 			@Override
 			public void onClick(View view) {
+				setButtonsClickable(false);
 				alertRemoveShow(remove3, magimon3, mode3, value3, nama3, 2);
 			}
 		});
@@ -386,6 +389,7 @@ public class DeckPage extends Activity {
 
 			@Override
 			public void onClick(View view) {
+				setButtonsClickable(false);
 				alertRemoveShow(remove4, magimon4, mode4, value4, nama4, 3);
 			}
 		});
@@ -393,6 +397,7 @@ public class DeckPage extends Activity {
 
 			@Override
 			public void onClick(View view) {
+				setButtonsClickable(false);
 				alertRemoveShow(remove5, magimon5, mode5, value5, nama5, 4);
 			}
 		});
@@ -400,10 +405,38 @@ public class DeckPage extends Activity {
 
 			@Override
 			public void onClick(View view) {
+				setButtonsClickable(false);
 				alertRemoveShow(remove6, magimon6, mode6, value6, nama6, 5);
 			}
 		});
 
+	}
+	
+	private void setButtonsClickable(boolean setThis) {
+		final ImageButton removes1 = (ImageButton) findViewById(R.id.remove1);
+		final ImageButton removes2 = (ImageButton) findViewById(R.id.remove2);
+		final ImageButton removes3 = (ImageButton) findViewById(R.id.remove3);
+		final ImageButton removes4 = (ImageButton) findViewById(R.id.remove4);
+		final ImageButton removes5 = (ImageButton) findViewById(R.id.remove5);
+		final ImageButton removes6 = (ImageButton) findViewById(R.id.remove6);
+		final ImageButton submitDecks = (ImageButton) findViewById(R.id.btnSubmit);
+		if (setThis) {
+			removes1.setClickable(true);
+			removes2.setClickable(true);
+			removes3.setClickable(true);
+			removes4.setClickable(true);
+			removes5.setClickable(true);
+			removes6.setClickable(true);
+			submitDecks.setClickable(true);
+		} else {
+			removes1.setClickable(false);
+			removes2.setClickable(false);
+			removes3.setClickable(false);
+			removes4.setClickable(false);
+			removes5.setClickable(false);
+			removes6.setClickable(false);
+			submitDecks.setClickable(false);
+		}
 	}
 
 	public void setSubmitButtonListener() {
@@ -412,6 +445,7 @@ public class DeckPage extends Activity {
 			@Override
 			public void onClick(View view) {
 
+				setButtonsClickable(false);
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setTitle("Submit Deck");
 
@@ -427,18 +461,20 @@ public class DeckPage extends Activity {
 								} catch (InternetException ie) {
 									showNoInternetAlert();
 								}
+
+								setButtonsClickable(true);
 							}
 						});
 				builder.setNegativeButton("Nope",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								dialog.cancel();
+								setButtonsClickable(true);
 
 							}
 						});
 				AlertDialog alertdialog = builder.create();
 				alertdialog.show();
-
 			}
 		});
 
@@ -476,6 +512,7 @@ public class DeckPage extends Activity {
 				modes.setVisibility(View.GONE);
 				values.setVisibility(View.GONE);
 				names.setVisibility(View.GONE);
+				setButtonsClickable(true);
 			}
 		});
 		
@@ -494,12 +531,14 @@ public class DeckPage extends Activity {
 					values.setVisibility(View.GONE);
 					names.setVisibility(View.GONE);
 				}
+				setButtonsClickable(true);
 			}
 		});
 		builder.setNegativeButton("Nope",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
+						setButtonsClickable(true);
 
 					}
 				});

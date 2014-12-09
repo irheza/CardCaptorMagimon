@@ -133,6 +133,7 @@ public class DuelPage extends Activity {
 		Intent i = new Intent(this, BattlePage.class);
 		i.putExtra("id", id);
 		startActivity(i);
+		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 	}
 
 	/*
@@ -172,9 +173,47 @@ public class DuelPage extends Activity {
 			ArrayList<MagicianEnemy> enemies) {
 		ArrayList<String> listEnemiesInString = new ArrayList<String>();
 		for (MagicianEnemy enemy : enemies) {
-			listEnemiesInString.add(enemy.getUsername());
+			int enemyLevel = getCurrentLevel(enemy.getExperience())[0];
+			listEnemiesInString.add("Lv." + enemyLevel + " > " + enemy.getUsername());
 		}
 		return listEnemiesInString;
 	}
+	
+    /**
+     * Do some awesome calculation here.
+     * 
+     * @param currentLevel
+     * @return total experience to reach next level
+     */
+    private int getNextLevelParam(int currentLevel) {
+    	int ret = (int)(200*(Math.pow(currentLevel, 1.5)));
+    	
+    	return ret;
+    }
+    
+    /**
+     * To get current level
+     * 
+     * @param currentExp
+     * @return
+     */
+    private int[] getCurrentLevel(int currentExp) {
+    	int[] ret = new int[2];
+    	ret[0] = 1;
+    	int temp = currentExp;
+    	boolean notFound = true;
+    	
+    	while (notFound) {
+    		int temp_exp_needed = (getNextLevelParam(ret[0])-getNextLevelParam(ret[0]-1));
+    		if (temp < temp_exp_needed) {
+    			notFound = false;
+    		} else {
+    			temp = temp - temp_exp_needed;
+    			ret[0]++;
+    		}
+    	}
+    	ret[1] = temp;
+    	return ret;
+    }
 
 }

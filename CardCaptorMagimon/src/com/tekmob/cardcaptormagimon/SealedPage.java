@@ -147,6 +147,7 @@ public class SealedPage extends Activity {
 				mBackgroundSound.stop();
 				mBackgroundSound.cancel(true);
 				startActivity(i);
+				overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 				finish();
 			}
 		});
@@ -159,6 +160,7 @@ public class SealedPage extends Activity {
 				peta.setClickable(false);
 				menu.setClickable(false);
 				SealedPage.super.onBackPressed();
+				overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
 				finish();
 			}
 		});
