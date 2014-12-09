@@ -1,13 +1,20 @@
 package com.tekmob.cardcaptormagimon;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import entity.*;
+import magicexception.InternetException;
 import model.*;
 import trainingsensor.TrainingSensorListener;
 import trainingsensor.TrainingSensorManager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -95,6 +102,21 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
     public void onResume() {
             super.onResume();
             
+            MagicianModel magicianModel = new MagicianModel();
+            try {
+				JSONObject jo = magicianModel.getMagician(getIMEI());
+				currentExp = jo.getInt("exp");
+				userIs = jo.getString("username");
+			} catch (InternetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+            
+            
             //Check device supported Accelerometer senssor or not
             if (TrainingSensorManager.isSupported(this)) {
                 //Start Accelerometer Listening
@@ -104,7 +126,38 @@ public class TrainingPage extends Activity implements TrainingSensorListener {
         	Bar.setExpNeededToLevelUp(expNeededToLevelUp);
             Bar.updateExpDisplay(expDisplay);
             Bar.updateBarParameter(bar_parameter);
+                        
+            int[] levelAndExp = getCurrentLevel(currentExp);
+            currentLevel = levelAndExp[0];
+        	expNeededToLevelUp = (getNextLevelParam(currentLevel)-getNextLevelParam(currentLevel-1));
+    		expInCurrentLevel = levelAndExp[1];
+    		
+    		// Init bar views
+            Bar.initBarVariables(TrainingPage.this);
+            Bar.setCurrentExpInThisLevel(expInCurrentLevel);
+            Bar.setExpNeededToLevelUp(expNeededToLevelUp);
+            Bar.initMagicBall(magic_ball, glass_ball_magic_effect);
+            Bar.initUsername(username, userIs);
+            Bar.initLevel(level, currentLevel);
+            Bar.initBarContainer(expContainer);
+            Bar.initBarParameter(bar_parameter);
+            Bar.initExpDisplay(expDisplay);
+            ProgressBar.initBarVariables(TrainingPage.this);
+            ProgressBar.initProgressBar(progress_bar_container);
+            updateBar();
     }
+    
+    public String getIMEI() {
+		TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		String deviceIMEI = tManager.getDeviceId();
+
+		if (deviceIMEI != null) {
+			return deviceIMEI;
+		} else {
+			return Secure.getString(getApplicationContext()
+					.getContentResolver(), Secure.ANDROID_ID);
+		}
+	}
      
     @Override
     public void onStop() {
