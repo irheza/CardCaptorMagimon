@@ -45,9 +45,13 @@ public class MagicianModel extends Model{
 		return result;
 	}
 	public boolean checkMagician(String id) throws InternetException {
-		JSONObject jo = super.getData("magician/select/" + id);
+		//Log.w("", "check jsonobject magician null");
+		JSONObject jo = super.getDataKhususRegister("magician/select/" + id);
 		if (jo == null) {
-			throw new InternetException();
+			Log.w("", "check jsonobject magician null");
+			return false;
+			
+			//throw new InternetException();
 		}
 		try {
 			String idku = (String) jo.get("id");
@@ -72,7 +76,7 @@ public class MagicianModel extends Model{
 		URL url;
 		try {
 			AsyncTask<String, String, String> asyncResult = new StringAsyncUploader().execute(super.URL_SERVER+"magician/insert", data);
-			
+
 			String result = asyncResult.get();
 			Log.w("", "string berhasil di POST");
 		}catch(Exception e){

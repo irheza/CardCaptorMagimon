@@ -77,9 +77,6 @@ public class MainMenu extends Activity {
 		about.setClickable(true);
 		report.setClickable(true);
 		
-		magician = (Magician) getApplicationContext();
-		userID = getIMEI();
-
 		if (!magician.isSet()) {
 			// cek dulu udah terdaftar apa belom
 			Log.w("", "magician di app context blm ada");
@@ -106,7 +103,8 @@ public class MainMenu extends Activity {
 					}
 
 				}
-			} catch (InternetException ie) {
+			} 
+			catch (InternetException ie) {
 				try {
 					magician = (Magician) InternalStorage.readObject(this,
 							"MAGICIAN_DATA");
@@ -131,6 +129,7 @@ public class MainMenu extends Activity {
 							.getPersonalMagimonByMagician(magician.getId()));
 					userText = (TextView) findViewById(R.id.username);
 					userText.setText(magician.toString());
+					//userText.setText(getIMEI());
 					cacheMagician();
 				}
 			} catch (JSONException e) {
@@ -152,8 +151,8 @@ public class MainMenu extends Activity {
 
 		// Log.w("", "setelah IF");
 		userText = (TextView) findViewById(R.id.username);
+		//userText.setText("Welcome, "+magician.getUsername());
 		userText.setText("Welcome, "+magician.getUsername());
-
 		setMenuListener();
 		ProgressBar.hideProgressBar(progress_bar_container, content);
 		
@@ -194,9 +193,15 @@ public class MainMenu extends Activity {
 
 		if (deviceIMEI != null) {
 			return deviceIMEI;
-		} else {
+		} else if(Secure.getString(getApplicationContext()
+				.getContentResolver(), Secure.ANDROID_ID)!=null || Secure.getString(getApplicationContext()
+						.getContentResolver(), Secure.ANDROID_ID).equals("") ) {
 			return Secure.getString(getApplicationContext()
 					.getContentResolver(), Secure.ANDROID_ID);
+		}
+		else
+		{
+			return "wah kok ga ada";
 		}
 	}
 
